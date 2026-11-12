@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>Adage Day 2025 — Celebrating 24 Years of Adage</title>
+    <title>Adage Day 2026 — Celebrating 25 Years of Adage</title>
     <meta
       name="viewport"
       content="width=device-width, initial-scale=1.0, viewport-fit=cover"
@@ -93,10 +93,10 @@
         class="max-w-6xl mx-auto py-4 px-6 flex justify-between items-center"
       >
         <span
-          class="text-xl font-extrabold tracking-widest text-[#008B94] uppercase"
-          >Adage Day 2025</span
+          class="text-lg lg:text-xl font-extrabold tracking-wide lg:tracking-widest text-[#008B94] uppercase shrink-0"
+          >Adage Day 2026</span
         >
-        <nav class="flex gap-6 text-sm font-medium">
+        <nav class="flex gap-3 lg:gap-6 text-xs lg:text-sm font-medium">
           <a href="index.html" class="nav-active">Home</a>
           <a href="message.html">Message</a>
           <a href="schedule.html">Schedule</a>
@@ -129,7 +129,7 @@
           <p
             class="uppercase tracking-[0.25em] text-[11px] opacity-95 mb-5 font-medium"
           >
-            Adage Day 2025
+            Adage Day 2026
           </p>
 
           <!-- Logo Card -->
@@ -144,10 +144,10 @@
           </div>
 
           <p class="mt-6 text-sm opacity-95 font-medium tracking-wide">
-            Celebrating 24 Years of Adage
+            Celebrating 25 Years of Adage
           </p>
 
-          <p class="text-xs opacity-75 mt-1">29–30 November 2025</p>
+          <p class="text-xs opacity-75 mt-1">28–30 November 2026</p>
         </div>
       </section>
 
@@ -163,7 +163,7 @@
       </div>
 
       <script>
-        const eventDate = new Date("2025-11-29T05:00:00").getTime();
+        const eventDate = new Date("2026-11-28T05:00:00").getTime();
         setInterval(() => {
           const now = new Date().getTime();
           const diff = eventDate - now;
@@ -205,7 +205,16 @@
       <div class="mt-8 flex justify-center">
         <div class="grid grid-cols-2 gap-5 max-w-lg w-full">
           <a
-            href="schedule.html?day=1&section=sportsSchedule"
+            href="schedule.html?day=1&section=day1Schedule"
+            class="bg-white rounded-xl p-5 text-center shadow hover:shadow-lg transition"
+          >
+            <div class="text-4xl">🗓️</div>
+            <p class="font-semibold mt-2 text-sm">Day 1</p>
+            <p class="text-xs text-gray-500">28th — Details Soon</p>
+          </a>
+
+          <a
+            href="schedule.html?day=2&section=sportsSchedule"
             class="bg-white rounded-xl p-5 text-center shadow hover:shadow-lg transition"
           >
             <div class="text-4xl">⚽</div>
@@ -214,7 +223,7 @@
           </a>
 
           <a
-            href="schedule.html?day=1&section=awardsSchedule"
+            href="schedule.html?day=2&section=awardsSchedule"
             class="bg-white rounded-xl p-5 text-center shadow hover:shadow-lg transition"
           >
             <div class="text-4xl">🏆</div>
@@ -223,7 +232,7 @@
           </a>
 
           <a
-            href="schedule.html?day=2&section=photoSchedule"
+            href="schedule.html?day=3&section=photoSchedule"
             class="bg-white rounded-xl p-5 text-center shadow hover:shadow-lg transition"
           >
             <div class="text-4xl">📸</div>
@@ -232,7 +241,7 @@
           </a>
 
           <a
-            href="schedule.html?day=2&section=galaSchedule"
+            href="schedule.html?day=3&section=galaSchedule"
             class="bg-white rounded-xl p-5 text-center shadow hover:shadow-lg transition"
           >
             <div class="text-4xl">🎉</div>
@@ -268,52 +277,9 @@
       <section class="max-w-lg mx-auto px-4 mt-10 mb-20">
         <h2 class="text-lg font-semibold mb-3">Latest Updates</h2>
 
-        <!-- Important -->
-        <div
-          class="p-4 bg-white rounded-lg shadow-sm border-l-4 border-red-500 hover:shadow-md transition cursor-pointer"
-          onclick="window.location.href='announcements.html'"
-        >
-          <div class="flex justify-between items-center mb-1">
-            <span
-              class="text-[10px] font-medium px-2 py-1 rounded-full bg-red-100 text-red-600"
-              >Important</span
-            >
-            <span class="text-[11px] text-gray-400 flex items-center gap-1">
-              <span class="material-icons text-[13px]">schedule</span> 9:30 AM,
-              26 Nov
-            </span>
-          </div>
-          <p class="font-semibold text-sm">Mandatory Reporting Time</p>
-          <p class="text-xs text-gray-600">
-            Reach Don Bosco Ground by <strong>5:00 AM</strong> on 29th Nov.
-          </p>
-        </div>
-
-        <!-- Reminder -->
-        <div
-          class="p-4 bg-white rounded-lg shadow-sm border-l-4 border-yellow-500 hover:shadow-md transition cursor-pointer mt-3"
-          onclick="window.location.href='announcements.html'"
-        >
-          <div class="flex justify-between items-center mb-1">
-            <span
-              class="text-[10px] font-medium px-2 py-1 rounded-full bg-yellow-100 text-yellow-600"
-              >Reminder</span
-            >
-            <span class="text-[11px] text-gray-400 flex items-center gap-1">
-              <span class="material-icons text-[13px]">schedule</span> 9:30 AM,
-              26 Nov
-            </span>
-          </div>
-          <p class="font-semibold text-sm">Photoshoot Dress Code</p>
-          <p class="text-xs text-gray-600">
-            Company T-shirt & Blue Denims are mandatory for
-            <strong>30th Nov</strong>.
-          </p>
-        </div>
-
         <!-- General -->
         <div
-          class="p-4 bg-white rounded-lg shadow-sm border-l-4 border-teal-500 hover:shadow-md transition cursor-pointer mt-3"
+          class="p-4 bg-white rounded-lg shadow-sm border-l-4 border-teal-500 hover:shadow-md transition cursor-pointer"
           onclick="window.location.href='announcements.html'"
         >
           <div class="flex justify-between items-center mb-1">
@@ -321,15 +287,11 @@
               class="text-[10px] font-medium px-2 py-1 rounded-full bg-teal-100 text-teal-600"
               >General</span
             >
-            <span class="text-[11px] text-gray-400 flex items-center gap-1">
-              <span class="material-icons text-[13px]">schedule</span> 9:30 AM,
-              26 Nov
-            </span>
           </div>
-          <p class="font-semibold text-sm">Gala Night Theme</p>
+          <p class="font-semibold text-sm">Schedule Coming Soon</p>
           <p class="text-xs text-gray-600">
-            Dress in <strong>Western Party Wear</strong> for glam evening &
-            performances.
+            Reporting times, dress codes and full schedule for Adage Day 2026
+            will be posted here as they're finalized.
           </p>
         </div>
 
@@ -373,7 +335,7 @@
 
     <!-- Footer -->
     <footer class="text-center py-5 text-xs mt-12 border-t border-gray-200">
-      © 2025 Adage Automation Pvt. Ltd
+      © 2026 Adage Automation Pvt. Ltd
       <br />
       One Team • One Soul
     </footer>
