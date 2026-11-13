@@ -16,6 +16,11 @@
       href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
+    <link rel="manifest" href="/manifest.json" />
+    <link rel="apple-touch-icon" href="static/images/OTOS.png" />
+    <meta name="theme-color" content="#008B94" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="mobile-web-app-capable" content="yes" />
 
     <style>
       body {
@@ -28,6 +33,12 @@
       h3,
       h4 {
         font-family: "Poppins", sans-serif;
+      }
+
+      .page-hero {
+        background: linear-gradient(180deg, #e9f7f6 0%, rgba(255, 247, 240, 0) 100%);
+        border-radius: 24px;
+        padding: 28px 16px 16px;
       }
 
       nav a {
@@ -163,6 +174,13 @@
   </head>
 
   <body class="text-gray-800">
+    <div id="installBanner" class="hidden fixed top-0 inset-x-0 z-[60] bg-[#008B94] text-white text-xs md:text-sm px-4 py-2 flex items-center justify-between gap-3 shadow-md">
+      <span>📲 Install Adage Day on your device for quick access.</span>
+      <div class="flex items-center gap-2 shrink-0">
+        <button id="installBtn" class="bg-white text-[#008B94] font-semibold px-3 py-1 rounded-full">Install</button>
+        <button id="installDismiss" class="text-white/80 text-base leading-none">✕</button>
+      </div>
+    </div>
     <!-- Desktop Header -->
     <header class="hidden md:block shadow-sm bg-white">
       <div
@@ -185,7 +203,7 @@
 
     <!-- Main Content -->
     <section class="max-w-2xl mx-auto px-4 py-8">
-      <div class="text-center mb-8">
+      <div class="page-hero text-center mb-8">
         <h2 class="text-3xl font-bold text-[#008B94]">Event Schedule</h2>
         <p class="text-xs text-gray-500 mt-1">28, 29 & 30 November 2026</p>
         <div class="mt-2 w-20 h-1 bg-[#C9A54A] mx-auto rounded-full"></div>
@@ -640,5 +658,6 @@
         event.target.classList.add("active");
       }
     </script>
+    <script src="static/js/install-prompt.js" defer></script>
   </body>
 </html>

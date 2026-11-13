@@ -7,6 +7,11 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="manifest" href="/manifest.json" />
+  <link rel="apple-touch-icon" href="static/images/OTOS.png" />
+  <meta name="theme-color" content="#008B94" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="mobile-web-app-capable" content="yes" />
 
   <style>
     body { font-family: system-ui, sans-serif; background-color: #FFF8F3; padding-bottom: 80px; }
@@ -14,6 +19,7 @@
     nav a { border-bottom: 2px solid transparent; transition: all 0.3s ease; }
     nav a:hover { color: #008B94; border-bottom: 2px solid #008B94; }
     .nav-active { color: #C9A54A !important; font-weight: 600; }
+    .page-hero { background: linear-gradient(180deg, #E9F7F6 0%, rgba(255,248,243,0) 100%); border-radius: 24px; padding: 28px 16px 16px; }
 
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(10px); }
@@ -35,6 +41,14 @@
 
 <body class="text-gray-800">
 
+  <div id="installBanner" class="hidden fixed top-0 inset-x-0 z-[60] bg-[#008B94] text-white text-xs md:text-sm px-4 py-2 flex items-center justify-between gap-3 shadow-md">
+    <span>📲 Install Adage Day on your device for quick access.</span>
+    <div class="flex items-center gap-2 shrink-0">
+      <button id="installBtn" class="bg-white text-[#008B94] font-semibold px-3 py-1 rounded-full">Install</button>
+      <button id="installDismiss" class="text-white/80 text-base leading-none">✕</button>
+    </div>
+  </div>
+
   <!-- Desktop Header -->
   <header class="hidden md:block shadow-sm bg-white">
     <div class="max-w-6xl mx-auto py-4 px-6 flex justify-between items-center">
@@ -53,7 +67,7 @@
   <section class="max-w-xl mx-auto px-4 py-10 animate-fadeIn">
 
     <!-- Page Header -->
-    <div class="text-center mb-8">
+    <div class="page-hero text-center mb-8">
       <h1 class="text-3xl font-bold text-[#008B94]">Announcements</h1>
       <p class="text-xs text-gray-600">Live Alerts • Reminders • Important Updates</p>
       <div class="mt-2 w-20 h-1 bg-[#C9A54A] mx-auto rounded-full"></div>
@@ -68,6 +82,7 @@
     import { renderAnnouncements } from "./static/js/announcements-feed.js";
     renderAnnouncements("announcementsList");
   </script>
+  <script src="static/js/install-prompt.js" defer></script>
 
   <!-- Mobile Bottom Navigation -->
   <nav class="mobile-nav fixed bottom-3 left-1/2 -translate-x-1/2 w-[92%] px-4 py-2 rounded-full flex justify-around md:hidden z-50 shadow-lg">

@@ -83,10 +83,31 @@
       .mobile-nav a:active {
         transform: scale(0.93);
       }
+
+      .stat-pill {
+        display: inline-flex;
+        align-items: center;
+        font-size: 11px;
+        font-weight: 600;
+        color: white;
+        background: rgba(255, 255, 255, 0.14);
+        border: 1px solid rgba(255, 255, 255, 0.25);
+        padding: 5px 14px;
+        border-radius: 20px;
+      }
     </style>
   </head>
 
   <body class="text-gray-800">
+    <!-- Install App Banner -->
+    <div id="installBanner" class="hidden fixed top-0 inset-x-0 z-[60] bg-[#008B94] text-white text-xs md:text-sm px-4 py-2 flex items-center justify-between gap-3 shadow-md">
+      <span>📲 Install Adage Day on your device for quick access.</span>
+      <div class="flex items-center gap-2 shrink-0">
+        <button id="installBtn" class="bg-white text-[#008B94] font-semibold px-3 py-1 rounded-full">Install</button>
+        <button id="installDismiss" class="text-white/80 text-base leading-none">✕</button>
+      </div>
+    </div>
+
     <!-- Desktop Header -->
     <header class="hidden md:block shadow-sm bg-white">
       <div
@@ -147,6 +168,12 @@
           </p>
 
           <p class="text-xs opacity-75 mt-1">28–30 November 2026</p>
+
+          <div class="flex flex-wrap justify-center gap-2 mt-4">
+            <span class="stat-pill">25 Years</span>
+            <span class="stat-pill">3 Days</span>
+            <span class="stat-pill">6 Teams</span>
+          </div>
         </div>
       </section>
 
@@ -202,10 +229,10 @@
 
       <!-- Event Cards -->
       <div class="mt-8 flex justify-center">
-        <div class="grid grid-cols-2 gap-5 max-w-lg w-full">
+        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-5 max-w-lg sm:max-w-2xl lg:max-w-5xl w-full">
           <a
             href="schedule.html?day=1"
-            class="bg-white rounded-xl p-5 text-center shadow hover:shadow-lg transition"
+            class="bg-white rounded-2xl p-5 text-center border border-gray-100 shadow-sm hover:shadow-md transition"
           >
             <div class="text-4xl">🗓️</div>
             <p class="font-semibold mt-2 text-sm">Day 1</p>
@@ -214,7 +241,7 @@
 
           <a
             href="schedule.html?day=2&section=sportsSchedule"
-            class="bg-white rounded-xl p-5 text-center shadow hover:shadow-lg transition"
+            class="bg-white rounded-2xl p-5 text-center border border-gray-100 shadow-sm hover:shadow-md transition"
           >
             <div class="text-4xl">⚽</div>
             <p class="font-semibold mt-2 text-sm">Sports Day</p>
@@ -223,7 +250,7 @@
 
           <a
             href="schedule.html?day=2&section=awardsSchedule"
-            class="bg-white rounded-xl p-5 text-center shadow hover:shadow-lg transition"
+            class="bg-white rounded-2xl p-5 text-center border border-gray-100 shadow-sm hover:shadow-md transition"
           >
             <div class="text-4xl">🏆</div>
             <p class="font-semibold mt-2 text-sm">Awards Night</p>
@@ -232,7 +259,7 @@
 
           <a
             href="schedule.html?day=3&section=photoSchedule"
-            class="bg-white rounded-xl p-5 text-center shadow hover:shadow-lg transition"
+            class="bg-white rounded-2xl p-5 text-center border border-gray-100 shadow-sm hover:shadow-md transition"
           >
             <div class="text-4xl">📸</div>
             <p class="font-semibold mt-2 text-sm">Photoshoot</p>
@@ -241,7 +268,7 @@
 
           <a
             href="schedule.html?day=3&section=galaSchedule"
-            class="bg-white rounded-xl p-5 text-center shadow hover:shadow-lg transition"
+            class="bg-white rounded-2xl p-5 text-center border border-gray-100 shadow-sm hover:shadow-md transition"
           >
             <div class="text-4xl">🎉</div>
             <p class="font-semibold mt-2 text-sm">Gala Night</p>
@@ -327,5 +354,6 @@
       import { renderAnnouncements } from "./static/js/announcements-feed.js";
       renderAnnouncements("latestAnnouncements", { max: 2 });
     </script>
+    <script src="static/js/install-prompt.js" defer></script>
   </body>
 </html>

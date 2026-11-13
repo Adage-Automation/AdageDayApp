@@ -1,5 +1,5 @@
 import { db } from "./firebase-init.js";
-import { TEAMS, EVENTS } from "./adage-data.js";
+import { TEAMS, EVENTS, TEAM_COLORS } from "./adage-data.js";
 import {
   collection,
   onSnapshot,
@@ -11,9 +11,14 @@ const PLACES = [
   { key: "third", cls: "bronze" },
 ];
 
+function teamChip(name) {
+  const color = TEAM_COLORS[name] || "#999";
+  return `<span class="team-dot" style="background:${color}"></span>${name}`;
+}
+
 function placeCell(place) {
   if (!place || !place.teams || place.teams.length === 0) return "—";
-  return place.teams.join(", ");
+  return place.teams.map(teamChip).join(", ");
 }
 
 function render(resultsById) {
@@ -51,8 +56,8 @@ function render(resultsById) {
           .map(
             ([team, money], index) => `
         <tr class="${index === 0 ? "leader-gold" : ""}">
-          <td>${index === 0 ? "🏆" : index + 1}</td>
-          <td class="font-medium">${team}</td>
+          <td><span class="rank-badge${index === 0 ? " rank-gold" : ""}">${index === 0 ? "🏆" : index + 1}</span></td>
+          <td class="font-medium">${teamChip(team)}</td>
           <td class="font-semibold">₹${money.toLocaleString()}</td>
         </tr>`
           )

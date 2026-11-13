@@ -49,7 +49,7 @@ export function renderAnnouncements(containerId, { max } = {}) {
         const style = CATEGORY_STYLES[data.category] || CATEGORY_STYLES.general;
         const when = formatWhen(data.createdAt);
         return `
-          <div class="p-4 bg-white rounded-lg shadow-sm border-l-4 ${style.border} hover:shadow-md transition mt-3 first:mt-0">
+          <div class="p-4 bg-white rounded-xl border border-gray-100 border-l-4 ${style.border} shadow-sm hover:shadow-md transition mt-3 first:mt-0">
             <div class="flex justify-between items-center mb-1">
               <span class="text-[10px] font-medium px-2 py-1 rounded-full ${style.badge}">${style.label}</span>
               ${when ? `<span class="text-[11px] text-gray-400">${when}</span>` : ""}
