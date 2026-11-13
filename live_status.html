@@ -45,6 +45,35 @@
         font-weight: 600;
       }
 
+      .live-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        font-size: 11px;
+        font-weight: 600;
+        color: #1a9c5c;
+        background: #e8f8ef;
+        padding: 3px 10px;
+        border-radius: 20px;
+      }
+      .live-dot {
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: #1a9c5c;
+        animation: live-pulse 1.6s ease-in-out infinite;
+      }
+      @keyframes live-pulse {
+        0%, 100% {
+          opacity: 1;
+          box-shadow: 0 0 0 0 rgba(26, 156, 92, 0.5);
+        }
+        50% {
+          opacity: 0.6;
+          box-shadow: 0 0 0 4px rgba(26, 156, 92, 0);
+        }
+      }
+
       .event-card,
       .leader-card {
         background: white;
@@ -129,7 +158,6 @@
           <a href="index.html">Home</a>
           <a href="message.html">Message</a>
           <a href="schedule.html">Schedule</a>
-          <a href="gallery.html">Gallery</a>
           <a href="rules.html">Guidelines</a>
           <a href="contacts.html">Contacts</a>
           <a href="guest.html">Outstation</a>
@@ -144,6 +172,7 @@
         <p class="text-xs text-gray-600">
           Updated Event Results & Team Prize Standings
         </p>
+        <span class="live-badge mt-2"><span class="live-dot"></span>Live</span>
         <div class="mt-2 w-20 h-1 bg-[#C9A54A] mx-auto rounded-full"></div>
       </div>
 
@@ -163,42 +192,9 @@
               <th class="bronze">🥉 3rd Place</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody id="resultsBody">
             <tr>
-              <td>1 KM Race</td>
-              <td>—</td>
-              <td>—</td>
-              <td>—</td>
-            </tr>
-            <tr>
-              <td>100 MTR Race</td>
-              <td>—</td>
-              <td>—</td>
-              <td>—</td>
-            </tr>
-            <tr>
-              <td>Football</td>
-              <td>—</td>
-              <td>—</td>
-              <td>—</td>
-            </tr>
-            <tr>
-              <td>Futsal</td>
-              <td>—</td>
-              <td>—</td>
-              <td>—</td>
-            </tr>
-            <tr>
-              <td>GTM</td>
-              <td>—</td>
-              <td>—</td>
-              <td>—</td>
-            </tr>
-            <tr>
-              <td>Treasure Hunt</td>
-              <td>—</td>
-              <td>—</td>
-              <td>—</td>
+              <td colspan="4" class="text-gray-400 italic py-3">Loading results…</td>
             </tr>
           </tbody>
         </table>
@@ -233,16 +229,6 @@
       </div>
     </section>
 
-    <!-- Mobile Navigation -->
-    <!-- <nav class="mobile-nav fixed bottom-3 left-1/2 -translate-x-1/2 w-[92%] px-4 py-2 
-              rounded-full flex justify-around md:hidden z-50 shadow-lg">
-    <a href="index.html"><span class="material-icons">home</span><div>Home</div></a>
-    <a href="schedule.html"><span class="material-icons">event</span><div>Schedule</div></a>
-    <a href="rules.html"><span class="material-icons">rule</span><div>Guidelines</div></a>
-    <a href="contacts.html"><span class="material-icons">call</span><div>Contacts</div></a>
-    <a href="guest.html"><span class="material-icons">flight_takeoff</span><div>Outstation</div></a>
-  </nav> -->
-
     <!-- Bottom Mobile Navigation -->
     <nav
       class="mobile-nav fixed bottom-3 left-1/2 -translate-x-1/2 w-[92%] px-4 py-2 rounded-full flex justify-around md:hidden z-50 shadow-lg"
@@ -276,51 +262,7 @@
       One Team • One Soul
     </footer>
 
-    <!-- JavaScript Calculation Logic -->
-    <script>
-      const teams = [
-        "Red Bull",
-        "Alpine",
-        "Aston Martin",
-        "Mercedes",
-        "Ferrari",
-        "McLaren",
-      ];
-      const totals = {};
-      teams.forEach((t) => (totals[t] = 0));
-
-      document.querySelectorAll("td[data-team]").forEach((cell) => {
-        const teamNames = cell.dataset.team;
-        const money = parseInt(cell.dataset.money) || 0;
-
-        if (teamNames) {
-          const winners = teamNames.split(",").map((t) => t.trim());
-          const share = Math.floor(money / winners.length);
-
-          winners.forEach((team) => {
-            if (totals[team] !== undefined) totals[team] += share;
-          });
-        }
-      });
-
-      const filtered = Object.entries(totals).filter(
-        ([team, money]) => money > 0
-      );
-      const sorted = filtered.sort((a, b) => b[1] - a[1]);
-
-      document.getElementById("teamTotals").innerHTML =
-        sorted.length > 0
-          ? sorted
-              .map(
-                ([team, money], index) => `
-            <tr class="${index === 0 ? "leader-gold" : ""}">
-              <td>${index === 0 ? "🏆" : index + 1}</td>
-              <td class="font-medium">${team}</td>
-              <td class="font-semibold">₹${money.toLocaleString()}</td>
-            </tr>`
-              )
-              .join("")
-          : `<tr><td colspan="3" class="text-gray-400 italic py-3">No results yet</td></tr>`;
-    </script>
+    <!-- Live results from Firestore — see static/js/live-status.js and LIVE_SCORES.md -->
+    <script type="module" src="static/js/live-status.js"></script>
   </body>
 </html>

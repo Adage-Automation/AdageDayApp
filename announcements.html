@@ -21,12 +21,6 @@
     }
     .animate-fadeIn { animation: fadeIn 0.6s ease-in-out; }
 
-    @keyframes scroll-left {
-      0% { transform: translateX(100%); }
-      100% { transform: translateX(-100%); }
-    }
-    .animate-scroll { white-space: nowrap; animation: scroll-left 18s linear infinite; display: inline-block; }
-
     .mobile-nav {
       background: rgba(255,255,255,0.92);
       backdrop-filter: blur(12px);
@@ -49,11 +43,9 @@
         <a href="index.html">Home</a>
         <a href="message.html">Message</a>
         <a href="schedule.html">Schedule</a>
-        <a href="gallery.html">Gallery</a>
         <a href="rules.html">Guidelines</a>
         <a href="contacts.html">Contacts</a>
         <a href="guest.html">Outstation</a>
-        <a href="announcements.html" class="nav-active">Announcements</a>
       </nav>
     </div>
   </header>
@@ -67,28 +59,15 @@
       <div class="mt-2 w-20 h-1 bg-[#C9A54A] mx-auto rounded-full"></div>
     </div>
 
-    <!-- Scrolling Banner (Fixed Overflow) -->
-    <div class="relative w-full bg-[#008B94] text-white text-xs py-2 px-2 rounded-lg shadow mb-6 overflow-hidden">
-      <div class="animate-scroll flex items-center gap-6">
-        🔔 Adage Day 2026 — 28, 29 & 30 November. Details coming soon!
-      </div>
-    </div>
-
-    <!-- Announcement Cards -->
-    <div class="space-y-5">
-
-      <div class="bg-white rounded-xl shadow-md p-5 border border-gray-100">
-        <div class="flex items-center justify-between mb-2">
-          <span class="px-2 py-1 rounded-full text-[10px] font-medium bg-teal-100 text-[#008B94]">General</span>
-        </div>
-        <h3 class="font-semibold text-sm text-gray-800">Schedule Coming Soon</h3>
-        <p class="text-xs text-gray-600 mt-1 leading-relaxed">
-          Reporting times, dress codes and announcements for Adage Day 2026 will be posted here as they're finalized.
-        </p>
-      </div>
-    </div>
+    <!-- Announcement Cards (live from Firestore — see static/js/announcements-feed.js) -->
+    <div id="announcementsList" class="space-y-0"></div>
 
   </section>
+
+  <script type="module">
+    import { renderAnnouncements } from "./static/js/announcements-feed.js";
+    renderAnnouncements("announcementsList");
+  </script>
 
   <!-- Mobile Bottom Navigation -->
   <nav class="mobile-nav fixed bottom-3 left-1/2 -translate-x-1/2 w-[92%] px-4 py-2 rounded-full flex justify-around md:hidden z-50 shadow-lg">

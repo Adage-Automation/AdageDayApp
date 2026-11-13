@@ -100,7 +100,6 @@
           <a href="index.html" class="nav-active">Home</a>
           <a href="message.html">Message</a>
           <a href="schedule.html">Schedule</a>
-          <a href="gallery.html">Gallery</a>
           <a href="rules.html">Guidelines</a>
           <a href="contacts.html">Contacts</a>
           <a href="guest.html">Outstation</a>
@@ -205,7 +204,7 @@
       <div class="mt-8 flex justify-center">
         <div class="grid grid-cols-2 gap-5 max-w-lg w-full">
           <a
-            href="schedule.html?day=1&section=day1Schedule"
+            href="schedule.html?day=1"
             class="bg-white rounded-xl p-5 text-center shadow hover:shadow-lg transition"
           >
             <div class="text-4xl">🗓️</div>
@@ -277,23 +276,7 @@
       <section class="max-w-lg mx-auto px-4 mt-10 mb-20">
         <h2 class="text-lg font-semibold mb-3">Latest Updates</h2>
 
-        <!-- General -->
-        <div
-          class="p-4 bg-white rounded-lg shadow-sm border-l-4 border-teal-500 hover:shadow-md transition cursor-pointer"
-          onclick="window.location.href='announcements.html'"
-        >
-          <div class="flex justify-between items-center mb-1">
-            <span
-              class="text-[10px] font-medium px-2 py-1 rounded-full bg-teal-100 text-teal-600"
-              >General</span
-            >
-          </div>
-          <p class="font-semibold text-sm">Schedule Coming Soon</p>
-          <p class="text-xs text-gray-600">
-            Reporting times, dress codes and full schedule for Adage Day 2026
-            will be posted here as they're finalized.
-          </p>
-        </div>
+        <div id="latestAnnouncements"></div>
 
         <!-- View All -->
         <div class="text-center mt-5">
@@ -339,5 +322,10 @@
       <br />
       One Team • One Soul
     </footer>
+
+    <script type="module">
+      import { renderAnnouncements } from "./static/js/announcements-feed.js";
+      renderAnnouncements("latestAnnouncements", { max: 2 });
+    </script>
   </body>
 </html>
