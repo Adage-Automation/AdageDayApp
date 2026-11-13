@@ -2,7 +2,7 @@
 // instead of relying on Chrome's own (easy-to-miss) address-bar icon.
 if ("serviceWorker" in navigator) {
   window.addEventListener("load", () => {
-    navigator.serviceWorker.register("/sw.js").catch(() => {});
+    navigator.serviceWorker.register("sw.js").catch(() => {});
   });
 }
 

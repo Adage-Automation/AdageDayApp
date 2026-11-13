@@ -32,10 +32,14 @@ static/js/firebase-init.js      — initializes the Firebase SDK, exports db + a
 static/js/live-status.js        — live_status.html: listens to Firestore, renders results live
 static/js/announcements-feed.js — index.html + announcements.html: renders the live announcement feed
 static/js/admin.js              — admin page: sign-in + score entry + post/delete announcements
+static/js/install-prompt.js     — registers sw.js, shows the custom "Install App" banner
 admin.html                      — the admin UI (not linked from public nav — bookmark it)
 live_status.html                — public results page (unchanged visually, data source changed)
 announcements.html              — public announcements page (data source changed)
 firestore.rules                 — security rules: anyone can read, only signed-in users can write
+manifest.json                   — PWA manifest (app name, icon, "standalone" display)
+sw.js                           — minimal service worker; required by Chrome before it will
+                                   offer the install prompt at all
 ```
 
 ### Data model
@@ -99,6 +103,25 @@ sections: score entry (check off winning team(s) per place, type the prize amoun
 Save) and announcements (title, message, category, Post — plus a Delete button per
 existing announcement). Every write shows up on the public pages within a second via
 Firestore's real-time listeners (`onSnapshot`) — no refresh needed on anyone's screen.
+
+### PWA — "Install App" prompt
+
+`manifest.json` + `sw.js` + `static/js/install-prompt.js` let Chrome offer to install
+the site as an app icon on the home screen/desktop, with a custom banner (instead of
+relying on Chrome's easy-to-miss address-bar icon) — registered on every public page
+except `admin.html` (internal tool, not meant to be installed).
+
+**Important if you ever deploy somewhere other than the exact setup below:** every path
+in those three files must stay *relative* (`"manifest.json"`, `"sw.js"`, start_url `"."`),
+never root-absolute (`"/manifest.json"`). GitHub Pages serves this repo under a sub-path
+(`/AdageDayApp/`, not the domain root), so a root-absolute path silently 404s and the
+service worker/install prompt never show up — this already happened once and was fixed
+by switching everything to relative paths. If you move hosts and the install banner
+stops appearing, check this first.
+
+iOS Safari has no `beforeinstallprompt` API, so the banner only ever appears on Chrome/
+Edge/Android — iOS users still install via Share → Add to Home Screen, just without a
+popup prompting them.
 
 ---
 
@@ -199,7 +222,7 @@ If nothing shows up: open the browser console (F12) on both pages and check for 
 2. On GitHub: repo → **Settings → Pages**.
 3. Under **Build and deployment → Source**, choose **Deploy from a branch**.
 4. Pick the branch (e.g. `main`) and folder `/ (root)` → Save.
-5. GitHub gives you a URL like `https://<username>.github.io/AdageDayApp/` —
+5. GitHub gives you a URL like `https://<org-or-username>.github.io/AdageDayApp/` —
    that's your live site. `admin.html` lives at `.../admin.html`.
 
 **Option B — Cloudflare Pages (unlimited free bandwidth, also simple):**
@@ -209,6 +232,17 @@ If nothing shows up: open the browser console (F12) on both pages and check for 
 
 Either way: no server process, no free-tier container to spin down — this is the
 piece that fixes last year's "app became unreachable" problem.
+
+**Required either way — authorize the live domain in Firebase:**
+
+Firebase Auth only allows sign-in from domains you've explicitly listed. Skip this and
+`admin.html` sign-in will fail on the live site even though it worked locally.
+
+1. Firebase Console → your project → **Authentication → Settings → Authorized domains**.
+2. **Add domain** → enter the *bare hostname only*, e.g. `adage-automation.github.io`
+   — no `https://`, no trailing slash, no sub-path (`/AdageDayApp`), and no stray
+   suffix like `.com` tacked onto the real GitHub Pages domain.
+3. Save, then re-test signing in to `admin.html` on the live URL.
 
 ### 8. Day-of-event checklist
 
@@ -220,6 +254,9 @@ piece that fixes last year's "app became unreachable" problem.
 - [ ] Optional: clear out any test data entered during step 6 before the real event
       starts (open `admin.html`, uncheck teams / zero out amounts / delete test
       announcements, Save).
+- [ ] On the live URL, open DevTools → Application → Service Workers and confirm
+      `sw.js` is registered (empty panel means the install prompt won't work — see
+      the PWA note above about relative vs. root-absolute paths).
 
 ## Next year
 
