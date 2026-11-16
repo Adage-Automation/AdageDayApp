@@ -1,5 +1,13 @@
 import { db, auth } from "./firebase-init.js";
-import { TEAMS, EVENTS } from "./adage-data.js";
+import {
+  TEAMS,
+  TEAM_COLORS,
+  normalizeTeamName,
+  PLACES,
+  EVENTS,
+  PRIZE_DISTRIBUTION,
+  getPrizeTotals,
+} from "./adage-data.js";
 import { escapeHtml } from "./announcements-feed.js";
 import {
   signInWithEmailAndPassword,
@@ -19,11 +27,7 @@ import {
   serverTimestamp,
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-const PLACES = [
-  { key: "first", label: "🥇 1st Place" },
-  { key: "second", label: "🥈 2nd Place" },
-  { key: "third", label: "🥉 3rd Place" },
-];
+const formatCurrency = (amount) => amount.toLocaleString("en-IN");
 
 const loginSection = document.getElementById("loginSection");
 const adminSection = document.getElementById("adminSection");
@@ -68,14 +72,15 @@ onAuthStateChanged(auth, (user) => {
 });
 
 function placeRowHtml(eventId, place, saved) {
-  const savedTeams = saved?.teams || [];
-  const savedMoney = saved?.money ?? "";
+  const savedTeams = (saved?.teams || []).map(normalizeTeamName);
+  const prizeAmount = PRIZE_DISTRIBUTION[eventId][place.key];
   const teamCheckboxes = TEAMS.map((team) => {
     const checked = savedTeams.includes(team);
     return `
       <label class="team-chip mr-2 mb-2${checked ? " selected" : ""}">
         <input type="checkbox" value="${team}" data-event="${eventId}" data-place="${place.key}" class="team-check"
           ${checked ? "checked" : ""} />
+        <span class="team-color-dot" style="background-color:${TEAM_COLORS[team]}" aria-hidden="true"></span>
         ${team}
       </label>`;
   }).join("");
@@ -84,12 +89,27 @@ function placeRowHtml(eventId, place, saved) {
     <div class="place-row">
       <p class="text-xs font-semibold text-gray-600 mb-1">${place.label}</p>
       <div class="flex flex-wrap mb-2">${teamCheckboxes}</div>
-      <input type="number" min="0" placeholder="Prize money (₹)" value="${savedMoney}"
-        data-event="${eventId}" data-place="${place.key}" class="money-input max-w-[160px]" />
+      <p class="text-xs text-gray-500">Prize money: <strong class="text-gray-700">₹${formatCurrency(prizeAmount)}</strong></p>
     </div>`;
 }
 
 const eventFormsContainer = document.getElementById("eventForms");
+
+function renderPrizePoolSummary() {
+  const { positions, grandTotal } = getPrizeTotals();
+  document.getElementById("prizePoolSummary").innerHTML = `
+    <h3 class="text-sm font-semibold text-[#008B94] mb-3">Prize Pool Summary</h3>
+    <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs">
+      ${PLACES.map((place) => `
+        <p>${place.shortLabel} place: <strong>₹${formatCurrency(positions[place.key])}</strong></p>
+      `).join("")}
+    </div>
+    <p class="text-sm font-semibold text-[#008B94] mt-3">
+      Grand Total: ₹${formatCurrency(grandTotal)}
+    </p>`;
+}
+
+renderPrizePoolSummary();
 
 async function buildForms() {
   eventFormsContainer.innerHTML = "<p class='text-center text-gray-400 text-sm'>Loading…</p>";
@@ -118,7 +138,7 @@ async function buildForms() {
   );
 }
 
-// A team can only hold one place per event — picking it for 2nd clears it from 1st/3rd.
+// A team can only hold one place per event — selecting a different place clears the prior one.
 // Also marks the card "unsaved" so it's obvious a Save is still needed.
 // Attached once (not inside buildForms) since #eventForms itself is never recreated,
 // only its contents — re-attaching on every sign-in would stack duplicate listeners.
@@ -141,7 +161,7 @@ eventFormsContainer.addEventListener("change", (e) => {
     }
   }
 
-  if (e.target.closest(".team-check") || e.target.closest(".money-input")) {
+  if (e.target.closest(".team-check")) {
     markUnsaved(e.target.closest("[data-event-card]").dataset.eventCard);
   }
 });
@@ -153,15 +173,14 @@ function markUnsaved(eventId) {
 
 async function saveEvent(eventId) {
   const card = document.querySelector(`[data-event-card="${eventId}"]`);
+  const eventPrizes = PRIZE_DISTRIBUTION[eventId];
   const result = {};
 
   PLACES.forEach((place) => {
     const teams = Array.from(
       card.querySelectorAll(`.team-check[data-place="${place.key}"]:checked`)
     ).map((el) => el.value);
-    const moneyInput = card.querySelector(`.money-input[data-place="${place.key}"]`);
-    const money = parseInt(moneyInput.value) || 0;
-    result[place.key] = { teams, money };
+    result[place.key] = { teams, money: eventPrizes[place.key] };
   });
 
   const status = card.querySelector(".save-status");

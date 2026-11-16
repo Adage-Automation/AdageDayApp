@@ -26,7 +26,7 @@ free web service did.
 ## The pieces
 
 ```
-static/js/adage-data.js         — shared list of TEAMS and EVENTS (single source of truth)
+static/js/adage-data.js         — shared TEAMS, TEAM_COLORS, PLACES, EVENTS, and prize distribution
 static/js/firebase-config.js    — your Firebase project's public config (fill in once)
 static/js/firebase-init.js      — initializes the Firebase SDK, exports db + auth
 static/js/live-status.js        — live_status.html: listens to Firestore, renders results live
@@ -34,7 +34,7 @@ static/js/announcements-feed.js — index.html + announcements.html: renders the
 static/js/admin.js              — admin page: sign-in + score entry + post/delete announcements
 static/js/install-prompt.js     — registers sw.js, shows the custom "Install App" banner
 admin.html                      — the admin UI (not linked from public nav — bookmark it)
-live_status.html                — public results page (unchanged visually, data source changed)
+live_status.html                — public results, prize distribution, and leaderboard
 announcements.html              — public announcements page (data source changed)
 firestore.rules                 — security rules: anyone can read, only signed-in users can write
 manifest.json                   — PWA manifest (app name, icon, "standalone" display)
@@ -45,20 +45,25 @@ sw.js                           — minimal service worker; required by Chrome b
 ### Data model
 
 One Firestore collection, `results`, one document per event (doc ID = event id from
-`adage-data.js`, e.g. `"1km"`, `"football"`). Each document looks like:
+`adage-data.js`, e.g. `"1km"`, `"football"`). Each document supports four places:
 
 ```json
 {
-  "first":  { "teams": ["Red Bull"], "money": 50000 },
-  "second": { "teams": ["Alpine"],   "money": 30000 },
-  "third":  { "teams": ["McLaren"],  "money": 20000 }
+  "first":  { "teams": ["Poseidon"], "money": 70000 },
+  "second": { "teams": ["Hermes"],   "money": 30000 },
+  "third":  { "teams": ["Apollo"],   "money": 20000 },
+  "fourth": { "teams": ["Thor"],     "money": 15000 }
 }
 ```
 
 `teams` is an array because places can tie (e.g. two teams sharing 1st) — the leaderboard
 math splits that place's prize money evenly across however many teams are listed, same
 logic the 2025 version used, just driven by Firestore instead of hardcoded `data-team`
-attributes.
+attributes. Team names, colors, places, and per-event prize amounts are defined in
+`static/js/adage-data.js`; stored `money` values are written from that configuration.
+Existing result documents with the previous team names are translated to the new names
+in the UI using the approved list-order mapping and are stored with the new names the
+next time that event is saved.
 
 ### Announcements data model
 
@@ -99,10 +104,12 @@ so it's the one place that needs that guard.
 
 Firestore has no built-in UI meant for non-technical users to safely punch in results
 or post updates during a live event. `admin.html` is one small gated page with two
-sections: score entry (check off winning team(s) per place, type the prize amount, hit
-Save) and announcements (title, message, category, Post — plus a Delete button per
-existing announcement). Every write shows up on the public pages within a second via
-Firestore's real-time listeners (`onSnapshot`) — no refresh needed on anyone's screen.
+sections: score entry (check off winning team(s) for each of the four places, review
+the configured prize amount, and hit Save) and announcements (title, message, category,
+Post — plus a Delete button per existing announcement). Prize amounts are controlled
+by the shared configuration rather than entered separately for each result. Every write
+shows up on the public pages within a second via Firestore's real-time listeners
+(`onSnapshot`) — no refresh needed on anyone's screen.
 
 ### PWA — "Install App" prompt
 
@@ -204,7 +211,8 @@ python -m http.server 8080
 
 Walk through once:
 1. Sign in with one of the admin users from step 3.
-2. Tick a team as winner for one event, enter a prize amount, click **Save**.
+2. Tick a team as winner for one or more places in an event and click **Save**. Confirm
+   the configured prize amounts appear beside all four places.
 3. Post a test announcement (title + message + category), click **Post**.
 4. Open `http://localhost:8080/live_status.html`, `index.html`, and `announcements.html`
    in other tabs — confirm the score, leaderboard, and announcement all appear without
@@ -252,8 +260,8 @@ Firebase Auth only allows sign-in from domains you've explicitly listed. Skip th
 - [ ] Share the public `live_status.html` and `announcements.html` URLs wherever
       results/updates are expected (big screen, WhatsApp group, etc.).
 - [ ] Optional: clear out any test data entered during step 6 before the real event
-      starts (open `admin.html`, uncheck teams / zero out amounts / delete test
-      announcements, Save).
+      starts (open `admin.html`, uncheck test winning teams, Save, and delete test
+      announcements).
 - [ ] On the live URL, open DevTools → Application → Service Workers and confirm
       `sw.js` is registered (empty panel means the install prompt won't work — see
       the PWA note above about relative vs. root-absolute paths).
@@ -263,4 +271,5 @@ Firebase Auth only allows sign-in from domains you've explicitly listed. Skip th
 Everything above only needs to be redone if you create a *new* Firebase project.
 If you're reusing the same one, next year's setup is just: clear out last year's
 `results` and `announcements` documents (or let `admin.html` overwrite/delete them),
-update `TEAMS`/`EVENTS` in `static/js/adage-data.js` if they change, and redeploy.
+update `TEAMS`, `TEAM_COLORS`, `EVENTS`, and `PRIZE_DISTRIBUTION` in
+`static/js/adage-data.js` if they change, and redeploy.

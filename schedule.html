@@ -222,13 +222,6 @@
 
       <!-- ---------------- DAY 1 (28 Nov) ---------------- -->
       <div id="day1" class="fade">
-        <div class="event-card text-center text-gray-500 italic">
-          📋 Day 1 schedule will be updated soon.
-        </div>
-      </div>
-
-      <!-- ---------------- DAY 2 (29 Nov) ---------------- -->
-      <div id="day2" class="hidden fade">
         <!-- Sports Day -->
         <div
           class="event-card bg-gradient-to-r from-[#E6F8F9] to-white shadow-sm border border-[#008B94]/10"
@@ -236,7 +229,7 @@
           <h3 class="text-lg font-bold text-[#008B94] flex items-center gap-2">
             ⚽ Sports Day
           </h3>
-          <p class="text-xs text-gray-500">29 November 2026 • Morning</p>
+          <p class="text-xs text-gray-500">28 November 2026 • Morning</p>
 
           <a
             href="https://maps.app.goo.gl/e5Tf4UHbC63NQYK87"
@@ -259,18 +252,18 @@
         </div>
 
         <div class="flex gap-2 flex-wrap justify-center mb-4 px-2">
-          <button class="tab-btn active" onclick="openTab('sportsSchedule')">
+          <button class="tab-btn active" data-tab-group="sports" onclick="openTab('sportsSchedule')">
             Schedule
           </button>
-          <button class="tab-btn" onclick="openTab('sportsDress')">
+          <button class="tab-btn" data-tab-group="sports" onclick="openTab('sportsDress')">
             Dress Code
           </button>
-          <button class="tab-btn" onclick="openTab('sportsRules')">
+          <button class="tab-btn" data-tab-group="sports" onclick="openTab('sportsRules')">
             Rules
           </button>
         </div>
 
-        <div id="sportsSchedule" class="content-section active fade">
+        <div id="sportsSchedule" class="content-section active fade" data-tab-group="sports">
           <div class="event-card">
             <table class="w-full text-sm text-center">
               <tr class="bg-[#008B94] text-white">
@@ -301,7 +294,7 @@
           </div>
         </div>
 
-        <div id="sportsDress" class="content-section fade">
+        <div id="sportsDress" class="content-section fade" data-tab-group="sports">
           <div class="event-card">
             <p class="text-sm leading-relaxed">
               <strong>Track Events:</strong> Team Jersey, Track Pants/Shorts,
@@ -315,13 +308,189 @@
           </div>
         </div>
 
-        <div id="sportsRules" class="content-section fade">
+        <div id="sportsRules" class="content-section fade" data-tab-group="sports">
           <div class="event-card text-sm">
             • Reporting at 5:00 AM<br />
             • Report in correct sports attire (Sports Shoes, Team Jersey, Track
             Pants/Shorts)<br />
             • Carry your own water bottle.<br />
             • Do warm up and stretching before the sport event begins.
+          </div>
+        </div>
+
+        <hr class="my-8" />
+
+        <!-- Awards Night -->
+        <div
+          class="event-card bg-gradient-to-r from-[#FFF7E5] to-white shadow-sm border border-[#C9A54A]/15"
+        >
+          <h3 class="text-lg font-bold text-[#C9A54A] flex items-center gap-2">
+            🏆 Awards Night
+          </h3>
+          <p class="text-xs text-gray-500">28 November 2026 • Evening</p>
+
+          <a
+            href="https://maps.app.goo.gl/ACETfEfKb1446Zcb7"
+            target="_blank"
+            class="mt-4 flex items-center justify-between bg-white border border-[#C9A54A]/20 p-3 rounded-xl hover:shadow-md transition"
+          >
+            <div>
+              <p
+                class="font-semibold text-[#C9A54A] text-sm flex items-center gap-1"
+              >
+                <span class="material-icons text-base">location_on</span>
+                Adage Unit 1
+              </p>
+              <p class="text-xs text-gray-500">Verna, Goa</p>
+            </div>
+            <span class="material-icons text-[#C9A54A] text-xl"
+              >arrow_forward_ios</span
+            >
+          </a>
+        </div>
+
+        <div class="flex gap-2 flex-wrap justify-center mb-4 px-2">
+          <button class="tab-btn active" data-tab-group="awards-day1" onclick="openTab('awardsSchedule')">
+            Schedule
+          </button>
+          <button class="tab-btn" data-tab-group="awards-day1" onclick="openTab('awardsDress')">
+            Dress Code
+          </button>
+          <button class="tab-btn" data-tab-group="awards-day1" onclick="openTab('awardsSeating')">
+            Seating Arrangements
+          </button>
+        </div>
+
+        <div id="awardsSchedule" class="content-section active fade" data-tab-group="awards-day1">
+          <div class="event-card">
+            <table class="w-full text-sm text-center">
+              <tr class="bg-[#C9A54A] text-white">
+                <th>TIME</th>
+                <th>EVENT</th>
+              </tr>
+              <tr>
+                <td>4:30 PM</td>
+                <td>Reporting & Hi-Tea</td>
+              </tr>
+              <tr>
+                <td>5:00 PM</td>
+                <td>GTM</td>
+              </tr>
+              <tr>
+                <td>6:00 PM</td>
+                <td>Bio Break</td>
+              </tr>
+              <tr>
+                <td>6:30 PM</td>
+                <td>Treasure Hunt</td>
+              </tr>
+              <tr>
+                <td>7:45 PM</td>
+                <td>Lamp Lighting</td>
+              </tr>
+              <tr>
+                <td>8:00 PM</td>
+                <td>Awards</td>
+              </tr>
+              <tr>
+                <td>9:15 PM</td>
+                <td>Audio Visual</td>
+              </tr>
+              <tr>
+                <td>10:15 PM</td>
+                <td>Dinner</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+
+        <div id="awardsDress" class="content-section fade" data-tab-group="awards-day1">
+          <div class="event-card text-sm">
+            <strong>Dress Code:</strong> Urban Western Wear<br />
+          </div>
+        </div>
+
+        <div id="awardsSeating" class="content-section fade" data-tab-group="awards-day1">
+          <div class="event-card text-sm text-center text-gray-500 italic">
+            📋 Seating arrangement details will be updated soon.
+          </div>
+        </div>
+      </div>
+
+      <!-- ---------------- DAY 2 (29 Nov) ---------------- -->
+      <div id="day2" class="hidden fade">
+        <!-- Photoshoot -->
+        <div
+          class="event-card bg-gradient-to-r from-[#E6F8F9] to-white shadow-sm border border-[#008B94]/15"
+        >
+          <h3 class="text-lg font-bold text-[#008B94] flex items-center gap-2">
+            📸 Photoshoot
+          </h3>
+          <p class="text-xs text-gray-500">29 November 2026 • Morning</p>
+
+          <a
+            href="https://maps.app.goo.gl/HvrmgaAh1kcYMAP46"
+            target="_blank"
+            class="mt-4 flex items-center justify-between bg-white border border-[#008B94]/20 p-3 rounded-xl hover:shadow-md transition"
+          >
+            <div>
+              <p
+                class="font-semibold text-[#008B94] text-sm flex items-center gap-1"
+              >
+                <span class="material-icons text-base">location_on</span>
+                Near Adage Phase 3
+              </p>
+              <p class="text-xs text-gray-500">Verna Industrial Estate</p>
+            </div>
+            <span class="material-icons text-[#008B94] text-xl"
+              >arrow_forward_ios</span
+            >
+          </a>
+        </div>
+
+        <div class="flex gap-2 flex-wrap justify-center mb-4 px-2">
+          <button class="tab-btn active" data-tab-group="photo" onclick="openTab('photoSchedule')">
+            Schedule
+          </button>
+          <button class="tab-btn" data-tab-group="photo" onclick="openTab('photoDress')">
+            Dress Code
+          </button>
+          <button class="tab-btn" data-tab-group="photo" onclick="openTab('photoStand')">
+            Standing Arrangement
+          </button>
+        </div>
+
+        <!-- Photoshoot Schedule -->
+        <div id="photoSchedule" class="content-section active fade" data-tab-group="photo">
+          <div class="event-card text-center text-sm">
+            Reporting at <strong>06:30 AM Sharp</strong><br />
+          </div>
+
+          <!-- 🔶 Highlight Note -->
+          <div class="mt-4 mb-6">
+            <div
+              class="bg-gradient-to-r from-[#FFF4D8] to-[#FFEBC7] border border-[#E6C472] text-[#A37610] px-4 py-3 rounded-xl shadow-sm text-center text-xs font-medium"
+            >
+              🍽️
+              <strong
+                >Breakfast will be provided immediately after the Photoshoot at
+                Unit 1</strong
+              >
+            </div>
+          </div>
+        </div>
+
+        <!-- Dress Code -->
+        <div id="photoDress" class="content-section fade" data-tab-group="photo">
+          <div class="event-card text-sm">
+            Official T-shirt, Blue Denims (any shade) & Sports Shoes.
+          </div>
+        </div>
+
+        <!-- Standing Arrangement (Empty for Now) -->
+        <div id="photoStand" class="content-section fade" data-tab-group="photo">
+          <div class="event-card text-sm text-center text-gray-500 italic">
+            📋 Standing arrangement details will be updated soon.
           </div>
         </div>
 
@@ -357,15 +526,18 @@
         </div>
 
         <div class="flex gap-2 flex-wrap justify-center mb-4 px-2">
-          <button class="tab-btn active" onclick="openTab('awardsSchedule')">
+          <button class="tab-btn active" data-tab-group="awards-day2" onclick="openTab('awardsScheduleDay2')">
             Schedule
           </button>
-          <button class="tab-btn" onclick="openTab('awardsDress')">
+          <button class="tab-btn" data-tab-group="awards-day2" onclick="openTab('awardsDressDay2')">
             Dress Code
+          </button>
+          <button class="tab-btn" data-tab-group="awards-day2" onclick="openTab('awardsSeatingDay2')">
+            Seating Arrangements
           </button>
         </div>
 
-        <div id="awardsSchedule" class="content-section active fade">
+        <div id="awardsScheduleDay2" class="content-section active fade" data-tab-group="awards-day2">
           <div class="event-card">
             <table class="w-full text-sm text-center">
               <tr class="bg-[#C9A54A] text-white">
@@ -373,128 +545,48 @@
                 <th>EVENT</th>
               </tr>
               <tr>
-                <td>4:30 PM</td>
-                <td>Reporting & Hi-Tea</td>
+                <td>4:30–5:00 PM</td>
+                <td>Reporting &amp; Hi-Tea</td>
               </tr>
               <tr>
-                <td>5:00 PM</td>
-                <td>GTM</td>
-              </tr>
-              <tr>
-                <td>6:00 PM</td>
+                <td>5:00–5:15 PM</td>
                 <td>Bio Break</td>
               </tr>
               <tr>
-                <td>6:30 PM</td>
-                <td>Treasure Hunt</td>
-              </tr>
-              <tr>
-                <td>7:45 PM</td>
+                <td>5:15–5:30 PM</td>
                 <td>Lamp Lighting</td>
               </tr>
               <tr>
-                <td>8:00 PM</td>
+                <td>5:30–7:00 PM</td>
                 <td>Awards</td>
               </tr>
               <tr>
-                <td>9:15 PM</td>
-                <td>Entertainment</td>
+                <td>7:00–8:30 PM</td>
+                <td>Audio Visual</td>
               </tr>
               <tr>
-                <td>10:15 PM</td>
+                <td>8:30–10:00 PM</td>
                 <td>Dinner</td>
               </tr>
             </table>
           </div>
         </div>
 
-        <div id="awardsDress" class="content-section fade">
+        <div id="awardsDressDay2" class="content-section fade" data-tab-group="awards-day2">
           <div class="event-card text-sm">
             <strong>Dress Code:</strong> Urban Western Wear<br />
           </div>
         </div>
+
+        <div id="awardsSeatingDay2" class="content-section fade" data-tab-group="awards-day2">
+          <div class="event-card text-sm text-center text-gray-500 italic">
+            📋 Seating arrangement details will be updated soon.
+          </div>
+        </div>
+
       </div>
 
-      <!-- ---------------- DAY 3 (30 Nov) ---------------- -->
       <div id="day3" class="hidden fade">
-        <!-- Photoshoot -->
-        <div
-          class="event-card bg-gradient-to-r from-[#E6F8F9] to-white shadow-sm border border-[#008B94]/15"
-        >
-          <h3 class="text-lg font-bold text-[#008B94] flex items-center gap-2">
-            📸 Photoshoot
-          </h3>
-          <p class="text-xs text-gray-500">30 November 2026 • Morning</p>
-
-          <a
-            href="https://maps.app.goo.gl/HvrmgaAh1kcYMAP46"
-            target="_blank"
-            class="mt-4 flex items-center justify-between bg-white border border-[#008B94]/20 p-3 rounded-xl hover:shadow-md transition"
-          >
-            <div>
-              <p
-                class="font-semibold text-[#008B94] text-sm flex items-center gap-1"
-              >
-                <span class="material-icons text-base">location_on</span>
-                Near Adage Phase 3
-              </p>
-              <p class="text-xs text-gray-500">Verna Industrial Estate</p>
-            </div>
-            <span class="material-icons text-[#008B94] text-xl"
-              >arrow_forward_ios</span
-            >
-          </a>
-        </div>
-
-        <div class="flex gap-2 flex-wrap justify-center mb-4 px-2">
-          <button class="tab-btn active" onclick="openTab('photoSchedule')">
-            Schedule
-          </button>
-          <button class="tab-btn" onclick="openTab('photoDress')">
-            Dress Code
-          </button>
-          <button class="tab-btn" onclick="openTab('photoStand')">
-            Standing Arrangement
-          </button>
-        </div>
-
-        <!-- Photoshoot Schedule -->
-        <div id="photoSchedule" class="content-section active fade">
-          <div class="event-card text-center text-sm">
-            Reporting at <strong>06:30 AM Sharp</strong><br />
-          </div>
-
-          <!-- 🔶 Highlight Note -->
-          <div class="mt-4 mb-6">
-            <div
-              class="bg-gradient-to-r from-[#FFF4D8] to-[#FFEBC7] border border-[#E6C472] text-[#A37610] px-4 py-3 rounded-xl shadow-sm text-center text-xs font-medium"
-            >
-              🍽️
-              <strong
-                >Breakfast will be provided immediately after the Photoshoot at
-                Unit 1</strong
-              >
-            </div>
-          </div>
-        </div>
-
-        <!-- Dress Code -->
-        <div id="photoDress" class="content-section fade">
-          <div class="event-card text-sm">
-            Official T-shirt, Blue Denims (any shade) & Sports Shoes.
-          </div>
-        </div>
-
-        <!-- Standing Arrangement (Empty for Now) -->
-        <div id="photoStand" class="content-section fade">
-          <div class="event-card text-sm text-center text-gray-500 italic">
-            📋 Standing arrangement details will be updated soon.
-          </div>
-        </div>
-
-        <!-- 🔹 Add extra spacing before Gala Night -->
-        <div class="mt-10"></div>
-
         <!-- Gala Night -->
         <div
           class="event-card bg-gradient-to-r from-[#FFF7E5] to-white shadow-sm border border-[#C9A54A]/15"
@@ -525,15 +617,18 @@
         </div>
 
         <div class="flex gap-2 flex-wrap justify-center mb-4 px-2">
-          <button class="tab-btn active" onclick="openTab('galaSchedule')">
+          <button class="tab-btn active" data-tab-group="gala" onclick="openTab('galaSchedule')">
             Schedule
           </button>
-          <button class="tab-btn" onclick="openTab('galaDress')">
+          <button class="tab-btn" data-tab-group="gala" onclick="openTab('galaDress')">
             Dress Code
+          </button>
+          <button class="tab-btn" data-tab-group="gala" onclick="openTab('galaSeating')">
+            Seating Arrangements
           </button>
         </div>
 
-        <div id="galaSchedule" class="content-section active fade">
+        <div id="galaSchedule" class="content-section active fade" data-tab-group="gala">
           <div class="event-card">
             <table class="w-full text-sm text-center">
               <tr class="bg-[#C9A54A] text-white">
@@ -566,14 +661,20 @@
               </tr>
               <tr>
                 <td>10:45 PM</td>
-                <td>Dinner & Party Begins</td>
+                <td>Dinner &amp; Party Begins</td>
               </tr>
             </table>
           </div>
         </div>
 
-        <div id="galaDress" class="content-section fade">
+        <div id="galaDress" class="content-section fade" data-tab-group="gala">
           <div class="event-card text-sm">Western Party Wear</div>
+        </div>
+
+        <div id="galaSeating" class="content-section fade" data-tab-group="gala">
+          <div class="event-card text-sm text-center text-gray-500 italic">
+            📋 Seating arrangement details will be updated soon.
+          </div>
         </div>
       </div>
     </section>
@@ -647,15 +748,25 @@
       }
 
       function openTab(id) {
+        const section = document.getElementById(id);
+        if (!section) {
+          console.error(`Schedule tab section not found: ${id}`);
+          return;
+        }
+
+        const group = section.dataset.tabGroup;
         document
-          .querySelectorAll(".content-section")
-          .forEach((el) => el.classList.remove("active"));
-        document.getElementById(id).classList.add("active");
+          .querySelectorAll(`.content-section[data-tab-group="${group}"]`)
+          .forEach((el) => el.classList.toggle("active", el === section));
 
         document
-          .querySelectorAll(".tab-btn")
-          .forEach((btn) => btn.classList.remove("active"));
-        event.target.classList.add("active");
+          .querySelectorAll(`.tab-btn[data-tab-group="${group}"]`)
+          .forEach((btn) =>
+            btn.classList.toggle(
+              "active",
+              btn.getAttribute("onclick") === `openTab('${id}')`
+            )
+          );
       }
     </script>
     <script src="static/js/install-prompt.js" defer></script>

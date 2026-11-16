@@ -49,6 +49,10 @@
         color: #cd7f32;
         font-weight: 600;
       }
+      .fourth {
+        color: #7c3aed;
+        font-weight: 600;
+      }
 
       .live-badge {
         display: inline-flex;
@@ -136,6 +140,7 @@
         width: 8px;
         height: 8px;
         border-radius: 50%;
+        border: 1px solid #6b7280;
         margin-right: 5px;
         vertical-align: middle;
       }
@@ -244,21 +249,36 @@
         </h3>
 
         <div class="overflow-x-auto -mx-1">
-        <table class="w-full min-w-[480px] text-xs text-center border-collapse">
+        <table class="w-full min-w-[600px] text-xs text-center border-collapse">
           <thead class="bg-[#008B94] text-white">
-            <tr>
+            <tr id="resultsHeader">
               <th>Event</th>
-              <th class="gold">🥇 1st Place</th>
-              <th class="silver">🥈 2nd Place</th>
-              <th class="bronze">🥉 3rd Place</th>
             </tr>
           </thead>
           <tbody id="resultsBody">
             <tr>
-              <td colspan="4" class="text-gray-400 italic py-3">Loading results…</td>
+              <td colspan="5" class="text-gray-400 italic py-3">Loading results…</td>
             </tr>
           </tbody>
         </table>
+        </div>
+      </div>
+
+      <!-- Prize Distribution -->
+      <div class="event-card">
+        <h3 class="text-lg font-semibold text-[#008B94] mb-3">
+          💰 Prize Money Distribution
+        </h3>
+        <div class="overflow-x-auto -mx-1">
+          <table class="w-full min-w-[520px] text-xs text-center border-collapse">
+            <thead class="bg-[#C9A54A] text-white">
+              <tr id="prizeDistributionHeader">
+                <th>Prize Money</th>
+              </tr>
+            </thead>
+            <tbody id="prizeDistributionBody"></tbody>
+            <tfoot id="prizeDistributionTotals"></tfoot>
+          </table>
         </div>
       </div>
 
