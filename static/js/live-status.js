@@ -47,7 +47,7 @@ function renderPrizeDistribution() {
 
   document.getElementById("prizeDistributionBody").innerHTML = rows.join("");
   document.getElementById("prizeDistributionTotals").innerHTML = `
-    <tr class="font-bold bg-[#FFF4D8]">
+    <tr class="font-bold bg-[#241c0c]">
       <th scope="row">TOTAL</th>
       ${PLACES.map((place) => `<td>₹${formatCurrency(totals[place.key])}</td>`).join("")}
     </tr>

@@ -23,9 +23,10 @@
 
     <link rel="manifest" href="manifest.json" />
     <link rel="apple-touch-icon" href="static/images/logo.png" />
-    <meta name="theme-color" content="#008B94" />
+    <meta name="theme-color" content="#061820" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="mobile-web-app-capable" content="yes" />
+    <link rel="stylesheet" href="static/css/theme.css" />
 
     <style>
       body {
@@ -59,8 +60,9 @@
         border-bottom: 2px solid #008b94;
       }
       .nav-active {
-        color: #c9a54a !important;
+        color: #f0d897 !important;
         font-weight: 600;
+        text-shadow: 0 0 14px rgba(216, 180, 95, 0.35);
       }
 
       /* Mobile Navigation */
@@ -106,18 +108,18 @@
         display: flex;
         align-items: center;
         gap: 14px;
-        background: #fff;
-        border: 1px solid rgba(0, 0, 0, 0.06);
+        background: linear-gradient(160deg, rgba(25, 195, 209, 0.07), rgba(7, 20, 24, 0.92));
+        border: 1px solid rgba(56, 212, 222, 0.14);
         border-radius: 18px;
         padding: 14px 16px;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
         transition: transform 0.25s ease, box-shadow 0.25s ease,
           border-color 0.25s ease;
       }
       .event-nav-card:hover {
         transform: translateY(-2px);
-        box-shadow: 0 10px 24px rgba(0, 0, 0, 0.1);
-        border-color: rgba(0, 139, 148, 0.25);
+        box-shadow: 0 14px 30px rgba(25, 195, 209, 0.2);
+        border-color: rgba(25, 195, 209, 0.4);
       }
       .event-nav-card:active {
         transform: translateY(0) scale(0.99);
@@ -139,25 +141,25 @@
       .event-nav-title {
         font-weight: 600;
         font-size: 14px;
-        color: #1f2937;
+        color: #f1fbfc;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
       }
       .event-nav-date {
         font-size: 12px;
-        color: #6b7280;
+        color: rgba(226, 246, 247, 0.55);
         margin-top: 2px;
       }
       .event-nav-arrow {
         flex-shrink: 0;
         font-size: 18px !important;
-        color: #c3c9cc;
+        color: rgba(226, 246, 247, 0.3);
         transition: transform 0.25s ease, color 0.25s ease;
       }
       .event-nav-card:hover .event-nav-arrow {
         transform: translateX(3px);
-        color: #008b94;
+        color: #7fe9ef;
       }
     </style>
   </head>
@@ -195,7 +197,7 @@
     <main class="pb-24">
       <!-- Hero Section -->
       <section
-        class="relative text-center py-14 px-6 bg-gradient-to-b from-[#008B94] to-[#006269] text-white rounded-b-3xl shadow-xl overflow-hidden"
+        class="relative text-center py-14 px-6 bg-gradient-to-b from-[#063940] via-[#00838d] to-[#02161a] text-white rounded-b-3xl shadow-xl overflow-hidden"
       >
         <!-- Soft Glow Background -->
         <div
@@ -218,7 +220,7 @@
 
           <!-- Logo Card -->
           <div
-            class="mx-auto w-52 p-3 rounded-2xl bg-white shadow-[0_8px_25px_rgba(0,0,0,0.25)] transition hover:scale-105 duration-300"
+            class="mx-auto w-52 p-4 rounded-2xl bg-white border border-[#19c3d1]/30 shadow-[0_8px_30px_rgba(25,195,209,0.35)] transition hover:scale-105 duration-300"
           >
             <img
               src="static/images/logo.png"
@@ -274,7 +276,7 @@
       <!-- Message Highlight -->
       <a href="message.html" class="block mt-8 max-w-lg mx-auto">
         <div
-          class="flex items-center gap-4 p-4 bg-gradient-to-r from-white to-[#F4FBFB] rounded-xl shadow-md hover:shadow-lg transition border border-[#008B94] animate-[pulse_4s_ease-in-out_infinite]"
+          class="flex items-center gap-4 p-4 bg-gradient-to-r from-[#0d262b] to-[#0a1d21] rounded-xl shadow-md hover:shadow-lg transition border border-[#19c3d1]/40 animate-[pulse_4s_ease-in-out_infinite]"
         >
           <img
             src="static/images/md_photo.png"
@@ -364,12 +366,12 @@
       <!-- 🌟 Live Status Section -->
       <a href="live_status.html" class="block max-w-lg mx-auto mt-10">
         <div
-          class="bg-gradient-to-r from-[#FFF7E2] to-[#FFEFD0] border border-[#C9A54A]/30 shadow-md rounded-2xl p-5 flex items-center justify-between hover:shadow-lg hover:scale-[1.01] transition-all duration-300"
+          class="bg-gradient-to-r from-[#241c0c] to-[#160f06] border border-[#d8b45f]/35 shadow-md rounded-2xl p-5 flex items-center justify-between hover:shadow-lg hover:scale-[1.01] transition-all duration-300"
         >
           <div class="flex items-center gap-4">
             <span class="text-4xl">📢</span>
             <div>
-              <p class="text-sm font-semibold text-[#C9A54A]">
+              <p class="text-sm font-semibold text-[#f0d897]">
                 Team Live Status & Rankings
               </p>
               <p class="text-xs text-gray-600">
@@ -377,7 +379,7 @@
               </p>
             </div>
           </div>
-          <span class="material-icons text-[#C9A54A] text-3xl"
+          <span class="material-icons text-[#f0d897] text-3xl"
             >arrow_forward_ios</span
           >
         </div>
@@ -431,7 +433,7 @@
     <footer class="text-center py-5 text-xs mt-12 border-t border-gray-200">
       © 2026 Adage Automation Pvt. Ltd
       <br />
-      One Team • One Soul
+      25 JUST GETTING STARTED
     </footer>
 
     <script type="module">

@@ -18,9 +18,10 @@
     />
     <link rel="manifest" href="manifest.json" />
     <link rel="apple-touch-icon" href="static/images/logo.png" />
-    <meta name="theme-color" content="#008B94" />
+    <meta name="theme-color" content="#061820" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="mobile-web-app-capable" content="yes" />
+    <link rel="stylesheet" href="static/css/theme.css" />
 
     <style>
       body {
@@ -36,7 +37,7 @@
       }
 
       .page-hero {
-        background: linear-gradient(180deg, #e9f7f6 0%, rgba(255, 247, 240, 0) 100%);
+        background: radial-gradient(circle at 50% 0%, rgba(25, 195, 209, 0.12) 0%, rgba(25, 195, 209, 0) 70%);
         border-radius: 24px;
         padding: 28px 16px 16px;
       }
@@ -51,8 +52,9 @@
         border-bottom: 2px solid #008b94;
       }
       .nav-active {
-        color: #c9a54a !important;
+        color: #f0d897 !important;
         font-weight: 600;
+        text-shadow: 0 0 14px rgba(216, 180, 95, 0.35);
       }
 
       /* Day Button Styling */
@@ -325,7 +327,7 @@
           class="event-card bg-gradient-to-r from-[#FFF7E5] to-white shadow-sm border border-[#C9A54A]/15"
         >
           <h3 class="text-lg font-bold text-[#C9A54A] flex items-center gap-2">
-            🏆 Awards Night
+            🏆 Game Night
           </h3>
           <p class="text-xs text-gray-500">28 November 2026 • Evening</p>
 
@@ -359,6 +361,9 @@
           <button class="tab-btn" data-tab-group="awards-day1" onclick="openTab('awardsSeating')">
             Seating Arrangements
           </button>
+          <button class="tab-btn" data-tab-group="awards-day1" onclick="openTab('awardsRules')">
+            Rules
+          </button>
         </div>
 
         <div id="awardsSchedule" class="content-section active fade" data-tab-group="awards-day1">
@@ -390,7 +395,7 @@
               </tr>
               <tr>
                 <td>8:00 PM</td>
-                <td>Awards</td>
+                <td>Long Service Awards</td>
               </tr>
               <tr>
                 <td>9:15 PM</td>
@@ -406,13 +411,19 @@
 
         <div id="awardsDress" class="content-section fade" data-tab-group="awards-day1">
           <div class="event-card text-sm">
-            <strong>Dress Code:</strong> Urban Western Wear<br />
+            <strong>Dress Code:</strong> Smart Casual Party Wear<br />
           </div>
         </div>
 
         <div id="awardsSeating" class="content-section fade" data-tab-group="awards-day1">
           <div class="event-card text-sm text-center text-gray-500 italic">
             📋 Seating arrangement details will be updated soon.
+          </div>
+        </div>
+
+        <div id="awardsRules" class="content-section fade" data-tab-group="awards-day1">
+          <div class="event-card text-sm">
+            • Reporting on time is mandatory.
           </div>
         </div>
       </div>
@@ -438,7 +449,7 @@
                 class="font-semibold text-[#008B94] text-sm flex items-center gap-1"
               >
                 <span class="material-icons text-base">location_on</span>
-                Near Adage Unit 3 
+                 Adage Unit 3 
               </p>
               <p class="text-xs text-gray-500">Verna Industrial Estate</p>
             </div>
@@ -469,7 +480,7 @@
           <!-- 🔶 Highlight Note -->
           <div class="mt-4 mb-6">
             <div
-              class="bg-gradient-to-r from-[#FFF4D8] to-[#FFEBC7] border border-[#E6C472] text-[#A37610] px-4 py-3 rounded-xl shadow-sm text-center text-xs font-medium"
+              class="bg-gradient-to-r from-[#241c0c] to-[#1a1408] border border-[#d8b45f]/45 text-[#f0d897] px-4 py-3 rounded-xl shadow-sm text-center text-xs font-medium"
             >
               🍽️
               <strong
@@ -483,7 +494,7 @@
         <!-- Dress Code -->
         <div id="photoDress" class="content-section fade" data-tab-group="photo">
           <div class="event-card text-sm">
-            Official T-shirt, Black Denims  & Sports Shoes.
+            Official T-shirt, Black Denims/Trouser,Balck Belt & Sports Shoes.
           </div>
         </div>
 
@@ -535,6 +546,9 @@
           <button class="tab-btn" data-tab-group="awards-day2" onclick="openTab('awardsSeatingDay2')">
             Seating Arrangements
           </button>
+          <button class="tab-btn" data-tab-group="awards-day2" onclick="openTab('awardsRulesDay2')">
+            Rules
+          </button>
         </div>
 
         <div id="awardsScheduleDay2" class="content-section active fade" data-tab-group="awards-day2">
@@ -558,7 +572,7 @@
               </tr>
               <tr>
                 <td>5:30–7:00 PM</td>
-                <td>Awards</td>
+                <td>Performance Awards</td>
               </tr>
               <tr>
                 <td>7:00–7:15 PM</td>
@@ -585,6 +599,12 @@
         <div id="awardsSeatingDay2" class="content-section fade" data-tab-group="awards-day2">
           <div class="event-card text-sm text-center text-gray-500 italic">
             📋 Seating arrangement details will be updated soon.
+          </div>
+        </div>
+
+        <div id="awardsRulesDay2" class="content-section fade" data-tab-group="awards-day2">
+          <div class="event-card text-sm">
+            • Reporting on time is mandatory.
           </div>
         </div>
 
@@ -713,7 +733,7 @@
     <footer class="text-center py-5 text-xs mt-12 border-t border-gray-200">
       © 2026 Adage Automation Pvt. Ltd
       <br />
-      One Team • One Soul
+      25 JUST GETTING STARTED
     </footer>
 
     <!-- JavaScript -->

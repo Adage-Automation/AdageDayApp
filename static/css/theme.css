@@ -1,0 +1,264 @@
+/* ============================================================
+   Adage Day 2026 — Shared Dark/Holographic Theme
+   Loaded on every page. Pure visual layer: no IDs are touched,
+   no element this file targets is relied on by JS except via
+   class names that already existed before this theme (colors
+   only — layout/behaviour classes are left alone).
+   ============================================================ */
+
+:root {
+  --void: #05090b;
+  --navy: #071a20;
+  --navy-2: #0a2228;
+  --panel: #0b1e22;
+  --panel-soft: #0d262b;
+  --border-teal: rgba(56, 212, 222, 0.22);
+  --border-teal-soft: rgba(56, 212, 222, 0.12);
+  --teal: #19c3d1;
+  --teal-brand: #008b94;
+  --teal-dim: #0aa0ab;
+  --teal-soft: #7fe9ef;
+  --gold: #d8b45f;
+  --gold-soft: #f0d897;
+  --text-hi: #f1fbfc;
+  --text-mid: rgba(226, 246, 247, 0.74);
+  --text-dim: rgba(226, 246, 247, 0.52);
+  --text-faint: rgba(226, 246, 247, 0.34);
+  --glow-sm: 0 2px 14px rgba(10, 160, 171, 0.14);
+  --glow-md: 0 10px 34px rgba(10, 160, 171, 0.18);
+  --glow-lg: 0 18px 50px rgba(10, 160, 171, 0.22);
+}
+
+/* ---------- Atmosphere ---------- */
+html {
+  background: var(--void);
+}
+
+body {
+  color: var(--text-mid) !important;
+  background:
+    radial-gradient(1100px 620px at 12% -8%, rgba(0, 139, 148, 0.22), transparent 60%),
+    radial-gradient(900px 560px at 108% 6%, rgba(25, 195, 209, 0.14), transparent 60%),
+    radial-gradient(760px 520px at 46% 118%, rgba(216, 180, 95, 0.08), transparent 62%),
+    linear-gradient(180deg, #050b0d 0%, #071a1f 42%, #050a0c 100%) !important;
+  position: relative;
+}
+
+body::before,
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* Large circular arc, echoing the "2" / "5" ring in the anniversary mark */
+body::before {
+  background-image:
+    radial-gradient(circle at 86% 8%, transparent 0 210px, rgba(25, 195, 209, 0.16) 212px, rgba(25, 195, 209, 0.16) 214px, transparent 216px),
+    radial-gradient(circle at 86% 8%, transparent 0 260px, rgba(25, 195, 209, 0.08) 262px, rgba(25, 195, 209, 0.08) 263px, transparent 265px);
+}
+
+/* Soft angular cut, low in the viewport */
+body::after {
+  background: linear-gradient(115deg, transparent 55%, rgba(216, 180, 95, 0.05) 56%, rgba(216, 180, 95, 0.05) 57%, transparent 58%),
+    linear-gradient(115deg, transparent 60%, rgba(25, 195, 209, 0.05) 61%, rgba(25, 195, 209, 0.05) 61.6%, transparent 62.5%);
+  background-position: 0 100%, 0 100%;
+  background-size: 140% 55%, 140% 55%;
+  background-repeat: no-repeat;
+}
+
+::selection {
+  background: rgba(25, 195, 209, 0.35);
+  color: #ffffff;
+}
+
+:focus-visible {
+  outline: 2px solid var(--teal);
+  outline-offset: 2px;
+}
+
+/* Thin dark scrollbar */
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(25, 195, 209, 0.25); border-radius: 10px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(25, 195, 209, 0.4); }
+
+/* ---------- Headings / links ---------- */
+h1, h2, h3, h4 { color: var(--text-hi); }
+
+a { color: inherit; }
+
+/* ---------- Global utility overrides ----------
+   The whole site was built with the same handful of Tailwind
+   utility classes for "light card" styling. Re-pointing those
+   classes here re-skins every page, every JS-rendered card
+   (announcements, admin, live-status) and every future one
+   that reuses the same pattern — without touching markup or JS. */
+
+.bg-white {
+  background: linear-gradient(160deg, rgba(25, 195, 209, 0.07), rgba(255, 255, 255, 0.015)) , var(--panel) !important;
+}
+
+header.bg-white {
+  background: rgba(6, 16, 19, 0.82) !important;
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--border-teal-soft);
+  box-shadow: 0 1px 0 rgba(25, 195, 209, 0.08);
+}
+
+/* Keep intentionally "light" chips as light — they sit on a solid
+   teal banner / filled teal surface and are meant to pop as white. */
+#installBanner .bg-white,
+.team-chip.bg-white {
+  background: #ffffff !important;
+}
+
+.text-gray-800 { color: var(--text-hi) !important; }
+.text-gray-700 { color: var(--text-mid) !important; }
+.text-gray-600 { color: var(--text-mid) !important; }
+.text-gray-500 { color: var(--text-dim) !important; }
+.text-gray-400 { color: var(--text-faint) !important; }
+
+.border-gray-100 { border-color: var(--border-teal-soft) !important; }
+.border-gray-200 { border-color: var(--border-teal-soft) !important; }
+.border-green-100 { border-color: rgba(74, 222, 128, 0.3) !important; }
+.border-red-100 { border-color: rgba(248, 113, 113, 0.3) !important; }
+
+.shadow-sm { box-shadow: var(--glow-sm) !important; }
+.shadow-md { box-shadow: var(--glow-md) !important; }
+.shadow-lg,
+.shadow-xl { box-shadow: var(--glow-lg) !important; }
+
+.hover\:shadow-md:hover,
+.hover\:shadow-lg:hover {
+  box-shadow: 0 14px 34px rgba(25, 195, 209, 0.26) !important;
+}
+
+/* ---------- Shared component classes
+   (re-declared with the same names across pages; styled once here
+   so every page that defines its own copy still inherits the
+   right *values* if it simply references var(...) — pages also
+   get a direct per-file pass to swap their literal hex values.) */
+
+.mobile-nav {
+  background: rgba(7, 20, 24, 0.86) !important;
+  border: 1px solid var(--border-teal-soft);
+  box-shadow: 0 -8px 28px rgba(0, 0, 0, 0.45), var(--glow-sm);
+}
+.mobile-nav a { color: var(--text-dim); }
+.mobile-nav a:hover { background-color: rgba(25, 195, 209, 0.12) !important; }
+.mobile-nav a.text-\[\#008B94\] { color: var(--teal-soft) !important; }
+
+.nav-active { color: var(--gold-soft) !important; text-shadow: 0 0 14px rgba(216, 180, 95, 0.35); }
+nav a:hover { color: var(--teal-soft) !important; border-bottom-color: var(--teal-soft) !important; }
+
+/* Decorative circular-arc accent behind every page's hero title */
+.page-hero {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--border-teal-soft);
+}
+.page-hero::before {
+  content: "";
+  position: absolute;
+  top: -70px;
+  left: 50%;
+  width: 360px;
+  height: 360px;
+  margin-left: -180px;
+  border-radius: 50%;
+  border: 1px solid rgba(25, 195, 209, 0.22);
+  pointer-events: none;
+}
+.page-hero::after {
+  content: "";
+  position: absolute;
+  top: -40px;
+  left: 50%;
+  width: 300px;
+  height: 300px;
+  margin-left: -150px;
+  border-radius: 50%;
+  border: 1px solid rgba(216, 180, 95, 0.14);
+  pointer-events: none;
+}
+.page-hero > * { position: relative; z-index: 1; }
+
+.page-hero .stat-pill {
+  background: rgba(25, 195, 209, 0.1) !important;
+  border: 1px solid var(--border-teal) !important;
+  color: var(--teal-soft) !important;
+}
+
+/* Generic dark "card" look reused under different names per page */
+.event-card,
+.leader-card,
+.card {
+  background: linear-gradient(160deg, rgba(25, 195, 209, 0.06), rgba(7, 20, 24, 0.9)) !important;
+  border: 1px solid var(--border-teal-soft) !important;
+  box-shadow: var(--glow-sm) !important;
+  color: var(--text-mid);
+}
+
+table { color: var(--text-mid); }
+tr:nth-child(even) { background-color: rgba(255, 255, 255, 0.02) !important; }
+tr:hover { background-color: rgba(25, 195, 209, 0.07) !important; }
+th { color: #ffffff; }
+
+.day-btn,
+.tab-btn,
+.admin-tab-btn {
+  background-color: rgba(25, 195, 209, 0.07) !important;
+  color: var(--text-dim) !important;
+  border: 1px solid transparent;
+}
+.day-btn.active,
+.tab-btn.active,
+.admin-tab-btn.active {
+  background-color: var(--teal-brand) !important;
+  color: #ffffff !important;
+  box-shadow: 0 6px 18px rgba(0, 139, 148, 0.45) !important;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="number"],
+input[type="email"],
+textarea,
+select {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border-teal) !important;
+  color: var(--text-hi);
+}
+input::placeholder,
+textarea::placeholder { color: var(--text-faint); }
+
+button.primary {
+  background-color: var(--teal-brand) !important;
+  box-shadow: 0 8px 22px rgba(0, 139, 148, 0.35);
+}
+button.primary:hover { background-color: var(--teal-dim) !important; }
+
+.team-chip {
+  background: rgba(255, 255, 255, 0.04) !important;
+  border-color: rgba(255, 255, 255, 0.18) !important;
+  color: var(--text-mid);
+}
+.team-chip.selected {
+  background-color: var(--teal-brand) !important;
+  color: #fff !important;
+  border-color: var(--teal-soft) !important;
+}
+
+.place-row,
+.ann-item { border-top-color: rgba(255, 255, 255, 0.08) !important; }
+
+.leader-gold {
+  background: linear-gradient(160deg, rgba(216, 180, 95, 0.22), rgba(7, 20, 24, 0.9)) !important;
+  border: 1px solid rgba(216, 180, 95, 0.45) !important;
+  color: var(--gold-soft) !important;
+}
+
+footer { color: var(--text-dim) !important; border-top-color: var(--border-teal-soft) !important; }
