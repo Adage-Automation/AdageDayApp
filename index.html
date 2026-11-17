@@ -95,6 +95,70 @@
         padding: 5px 14px;
         border-radius: 20px;
       }
+
+      /* Event Schedule Navigation Cards */
+      .event-nav-grid {
+        display: grid;
+        gap: 14px;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      }
+      .event-nav-card {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        background: #fff;
+        border: 1px solid rgba(0, 0, 0, 0.06);
+        border-radius: 18px;
+        padding: 14px 16px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        transition: transform 0.25s ease, box-shadow 0.25s ease,
+          border-color 0.25s ease;
+      }
+      .event-nav-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 24px rgba(0, 0, 0, 0.1);
+        border-color: rgba(0, 139, 148, 0.25);
+      }
+      .event-nav-card:active {
+        transform: translateY(0) scale(0.99);
+      }
+      .event-nav-icon {
+        flex-shrink: 0;
+        width: 46px;
+        height: 46px;
+        border-radius: 14px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 22px;
+      }
+      .event-nav-info {
+        flex: 1;
+        min-width: 0;
+      }
+      .event-nav-title {
+        font-weight: 600;
+        font-size: 14px;
+        color: #1f2937;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .event-nav-date {
+        font-size: 12px;
+        color: #6b7280;
+        margin-top: 2px;
+      }
+      .event-nav-arrow {
+        flex-shrink: 0;
+        font-size: 18px !important;
+        color: #c3c9cc;
+        transition: transform 0.25s ease, color 0.25s ease;
+      }
+      .event-nav-card:hover .event-nav-arrow {
+        transform: translateX(3px);
+        color: #008b94;
+      }
     </style>
   </head>
 
@@ -208,7 +272,7 @@
       </script>
 
       <!-- Message Highlight -->
-      <a href="message.html" class="block mt-6 max-w-lg mx-auto">
+      <a href="message.html" class="block mt-8 max-w-lg mx-auto">
         <div
           class="flex items-center gap-4 p-4 bg-gradient-to-r from-white to-[#F4FBFB] rounded-xl shadow-md hover:shadow-lg transition border border-[#008B94] animate-[pulse_4s_ease-in-out_infinite]"
         >
@@ -227,58 +291,78 @@
         </div>
       </a>
 
-      <!-- Event Cards -->
-      <div class="mt-8 flex justify-center">
-        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-5 max-w-lg sm:max-w-2xl lg:max-w-5xl w-full">
-          <a
-            href="schedule.html?day=1"
-            class="bg-white rounded-2xl p-5 text-center border border-gray-100 shadow-sm hover:shadow-md transition"
-          >
-            <div class="text-4xl">🗓️</div>
-            <p class="font-semibold mt-2 text-sm">Day 1</p>
-            <p class="text-xs text-gray-500">28th — Sports & Awards</p>
-          </a>
+      <!-- Event Schedule Navigation -->
+      <section class="max-w-4xl mx-auto px-4 mt-10">
+        <div class="flex items-center justify-between mb-4 px-1">
+          <h2 class="text-lg font-semibold text-gray-800">Event Schedule</h2>
+          <span class="text-[11px] text-gray-400">Tap an event to view details</span>
+        </div>
 
+        <div class="event-nav-grid">
           <a
             href="schedule.html?day=1&section=sportsSchedule"
-            class="bg-white rounded-2xl p-5 text-center border border-gray-100 shadow-sm hover:shadow-md transition"
+            class="event-nav-card"
           >
-            <div class="text-4xl">⚽</div>
-            <p class="font-semibold mt-2 text-sm">Sports Day</p>
-            <p class="text-xs text-gray-500">28th Morning</p>
+            <div class="event-nav-icon bg-[#E6F8F9] text-[#008B94]">⚽</div>
+            <div class="event-nav-info">
+              <p class="event-nav-title">Sports Day</p>
+              <p class="event-nav-date">28 Nov • Morning</p>
+            </div>
+            <span class="material-icons event-nav-arrow">arrow_forward_ios</span>
           </a>
 
           <a
-            href="schedule.html?day=2&section=awardsScheduleDay2"
-            class="bg-white rounded-2xl p-5 text-center border border-gray-100 shadow-sm hover:shadow-md transition"
+            href="schedule.html?day=1&section=awardsSchedule"
+            class="event-nav-card"
           >
-            <div class="text-4xl">🏆</div>
-            <p class="font-semibold mt-2 text-sm">Awards Night</p>
-            <p class="text-xs text-gray-500">29th Evening</p>
+            <div class="event-nav-icon bg-[#FFF7E5] text-[#C9A54A]">🏆</div>
+            <div class="event-nav-info">
+              <p class="event-nav-title">Awards Night — Day 1</p>
+              <p class="event-nav-date">28 Nov • Evening</p>
+            </div>
+            <span class="material-icons event-nav-arrow">arrow_forward_ios</span>
           </a>
 
           <a
             href="schedule.html?day=2&section=photoSchedule"
-            class="bg-white rounded-2xl p-5 text-center border border-gray-100 shadow-sm hover:shadow-md transition"
+            class="event-nav-card"
           >
-            <div class="text-4xl">📸</div>
-            <p class="font-semibold mt-2 text-sm">Photoshoot</p>
-            <p class="text-xs text-gray-500">29th Morning</p>
+            <div class="event-nav-icon bg-[#E6F8F9] text-[#008B94]">📸</div>
+            <div class="event-nav-info">
+              <p class="event-nav-title">Photoshoot</p>
+              <p class="event-nav-date">29 Nov • Morning</p>
+            </div>
+            <span class="material-icons event-nav-arrow">arrow_forward_ios</span>
+          </a>
+
+          <a
+            href="schedule.html?day=2&section=awardsScheduleDay2"
+            class="event-nav-card"
+          >
+            <div class="event-nav-icon bg-[#FFF7E5] text-[#C9A54A]">🏆</div>
+            <div class="event-nav-info">
+              <p class="event-nav-title">Awards Night — Day 2</p>
+              <p class="event-nav-date">29 Nov • Evening</p>
+            </div>
+            <span class="material-icons event-nav-arrow">arrow_forward_ios</span>
           </a>
 
           <a
             href="schedule.html?day=3&section=galaSchedule"
-            class="bg-white rounded-2xl p-5 text-center border border-gray-100 shadow-sm hover:shadow-md transition"
+            class="event-nav-card"
           >
-            <div class="text-4xl">🎉</div>
-            <p class="font-semibold mt-2 text-sm">Gala Night</p>
-            <p class="text-xs text-gray-500">30th Evening</p>
+            <div class="event-nav-icon bg-[#FFF7E5] text-[#C9A54A]">🎉</div>
+            <div class="event-nav-info">
+              <p class="event-nav-title">Gala Night</p>
+              <p class="event-nav-date">30 Nov • Evening</p>
+            </div>
+            <span class="material-icons event-nav-arrow">arrow_forward_ios</span>
           </a>
         </div>
-      </div>
+      </section>
 
       <!-- 🌟 Live Status Section -->
-      <a href="live_status.html" class="block max-w-lg mx-auto mt-8">
+      <a href="live_status.html" class="block max-w-lg mx-auto mt-10">
         <div
           class="bg-gradient-to-r from-[#FFF7E2] to-[#FFEFD0] border border-[#C9A54A]/30 shadow-md rounded-2xl p-5 flex items-center justify-between hover:shadow-lg hover:scale-[1.01] transition-all duration-300"
         >
@@ -301,7 +385,7 @@
 
       <!-- Latest Announcements -->
       <section class="max-w-lg mx-auto px-4 mt-10 mb-20">
-        <h2 class="text-lg font-semibold mb-3">Latest Updates</h2>
+        <h2 class="text-lg font-semibold text-gray-800 mb-3">Latest Updates</h2>
 
         <div id="latestAnnouncements"></div>
 
