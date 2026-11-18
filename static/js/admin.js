@@ -47,7 +47,7 @@ document.getElementById("loginForm").addEventListener("submit", async (e) => {
       document.getElementById("password").value
     );
   } catch (err) {
-    loginError.textContent = "Sign-in failed — check email/password.";
+    loginError.textContent = "Sign-in failed: check email/password.";
   } finally {
     signInBtn.disabled = false;
     signInBtn.textContent = "Sign In";
@@ -138,10 +138,10 @@ async function buildForms() {
   );
 }
 
-// A team can only hold one place per event — selecting a different place clears the prior one.
+// A team can only hold one place per event; selecting a different place clears the prior one.
 // Also marks the card "unsaved" so it's obvious a Save is still needed.
 // Attached once (not inside buildForms) since #eventForms itself is never recreated,
-// only its contents — re-attaching on every sign-in would stack duplicate listeners.
+// only its contents; re-attaching on every sign-in would stack duplicate listeners.
 eventFormsContainer.addEventListener("change", (e) => {
   const checkbox = e.target.closest(".team-check");
   if (checkbox) {
@@ -193,7 +193,7 @@ async function saveEvent(eventId) {
   } catch (err) {
     status.classList.remove("text-green-600");
     status.classList.add("text-red-500");
-    status.textContent = "Save failed — check your connection and try again.";
+    status.textContent = "Save failed: check your connection and try again.";
     return;
   }
   setTimeout(() => (status.textContent = ""), 2000);
@@ -241,7 +241,7 @@ document.getElementById("postAnnouncementBtn").addEventListener("click", async (
     });
   } catch (err) {
     status.classList.add("text-red-500");
-    status.textContent = "Post failed — check your connection and try again.";
+    status.textContent = "Post failed: check your connection and try again.";
     return;
   }
 
@@ -268,7 +268,7 @@ function watchAnnouncements() {
       <div class="ann-item" data-id="${docSnap.id}">
         <div>
           <strong>${escapeHtml(docSnap.data().title)}</strong>
-          <span class="text-gray-500"> — ${escapeHtml(docSnap.data().body)}</span>
+          <span class="text-gray-500">: ${escapeHtml(docSnap.data().body)}</span>
         </div>
         <button class="danger delete-ann-btn" data-id="${docSnap.id}">Delete</button>
       </div>`

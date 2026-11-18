@@ -1,9 +1,9 @@
 /* ============================================================
-   Adage Day 2026 — Shared Dark/Holographic Theme
+   Adage Day 2026, Shared Dark/Holographic Theme
    Loaded on every page. Pure visual layer: no IDs are touched,
    no element this file targets is relied on by JS except via
    class names that already existed before this theme (colors
-   only — layout/behaviour classes are left alone).
+   only; layout/behaviour classes are left alone).
    ============================================================ */
 
 :root {
@@ -15,7 +15,7 @@
   --border-teal: rgba(56, 212, 222, 0.22);
   --border-teal-soft: rgba(56, 212, 222, 0.12);
   --teal: #19c3d1;
-  --teal-brand: #008b94;
+  --teal-brand: #007c85;
   --teal-dim: #0aa0ab;
   --teal-soft: #7fe9ef;
   --gold: #d8b45f;
@@ -27,46 +27,200 @@
   --glow-sm: 0 2px 14px rgba(10, 160, 171, 0.14);
   --glow-md: 0 10px 34px rgba(10, 160, 171, 0.18);
   --glow-lg: 0 18px 50px rgba(10, 160, 171, 0.22);
+  --ease-premium: cubic-bezier(0.22, 1, 0.36, 1);
+  --dur-fast: 0.18s;
+  --dur-base: 0.3s;
+  --dur-slow: 0.6s;
+}
+
+/* ---------- Motion ----------
+   One shared easing curve so every hover/press/entrance reads as
+   one considered system, not a pile of ad-hoc eases per page. */
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Rows rendered live from Firestore, and admin cards, just fade up. */
+.card, .ann-item, .place-row, #resultsBody tr, #teamTotals tr {
+  animation: fade-up var(--dur-slow) var(--ease-premium) backwards;
+}
+
+/* The per-page whole-section fade doubled up with the card reveals. */
+.animate-fadeIn { animation: none !important; }
+
+/* 1. Hero choreography: the card settles, then its contents follow in
+   order (title, subtitle, divider, pills). */
+.page-hero { animation: fade-up 0.7s var(--ease-premium) backwards; }
+.page-hero > * { animation: fade-up 0.7s var(--ease-premium) backwards; }
+.page-hero > *:nth-child(1) { animation-delay: 0.12s; }
+.page-hero > *:nth-child(2) { animation-delay: 0.22s; }
+.page-hero > *:nth-child(3) { animation-delay: 0.32s; }
+.page-hero > *:nth-child(4) { animation-delay: 0.42s; }
+
+/* 2. Heading light sweep: one pass of light across the hero title. */
+.page-hero > h1,
+.page-hero > h2 {
+  background: linear-gradient(100deg, var(--text-hi) 0%, var(--text-hi) 38%, var(--gold-soft) 50%, var(--text-hi) 62%, var(--text-hi) 100%);
+  background-size: 250% 100%;
+  background-position: 100% 0;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent !important;
+  animation: fade-up 0.7s var(--ease-premium) 0.12s backwards, title-sweep 1.6s var(--ease-premium) 0.6s both;
+}
+@keyframes title-sweep {
+  from { background-position: 100% 0; }
+  to { background-position: 0% 0; }
+}
+
+/* 3. Scroll reveal. Hidden only when motion.js is present (it sets
+   .js-motion on <html>) and the viewer allows motion; a 3s fail-safe
+   shows everything even if the script never runs. */
+@media (prefers-reduced-motion: no-preference) {
+  .js-motion :is(
+    .event-card:not(.event-card .event-card),
+    .leader-card,
+    .schedule-list .event-nav-card,
+    .live-cta,
+    a[href='message.html'].block,
+    .space-y-6 > *,
+    .space-y-8 > *,
+    .letter-panel
+  ) {
+    transition: opacity 0.7s var(--ease-premium), transform 0.7s var(--ease-premium),
+      box-shadow 0.3s var(--ease-premium), border-color 0.3s var(--ease-premium);
+  }
+  .js-motion :is(
+    .event-card:not(.event-card .event-card),
+    .leader-card,
+    .schedule-list .event-nav-card,
+    .live-cta,
+    a[href='message.html'].block,
+    .space-y-6 > *,
+    .space-y-8 > *,
+    .letter-panel
+  ):not(.is-in) {
+    opacity: 0;
+    transform: translateY(22px) scale(0.985);
+    animation: reveal-failsafe 0.01s 3s forwards;
+  }
+}
+@keyframes reveal-failsafe { to { opacity: 1; transform: none; } }
+
+/* 4. App-like page transitions (Chrome/Edge/Android; others just load
+   normally). The bottom nav and header stay put, the hero morphs, the
+   active-tab pill glides to the new tab, and the page cross-fades. */
+@view-transition { navigation: auto; }
+.mobile-nav { view-transition-name: bottom-nav; }
+header.bg-white { view-transition-name: top-header; }
+.page-hero { view-transition-name: page-hero; }
+.mobile-nav a.text-\[\#008B94\] .material-icons {
+  view-transition-name: nav-pill;
+  padding: 2px 16px;
+  border-radius: 999px;
+  background: rgba(25, 195, 209, 0.16);
+  box-shadow: 0 0 18px rgba(25, 195, 209, 0.25);
+}
+
+::view-transition-group(*) {
+  animation-duration: 0.45s;
+  animation-timing-function: var(--ease-premium);
+}
+::view-transition-old(root) { animation: vt-out 0.2s ease-out both; }
+::view-transition-new(root) { animation: vt-in 0.42s var(--ease-premium) both; }
+::view-transition-old(page-hero),
+::view-transition-new(page-hero) {
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
+}
+@keyframes vt-out { to { opacity: 0; } }
+@keyframes vt-in { from { opacity: 0; transform: translateY(14px); } }
+
+@media (prefers-reduced-motion: reduce) {
+  @view-transition { navigation: none; }
+}
+
+/* ---------- Loading skeletons ---------- */
+@keyframes skeleton-sweep {
+  0% { background-position: -140% 0; }
+  100% { background-position: 140% 0; }
+}
+.skeleton {
+  display: block;
+  background: linear-gradient(90deg, rgba(25, 195, 209, 0.08) 25%, rgba(25, 195, 209, 0.18) 50%, rgba(25, 195, 209, 0.08) 75%);
+  background-size: 200% 100%;
+  animation: skeleton-sweep 1.4s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
 }
 
 /* ---------- Atmosphere ---------- */
-html {
-  background: var(--void);
+html, body {
+  overflow-x: clip;
 }
 
+html {
+  background:
+    radial-gradient(120% 90% at 50% 40%, transparent 55%, rgba(0, 0, 0, 0.55) 100%) fixed,
+    linear-gradient(180deg, #050b0d 0%, #071a1f 42%, #050a0c 100%) fixed var(--void);
+}
+
+/* The base gradient lives on html so the aurora layer (z-index -1) can
+   actually paint between it and the page content. */
 body {
   color: var(--text-mid) !important;
-  background:
-    radial-gradient(1100px 620px at 12% -8%, rgba(0, 139, 148, 0.22), transparent 60%),
-    radial-gradient(900px 560px at 108% 6%, rgba(25, 195, 209, 0.14), transparent 60%),
-    radial-gradient(760px 520px at 46% 118%, rgba(216, 180, 95, 0.08), transparent 62%),
-    linear-gradient(180deg, #050b0d 0%, #071a1f 42%, #050a0c 100%) !important;
+  background: transparent !important;
   position: relative;
 }
 
-body::before,
+/* Aurora: two slow-drifting light fields (teal + a little gold), moved
+   only with transform so it stays cheap on phones. */
+body::before {
+  content: "";
+  position: fixed;
+  inset: -25%;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(38% 30% at 22% 18%, rgba(0, 139, 148, 0.32), transparent 70%),
+    radial-gradient(32% 26% at 82% 30%, rgba(25, 195, 209, 0.18), transparent 70%),
+    radial-gradient(36% 28% at 50% 88%, rgba(216, 180, 95, 0.16), transparent 70%);
+  animation: aurora-drift 26s ease-in-out infinite alternate;
+}
+/* Gold dust: sparse tiny points (mostly gold, a few teal) tiled at three
+   offset sizes so the pattern never visibly repeats, twinkling slowly. */
 body::after {
   content: "";
   position: fixed;
   inset: 0;
   z-index: -1;
   pointer-events: none;
-}
-
-/* Large circular arc, echoing the "2" / "5" ring in the anniversary mark */
-body::before {
   background-image:
-    radial-gradient(circle at 86% 8%, transparent 0 210px, rgba(25, 195, 209, 0.16) 212px, rgba(25, 195, 209, 0.16) 214px, transparent 216px),
-    radial-gradient(circle at 86% 8%, transparent 0 260px, rgba(25, 195, 209, 0.08) 262px, rgba(25, 195, 209, 0.08) 263px, transparent 265px);
+    radial-gradient(1.4px 1.4px at 20% 30%, rgba(240, 216, 151, 0.9), transparent 70%),
+    radial-gradient(1px 1px at 70% 60%, rgba(240, 216, 151, 0.7), transparent 70%),
+    radial-gradient(1.2px 1.2px at 45% 80%, rgba(127, 233, 239, 0.6), transparent 70%),
+    radial-gradient(1px 1px at 85% 15%, rgba(240, 216, 151, 0.6), transparent 70%);
+  background-size: 220px 220px, 310px 310px, 270px 270px, 390px 390px;
+  opacity: 0.55;
+  animation: dust-twinkle 6s ease-in-out infinite alternate;
 }
-
-/* Soft angular cut, low in the viewport */
-body::after {
-  background: linear-gradient(115deg, transparent 55%, rgba(216, 180, 95, 0.05) 56%, rgba(216, 180, 95, 0.05) 57%, transparent 58%),
-    linear-gradient(115deg, transparent 60%, rgba(25, 195, 209, 0.05) 61%, rgba(25, 195, 209, 0.05) 61.6%, transparent 62.5%);
-  background-position: 0 100%, 0 100%;
-  background-size: 140% 55%, 140% 55%;
-  background-repeat: no-repeat;
+@keyframes dust-twinkle {
+  from { opacity: 0.3; }
+  to { opacity: 0.7; }
+}
+@keyframes aurora-drift {
+  0%   { transform: translate3d(0, 0, 0) rotate(0deg) scale(1); }
+  50%  { transform: translate3d(4%, 3%, 0) rotate(6deg) scale(1.06); }
+  100% { transform: translate3d(-4%, -2%, 0) rotate(-4deg) scale(1.02); }
 }
 
 ::selection {
@@ -86,7 +240,7 @@ body::after {
 ::-webkit-scrollbar-thumb:hover { background: rgba(25, 195, 209, 0.4); }
 
 /* ---------- Headings / links ---------- */
-h1, h2, h3, h4 { color: var(--text-hi); }
+h1, h2, h3, h4 { color: var(--text-hi); text-wrap: balance; }
 
 a { color: inherit; }
 
@@ -95,20 +249,79 @@ a { color: inherit; }
    utility classes for "light card" styling. Re-pointing those
    classes here re-skins every page, every JS-rendered card
    (announcements, admin, live-status) and every future one
-   that reuses the same pattern — without touching markup or JS. */
+   that reuses the same pattern, without touching markup or JS. */
 
 .bg-white {
   background: linear-gradient(160deg, rgba(25, 195, 209, 0.07), rgba(255, 255, 255, 0.015)) , var(--panel) !important;
 }
 
 header.bg-white {
-  background: rgba(6, 16, 19, 0.82) !important;
-  backdrop-filter: blur(14px);
+  background: rgba(6, 16, 19, 0.72) !important;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--border-teal-soft);
   box-shadow: 0 1px 0 rgba(25, 195, 209, 0.08);
 }
 
-/* Keep intentionally "light" chips as light — they sit on a solid
+.brand-wordmark {
+  font-family: "Poppins", sans-serif;
+}
+
+.hero-logo-glow {
+  filter: drop-shadow(0 20px 30px rgba(0, 0, 0, 0.8));
+}
+
+/* The source 25-JGS.png is flat, single-tone vector art, it has no
+   internal shading to "brighten" with a filter. To get a glossy/
+   metallic read, this layer uses the PNG's own alpha channel as a
+   stencil (mask-image) and paints a diagonal chrome gradient plus two
+   warm gold glints through it, then blends that over the real image
+   with mix-blend-mode so it reads as lighting on the actual asset
+   rather than a separate floating shape. */
+.logo-chrome-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  mix-blend-mode: overlay;
+  -webkit-mask-image: url("../images/25-JGS.png");
+  mask-image: url("../images/25-JGS.png");
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+  background:
+    radial-gradient(circle at 15% 16%, #fff6df 0%, #fbe9bf 10%, rgba(240, 216, 151, 0.6) 20%, transparent 36%),
+    radial-gradient(circle at 13% 92%, #fbe9bf 0%, rgba(240, 216, 151, 0.55) 16%, transparent 30%),
+    radial-gradient(circle at 88% 90%, #fbe9bf 0%, rgba(240, 216, 151, 0.55) 16%, transparent 30%),
+    linear-gradient(135deg, #04141a 0%, #19c3d1 30%, #ffffff 48%, #19c3d1 66%, #04141a 100%);
+}
+
+/* A small warm flare sitting right on the ring's edge, unclipped so
+   its rays can spill slightly past the outline, matching the bright
+   flare on the left side of the reference image. */
+.logo-flare-left {
+  position: absolute;
+  left: 9%;
+  top: 11%;
+  width: 34px;
+  height: 34px;
+  pointer-events: none;
+  mix-blend-mode: screen;
+  background: radial-gradient(circle, #fff6df 0%, rgba(251, 233, 191, 0.8) 25%, rgba(216, 180, 95, 0.4) 50%, transparent 75%);
+}
+
+/* Countdown card needs to visibly separate from the dark hero behind
+   it rather than using the same near-black panel tone. */
+.countdown-card {
+  background: linear-gradient(160deg, rgba(25, 195, 209, 0.16), rgba(10, 28, 32, 0.6)) !important;
+  border: 1px solid rgba(25, 195, 209, 0.3) !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35), 0 0 24px rgba(25, 195, 209, 0.18) !important;
+  backdrop-filter: blur(10px);
+}
+
+/* Keep intentionally "light" chips as light; they sit on a solid
    teal banner / filled teal surface and are meant to pop as white. */
 #installBanner .bg-white,
 .team-chip.bg-white {
@@ -139,7 +352,7 @@ header.bg-white {
 /* ---------- Shared component classes
    (re-declared with the same names across pages; styled once here
    so every page that defines its own copy still inherits the
-   right *values* if it simply references var(...) — pages also
+   right *values* if it simply references var(...); pages also
    get a direct per-file pass to swap their literal hex values.) */
 
 .mobile-nav {
@@ -148,41 +361,32 @@ header.bg-white {
   box-shadow: 0 -8px 28px rgba(0, 0, 0, 0.45), var(--glow-sm);
 }
 .mobile-nav a { color: var(--text-dim); }
-.mobile-nav a:hover { background-color: rgba(25, 195, 209, 0.12) !important; }
+.mobile-nav a:hover { background-color: transparent !important; }
+@media (hover: hover) {
+  .mobile-nav a:hover { background-color: rgba(25, 195, 209, 0.12) !important; }
+}
+/* The desktop header's hover underline must not leak into the bottom nav,
+   where a tap leaves a sticky hover state on phones. */
+.mobile-nav a,
+.mobile-nav a:hover { border-bottom-color: transparent !important; }
 .mobile-nav a.text-\[\#008B94\] { color: var(--teal-soft) !important; }
 
 .nav-active { color: var(--gold-soft) !important; text-shadow: 0 0 14px rgba(216, 180, 95, 0.35); }
 nav a:hover { color: var(--teal-soft) !important; border-bottom-color: var(--teal-soft) !important; }
 
-/* Decorative circular-arc accent behind every page's hero title */
+/* Page hero: a crisply-bordered card so it reads as a distinct surface
+   against the page's own dark gradient, not a wash that blends into it.
+   The old concentric decorative rings were cut; they overflowed the card
+   as stray arcs and read as noise rather than a deliberate pattern. */
 .page-hero {
   position: relative;
   overflow: hidden;
-  border: 1px solid var(--border-teal-soft);
+  border: 1px solid var(--border-teal);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(240, 216, 151, 0.28);
 }
-.page-hero::before {
-  content: "";
-  position: absolute;
-  top: -70px;
-  left: 50%;
-  width: 360px;
-  height: 360px;
-  margin-left: -180px;
-  border-radius: 50%;
-  border: 1px solid rgba(25, 195, 209, 0.22);
-  pointer-events: none;
-}
+.page-hero::before,
 .page-hero::after {
-  content: "";
-  position: absolute;
-  top: -40px;
-  left: 50%;
-  width: 300px;
-  height: 300px;
-  margin-left: -150px;
-  border-radius: 50%;
-  border: 1px solid rgba(216, 180, 95, 0.14);
-  pointer-events: none;
+  display: none;
 }
 .page-hero > * { position: relative; z-index: 1; }
 
@@ -200,7 +404,38 @@ nav a:hover { color: var(--teal-soft) !important; border-bottom-color: var(--tea
   border: 1px solid var(--border-teal-soft) !important;
   box-shadow: var(--glow-sm) !important;
   color: var(--text-mid);
+  transition: transform var(--dur-base) var(--ease-premium),
+    box-shadow var(--dur-base) var(--ease-premium),
+    border-color var(--dur-base) var(--ease-premium);
 }
+.event-card:hover,
+.leader-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--border-teal) !important;
+}
+
+/* Never a card inside a card: anything card-styled nested in an event
+   card flattens into a plain section of it. */
+.event-card .event-card {
+  background: none !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  animation: none;
+}
+.event-card .event-card:hover { transform: none; }
+.event-card > a.bg-white {
+  background: none !important;
+  border: 0 !important;
+  border-top: 1px solid var(--border-teal-soft) !important;
+  border-bottom: 1px solid var(--border-teal-soft) !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  padding: 12px 0 !important;
+}
+.event-card .content-section { margin-top: 4px; }
+.event-card > .flex-wrap { margin-top: 16px; }
 
 table { color: var(--text-mid); }
 tr:nth-child(even) { background-color: rgba(255, 255, 255, 0.02) !important; }
@@ -238,8 +473,40 @@ textarea::placeholder { color: var(--text-faint); }
 button.primary {
   background-color: var(--teal-brand) !important;
   box-shadow: 0 8px 22px rgba(0, 139, 148, 0.35);
+  transition: background-color var(--dur-fast) var(--ease-premium),
+    box-shadow var(--dur-fast) var(--ease-premium),
+    transform var(--dur-fast) var(--ease-premium);
 }
 button.primary:hover { background-color: var(--teal-dim) !important; }
+button.primary:active,
+.event-nav-card:active,
+.day-btn:active,
+.tab-btn:active,
+.admin-tab-btn:active {
+  transform: scale(0.97);
+}
+.day-btn, .tab-btn, .admin-tab-btn {
+  transition: background-color var(--dur-base) var(--ease-premium),
+    color var(--dur-base) var(--ease-premium),
+    border-color var(--dur-base) var(--ease-premium),
+    box-shadow var(--dur-base) var(--ease-premium),
+    transform var(--dur-fast) var(--ease-premium);
+}
+
+/* ---------- Glass accents (used sparingly: banner, pills, hero) ---------- */
+#installBanner {
+  background: rgba(7, 23, 27, 0.72) !important;
+  backdrop-filter: blur(16px) saturate(140%);
+  border-bottom: 1px solid var(--border-teal-soft);
+}
+.page-hero {
+  backdrop-filter: blur(6px);
+  background: linear-gradient(155deg, #0a2a30 0%, #063940 45%, #052025 100%) !important;
+}
+.stat-pill {
+  transition: transform var(--dur-fast) var(--ease-premium), border-color var(--dur-fast) var(--ease-premium);
+}
+.stat-pill:hover { transform: translateY(-1px); border-color: var(--teal-soft) !important; }
 
 .team-chip {
   background: rgba(255, 255, 255, 0.04) !important;
@@ -261,4 +528,121 @@ button.primary:hover { background-color: var(--teal-dim) !important; }
   color: var(--gold-soft) !important;
 }
 
-footer { color: var(--text-dim) !important; border-top-color: var(--border-teal-soft) !important; }
+footer { color: var(--text-dim) !important; }
+
+/* Site footer: gold fade line, the 25-JGS mark, the tagline in gold and
+   the legal line quietly beneath. */
+.site-footer {
+  margin-top: 48px;
+  padding: 0 16px 32px;
+  text-align: center;
+}
+.site-footer::before {
+  content: "";
+  display: block;
+  width: min(320px, 70%);
+  height: 1px;
+  margin: 0 auto 28px;
+  background: linear-gradient(90deg, transparent, rgba(216, 180, 95, 0.7), transparent);
+}
+.site-footer-logo {
+  width: 44px;
+  height: auto;
+  margin: 0 auto 12px;
+  opacity: 0.85;
+}
+.site-footer-tagline {
+  font-family: "Poppins", sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  color: var(--gold-soft);
+}
+.site-footer-copy {
+  margin-top: 6px;
+  font-size: 11px;
+  color: var(--text-faint);
+}
+
+hr { border: 0; border-top: 1px solid var(--border-teal-soft); }
+
+/* Tailwind's default border colour is a light grey meant for white pages;
+   on this dark theme every un-coloured border should be a soft teal hairline.
+   `body *` outranks Tailwind's `*` preflight but loses to any colour class. */
+body *, body *::before, body *::after { border-color: var(--border-teal-soft); }
+
+/* ---------- Brand teal, brightened ----------
+   The brand teal (#008B94) reads muted/low-contrast on the new dark
+   backgrounds, brighten every instance of it site-wide (icons, card
+   titles, header wordmark, countdown, links) to the same cyan already
+   used as the accent on message.html. */
+.text-\[\#008B94\] { color: var(--teal) !important; }
+
+/* Page titles go fully white, like message.html's heading, instead of
+   staying brand-teal, the color accent lives in the small eyebrow/'s
+   divider instead, so the title itself reads clean on dark. */
+.page-hero h1,
+.page-hero h2 {
+  font-size: 2.25rem !important;
+  line-height: 1.15 !important;
+  font-weight: 800 !important;
+  letter-spacing: -0.01em;
+}
+@media (min-width: 768px) {
+  .page-hero h1,
+  .page-hero h2 {
+    font-size: 3rem !important;
+  }
+}
+.page-hero h1 .accent,
+.page-hero h2 .accent {
+  background: linear-gradient(100deg, var(--teal-soft) 0%, var(--teal-soft) 38%, var(--gold-soft) 50%, var(--teal-soft) 62%, var(--teal-soft) 100%);
+  background-size: 250% 100%;
+  background-position: 100% 0;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent !important;
+  animation: title-sweep 1.6s var(--ease-premium) 0.6s both;
+}
+
+/* Longer titles (3+ words, sometimes with a leading icon) need to stay
+   on one line instead of using the full big size, a smaller, still-bold
+   size that actually fits the page-hero width. */
+.page-hero h1.heading-tight {
+  font-size: 1.5rem !important;
+  line-height: 1.25 !important;
+}
+@media (min-width: 480px) {
+  .page-hero h1.heading-tight {
+    font-size: 1.875rem !important;
+    white-space: nowrap;
+  }
+}
+@media (min-width: 640px) {
+  .page-hero h1.heading-tight {
+    font-size: 2.25rem !important;
+  }
+}
+
+/* Small rounded label shown above a page-hero title, same component as
+   message.html's "A Word From Leadership" kicker. */
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--gold-soft);
+  padding: 6px 16px;
+  border: 1px solid rgba(216, 180, 95, 0.4);
+  border-radius: 999px;
+  background: rgba(216, 180, 95, 0.08);
+  margin-bottom: 14px;
+}
+
+/* The Install button sits on its own white pill, not a dark panel;
+   keep its label the original brand teal for proper contrast there. */
+#installBanner .text-\[\#008B94\] { color: #008b94 !important; }
+

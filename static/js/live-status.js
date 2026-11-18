@@ -23,7 +23,7 @@ function teamChip(name) {
 }
 
 function placeCell(place) {
-  if (!place || !place.teams || place.teams.length === 0) return "—";
+  if (!place || !place.teams || place.teams.length === 0) return "-";
   return [...new Set(place.teams.map(normalizeTeamName))]
     .map(teamChip)
     .join(", ");
@@ -40,7 +40,7 @@ function renderPrizeDistribution() {
     const distribution = PRIZE_DISTRIBUTION[event.id];
     const cells = PLACES.map((place) => {
       const amount = distribution[place.key];
-      return `<td>${amount ? `₹${formatCurrency(amount)}` : "—"}</td>`;
+      return `<td>${amount ? `₹${formatCurrency(amount)}` : "-"}</td>`;
     }).join("");
     return `<tr><th scope="row">${distribution.label}</th>${cells}</tr>`;
   });
@@ -100,7 +100,7 @@ renderResultsHeader();
 renderPrizeDistribution();
 
 // Live listener: fires immediately with current data, then again every time
-// admin.html writes an update — no page refresh needed on anyone's screen.
+// admin.html writes an update, no page refresh needed on anyone's screen.
 onSnapshot(collection(db, "results"), (snapshot) => {
   const resultsById = {};
   snapshot.forEach((doc) => {

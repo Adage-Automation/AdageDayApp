@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>Adage Day 2026 — Celebrating 25 Years of Adage</title>
+    <title>Adage Day 2026, Celebrating 25 Years of Adage</title>
     <meta
       name="viewport"
       content="width=device-width, initial-scale=1.0, viewport-fit=cover"
@@ -22,11 +22,13 @@
     />
 
     <link rel="manifest" href="manifest.json" />
-    <link rel="apple-touch-icon" href="static/images/logo.png" />
+    <link rel="icon" type="image/png" href="static/images/25-JGS-icon.png" />
+    <link rel="apple-touch-icon" href="static/images/25-JGS-icon.png" />
     <meta name="theme-color" content="#061820" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="mobile-web-app-capable" content="yes" />
-    <link rel="stylesheet" href="static/css/theme.css" />
+    <script>document.documentElement.classList.add("js-motion")</script>
+    <link rel="stylesheet" href="static/css/theme.css?v=4" />
 
     <style>
       body {
@@ -40,20 +42,14 @@
       h3 {
         font-family: "Poppins", sans-serif;
       }
-      @keyframes pulse {
-        0%,
-        100% {
-          box-shadow: 0 0 0 rgba(0, 0, 0, 0.05);
-        }
-        50% {
-          box-shadow: 0 0 14px rgba(0, 139, 148, 0.15);
-        }
+      .page-hero {
+        border-radius: 24px;
+        padding: 32px 16px 24px;
       }
-
       nav a {
         padding-bottom: 4px;
         border-bottom: 2px solid transparent;
-        transition: all 0.3s ease;
+        transition: color 0.25s var(--ease-premium, ease), border-color 0.25s var(--ease-premium, ease);
       }
       nav a:hover {
         color: #008b94;
@@ -86,19 +82,19 @@
         transform: scale(0.93);
       }
 
-      .stat-pill {
-        display: inline-flex;
-        align-items: center;
+      /* Event Schedule Navigation Cards */
+      .day-group + .day-group { margin-top: 20px; }
+      .day-group-label {
         font-size: 11px;
         font-weight: 600;
-        color: white;
-        background: rgba(255, 255, 255, 0.14);
-        border: 1px solid rgba(255, 255, 255, 0.25);
-        padding: 5px 14px;
-        border-radius: 20px;
+        color: #d8b45f;
+        margin-bottom: 8px;
+        padding-left: 2px;
       }
-
-      /* Event Schedule Navigation Cards */
+      .day-group-label span {
+        font-weight: 400;
+        color: rgba(226, 246, 247, 0.4);
+      }
       .event-nav-grid {
         display: grid;
         gap: 14px;
@@ -121,6 +117,75 @@
         box-shadow: 0 14px 30px rgba(25, 195, 209, 0.2);
         border-color: rgba(25, 195, 209, 0.4);
       }
+      .hero-countdown {
+        margin: 20px auto 0;
+        padding-top: 16px;
+        max-width: 18rem;
+        border-top: 1px solid rgba(240, 216, 151, 0.22);
+      }
+      #countdown {
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        gap: 6px;
+        margin-top: 8px;
+      }
+      .cd-unit {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        min-width: 3rem;
+      }
+      .cd-num {
+        display: inline-block;
+        font-family: "Poppins", sans-serif;
+        font-size: 1.75rem;
+        line-height: 1;
+        font-variant-numeric: tabular-nums;
+        background: linear-gradient(180deg, #f0d897 0%, #c9a54a 100%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+      }
+      .cd-num.tick { animation: cd-tick 0.45s var(--ease-premium, ease); }
+      @keyframes cd-tick {
+        from { opacity: 0.15; transform: translateY(-6px); }
+      }
+      .cd-label {
+        margin-top: 6px;
+        font-size: 10px;
+        font-weight: 500;
+        color: rgba(226, 246, 247, 0.5);
+      }
+      .cd-sep {
+        font-size: 1.4rem;
+        line-height: 1.15;
+        color: rgba(240, 216, 151, 0.45);
+      }
+
+      /* Five events as one grouped list, not five separate cards */
+      .schedule-list {
+        background: linear-gradient(160deg, rgba(25, 195, 209, 0.07), rgba(7, 20, 24, 0.92));
+        border: 1px solid rgba(56, 212, 222, 0.14);
+        border-radius: 18px;
+        padding: 4px 16px 4px;
+      }
+      .schedule-list .day-group + .day-group { margin-top: 0; }
+      .schedule-list .day-group-label { margin: 14px 0 0; }
+      .schedule-list .event-nav-grid { grid-template-columns: 1fr; gap: 0; }
+      .schedule-list .event-nav-card {
+        background: none;
+        border: 0;
+        border-radius: 0;
+        box-shadow: none;
+        padding: 12px 0;
+        border-bottom: 1px solid rgba(56, 212, 222, 0.1);
+      }
+      .schedule-list .day-group:last-child .event-nav-card:last-child { border-bottom: 0; }
+      .schedule-list .event-nav-card:hover { transform: none; box-shadow: none; }
+
+      .live-cta { border-color: rgba(216, 180, 95, 0.35); }
+      .live-cta:hover { border-color: rgba(216, 180, 95, 0.6); }
       .event-nav-card:active {
         transform: translateY(0) scale(0.99);
       }
@@ -179,10 +244,13 @@
       <div
         class="max-w-6xl mx-auto py-4 px-6 flex justify-between items-center"
       >
-        <span
-          class="text-lg lg:text-xl font-extrabold tracking-wide lg:tracking-widest text-[#008B94] uppercase shrink-0"
-          >Adage Day 2026</span
-        >
+        <a href="index.html" class="flex items-center gap-2.5 shrink-0">
+          <img src="static/images/25-JGS.png" alt="Adage Day 2026" class="h-9 w-auto" />
+          <span
+            class="brand-wordmark text-lg lg:text-xl font-extrabold tracking-[0.15em] lg:tracking-[0.2em] uppercase"
+            ><span class="text-white">Adage</span> <span class="text-[#19c3d1]">Day 2026</span></span
+          >
+        </a>
         <nav class="flex gap-3 lg:gap-6 text-xs lg:text-sm font-medium">
           <a href="index.html" class="nav-active">Home</a>
           <a href="message.html">Message</a>
@@ -197,86 +265,117 @@
     <main class="pb-24">
       <!-- Hero Section -->
       <section
-        class="relative text-center py-14 px-6 bg-gradient-to-b from-[#063940] via-[#00838d] to-[#02161a] text-white rounded-b-3xl shadow-xl overflow-hidden"
+        class="relative text-center py-10 md:py-12 px-6 text-white rounded-b-3xl shadow-xl overflow-hidden"
+        style="background-image: linear-gradient(to bottom, #020b0d, #04171b, #010607);"
       >
         <!-- Soft Glow Background -->
         <div
-          class="absolute inset-0 opacity-30 blur-3xl"
+          class="absolute inset-0 opacity-25 blur-3xl"
           style="
-            background: radial-gradient(
-              circle at center,
-              #00d4df40,
-              transparent 70%
-            );
+            background: radial-gradient(circle at 50% 30%, rgba(25, 195, 209, 0.3), transparent 55%),
+              radial-gradient(circle at 50% 80%, rgba(216, 180, 95, 0.15), transparent 60%);
           "
         ></div>
 
         <div class="relative z-10">
           <p
-            class="uppercase tracking-[0.25em] text-[11px] opacity-95 mb-5 font-medium"
+            class="uppercase tracking-[0.3em] text-xs text-white mb-6 font-bold"
           >
             Adage Day 2026
           </p>
 
-          <!-- Logo Card -->
-          <div
-            class="mx-auto w-52 p-4 rounded-2xl bg-white border border-[#19c3d1]/30 shadow-[0_8px_30px_rgba(25,195,209,0.35)] transition hover:scale-105 duration-300"
-          >
+          <!-- Logo -->
+          <div class="relative mx-auto w-64 md:w-80">
             <img
-              src="static/images/logo.png"
-              class="w-full h-auto"
+              src="static/images/25-JGS.png"
+              class="hero-logo-glow relative w-full h-auto"
               alt="Adage Logo"
             />
+            <div class="logo-chrome-overlay"></div>
+            <span class="logo-flare-left"></span>
           </div>
 
-          <p class="mt-6 text-sm opacity-95 font-medium tracking-wide">
-            Celebrating 25 Years of Adage
+          <p class="mt-7 text-xl md:text-2xl font-extrabold tracking-tight">
+            Celebrating 25 Years of
+            <span class="text-[#7fe9ef]" style="text-shadow: 0 0 22px rgba(127, 233, 239, 0.55);">Adage</span>
           </p>
 
-          <p class="text-xs opacity-75 mt-1">28–30 November 2026</p>
+          <p class="text-sm text-white/80 mt-1.5">28–30 November 2026</p>
 
-          <div class="flex flex-wrap justify-center gap-2 mt-4">
-            <span class="stat-pill">25 Years</span>
-            <span class="stat-pill">3 Days</span>
-            <span class="stat-pill">6 Teams</span>
+          <!-- Countdown -->
+          <div id="countdownCard" class="hero-countdown">
+            <p id="countdownLabel" class="text-xs text-gray-500">Countdown to Adage Day</p>
+            <h2 id="countdown" class="text-xl font-bold text-[#008B94] mt-1"></h2>
+            <p id="countdownSub" class="text-[11px] text-gray-400">
+              Days • Hours • Minutes • Seconds
+            </p>
           </div>
         </div>
       </section>
 
-      <!-- Countdown -->
-      <div
-        class="text-center mt-6 max-w-xs mx-auto p-4 bg-white rounded-xl shadow-sm"
-      >
-        <p class="text-xs text-gray-500">Countdown to Adage Day</p>
-        <h2 id="countdown" class="text-xl font-bold text-[#008B94] mt-1"></h2>
-        <p class="text-[11px] text-gray-400">
-          Days • Hours • Minutes • Seconds
-        </p>
-      </div>
-
       <script>
-        const eventDate = new Date("2026-11-28T05:00:00").getTime();
-        setInterval(() => {
+        const eventStart = new Date("2026-11-28T05:00:00").getTime();
+        const eventEnd = new Date("2026-12-01T00:00:00").getTime();
+        const countdownEl = document.getElementById("countdown");
+        const labelEl = document.getElementById("countdownLabel");
+        const subEl = document.getElementById("countdownSub");
+        const UNITS = ["Days", "Hours", "Minutes", "Seconds"];
+        let digits = null;
+
+        function showMessage(label, message, sub) {
+          digits = null;
+          labelEl.textContent = label;
+          countdownEl.innerText = message;
+          subEl.textContent = sub;
+          subEl.hidden = false;
+        }
+
+        function tick() {
           const now = new Date().getTime();
-          const diff = eventDate - now;
-          if (diff > 0) {
-            const d = Math.floor(diff / (1000 * 60 * 60 * 24));
-            const h = Math.floor(
-              (diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
-            );
-            const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-            const s = Math.floor((diff % (1000 * 60)) / 1000);
-            document.getElementById(
-              "countdown"
-            ).innerText = `${d}d : ${h}h : ${m}m : ${s}s`;
+          if (now >= eventEnd) {
+            showMessage("Adage Day 2026", "🎉 That's a wrap!", "See you next year");
+            return true;
           }
-        }, 1000);
+          if (now >= eventStart) {
+            showMessage("Happening now", "🎊 Adage Day is live!", "Check Live Status for today's results");
+            return false;
+          }
+          if (!digits) {
+            countdownEl.innerHTML = UNITS.map(
+              (u) => `<span class="cd-unit"><span class="cd-num">00</span><span class="cd-label">${u}</span></span>`
+            ).join('<span class="cd-sep">:</span>');
+            digits = countdownEl.querySelectorAll(".cd-num");
+            subEl.hidden = true;
+          }
+          const diff = eventStart - now;
+          const values = [
+            Math.floor(diff / (1000 * 60 * 60 * 24)),
+            Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
+            Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60)),
+            Math.floor((diff % (1000 * 60)) / 1000),
+          ];
+          values.forEach((v, i) => {
+            const text = String(v).padStart(2, "0");
+            if (digits[i].textContent === text) return;
+            digits[i].textContent = text;
+            digits[i].classList.remove("tick");
+            void digits[i].offsetWidth; // restart the tick animation
+            digits[i].classList.add("tick");
+          });
+          return false;
+        }
+
+        if (!tick()) {
+          const timer = setInterval(() => {
+            if (tick() && new Date().getTime() >= eventEnd) clearInterval(timer);
+          }, 1000);
+        }
       </script>
 
       <!-- Message Highlight -->
-      <a href="message.html" class="block mt-8 max-w-lg mx-auto">
+      <a href="message.html" class="block mt-6 max-w-2xl mx-auto px-4">
         <div
-          class="flex items-center gap-4 p-4 bg-gradient-to-r from-[#0d262b] to-[#0a1d21] rounded-xl shadow-md hover:shadow-lg transition border border-[#19c3d1]/40 animate-[pulse_4s_ease-in-out_infinite]"
+          class="flex items-center gap-4 p-4 bg-gradient-to-r from-[#0d262b] to-[#0a1d21] rounded-xl shadow-md hover:shadow-lg transition-shadow border border-[#19c3d1]/40"
         >
           <img
             src="static/images/md_photo.png"
@@ -293,100 +392,91 @@
         </div>
       </a>
 
+      <div class="max-w-2xl mx-auto px-4 mt-6">
+        <a href="live_status.html" class="event-nav-card live-cta">
+          <div class="event-nav-icon bg-[#FFF7E5] text-[#C9A54A]"><span class="material-icons" style="font-size: 22px">leaderboard</span></div>
+          <div class="event-nav-info">
+            <p class="event-nav-title">Team Live Status & Rankings</p>
+            <p class="event-nav-date">View real-time event winners & team standings</p>
+          </div>
+          <span class="material-icons event-nav-arrow">arrow_forward_ios</span>
+        </a>
+      </div>
+
       <!-- Event Schedule Navigation -->
-      <section class="max-w-4xl mx-auto px-4 mt-10">
+      <section class="max-w-2xl mx-auto px-4 mt-10">
         <div class="flex items-center justify-between mb-4 px-1">
           <h2 class="text-lg font-semibold text-gray-800">Event Schedule</h2>
           <span class="text-[11px] text-gray-400">Tap an event to view details</span>
         </div>
 
-        <div class="event-nav-grid">
-          <a
-            href="schedule.html?day=1&section=sportsSchedule"
-            class="event-nav-card"
-          >
-            <div class="event-nav-icon bg-[#E6F8F9] text-[#008B94]">⚽</div>
-            <div class="event-nav-info">
-              <p class="event-nav-title">Sports Day</p>
-              <p class="event-nav-date">28 Nov • Morning</p>
-            </div>
-            <span class="material-icons event-nav-arrow">arrow_forward_ios</span>
-          </a>
+        <div class="schedule-list">
+        <div class="day-group">
+          <p class="day-group-label">Day 1 <span>· 28 Nov</span></p>
+          <div class="event-nav-grid">
+            <a href="schedule.html?day=1&section=sportsSchedule" class="event-nav-card">
+              <div class="event-nav-icon bg-[#E6F8F9] text-[#008B94]"><span class="material-icons" style="font-size: 22px">sports_soccer</span></div>
+              <div class="event-nav-info">
+                <p class="event-nav-title">Sports Day</p>
+                <p class="event-nav-date">28 Nov • Morning</p>
+              </div>
+              <span class="material-icons event-nav-arrow">arrow_forward_ios</span>
+            </a>
 
-          <a
-            href="schedule.html?day=1&section=awardsSchedule"
-            class="event-nav-card"
-          >
-            <div class="event-nav-icon bg-[#FFF7E5] text-[#C9A54A]">🏆</div>
-            <div class="event-nav-info">
-              <p class="event-nav-title">Awards Night — Day 1</p>
-              <p class="event-nav-date">28 Nov • Evening</p>
-            </div>
-            <span class="material-icons event-nav-arrow">arrow_forward_ios</span>
-          </a>
+            <a href="schedule.html?day=1&section=awardsSchedule" class="event-nav-card">
+              <div class="event-nav-icon bg-[#FFF7E5] text-[#C9A54A]"><span class="material-icons" style="font-size: 22px">emoji_events</span></div>
+              <div class="event-nav-info">
+                <p class="event-nav-title">Game Night</p>
+                <p class="event-nav-date">28 Nov • Evening</p>
+              </div>
+              <span class="material-icons event-nav-arrow">arrow_forward_ios</span>
+            </a>
+          </div>
+        </div>
 
-          <a
-            href="schedule.html?day=2&section=photoSchedule"
-            class="event-nav-card"
-          >
-            <div class="event-nav-icon bg-[#E6F8F9] text-[#008B94]">📸</div>
-            <div class="event-nav-info">
-              <p class="event-nav-title">Photoshoot</p>
-              <p class="event-nav-date">29 Nov • Morning</p>
-            </div>
-            <span class="material-icons event-nav-arrow">arrow_forward_ios</span>
-          </a>
+        <div class="day-group">
+          <p class="day-group-label">Day 2 <span>· 29 Nov</span></p>
+          <div class="event-nav-grid">
+            <a href="schedule.html?day=2&section=photoSchedule" class="event-nav-card">
+              <div class="event-nav-icon bg-[#E6F8F9] text-[#008B94]"><span class="material-icons" style="font-size: 22px">photo_camera</span></div>
+              <div class="event-nav-info">
+                <p class="event-nav-title">Photoshoot</p>
+                <p class="event-nav-date">29 Nov • Morning</p>
+              </div>
+              <span class="material-icons event-nav-arrow">arrow_forward_ios</span>
+            </a>
 
-          <a
-            href="schedule.html?day=2&section=awardsScheduleDay2"
-            class="event-nav-card"
-          >
-            <div class="event-nav-icon bg-[#FFF7E5] text-[#C9A54A]">🏆</div>
-            <div class="event-nav-info">
-              <p class="event-nav-title">Awards Night — Day 2</p>
-              <p class="event-nav-date">29 Nov • Evening</p>
-            </div>
-            <span class="material-icons event-nav-arrow">arrow_forward_ios</span>
-          </a>
+            <a href="schedule.html?day=2&section=awardsScheduleDay2" class="event-nav-card">
+              <div class="event-nav-icon bg-[#FFF7E5] text-[#C9A54A]"><span class="material-icons" style="font-size: 22px">emoji_events</span></div>
+              <div class="event-nav-info">
+                <p class="event-nav-title">Awards Night</p>
+                <p class="event-nav-date">29 Nov • Evening</p>
+              </div>
+              <span class="material-icons event-nav-arrow">arrow_forward_ios</span>
+            </a>
+          </div>
+        </div>
 
-          <a
-            href="schedule.html?day=3&section=galaSchedule"
-            class="event-nav-card"
-          >
-            <div class="event-nav-icon bg-[#FFF7E5] text-[#C9A54A]">🎉</div>
-            <div class="event-nav-info">
-              <p class="event-nav-title">Gala Night</p>
-              <p class="event-nav-date">30 Nov • Evening</p>
-            </div>
-            <span class="material-icons event-nav-arrow">arrow_forward_ios</span>
-          </a>
+        <div class="day-group">
+          <p class="day-group-label">Day 3 <span>· 30 Nov</span></p>
+          <div class="event-nav-grid">
+            <a href="schedule.html?day=3&section=galaSchedule" class="event-nav-card">
+              <div class="event-nav-icon bg-[#FFF7E5] text-[#C9A54A]"><span class="material-icons" style="font-size: 22px">celebration</span></div>
+              <div class="event-nav-info">
+                <p class="event-nav-title">Gala Night</p>
+                <p class="event-nav-date">30 Nov • Evening</p>
+              </div>
+              <span class="material-icons event-nav-arrow">arrow_forward_ios</span>
+            </a>
+          </div>
+        </div>
         </div>
       </section>
 
       <!-- 🌟 Live Status Section -->
-      <a href="live_status.html" class="block max-w-lg mx-auto mt-10">
-        <div
-          class="bg-gradient-to-r from-[#241c0c] to-[#160f06] border border-[#d8b45f]/35 shadow-md rounded-2xl p-5 flex items-center justify-between hover:shadow-lg hover:scale-[1.01] transition-all duration-300"
-        >
-          <div class="flex items-center gap-4">
-            <span class="text-4xl">📢</span>
-            <div>
-              <p class="text-sm font-semibold text-[#f0d897]">
-                Team Live Status & Rankings
-              </p>
-              <p class="text-xs text-gray-600">
-                View real-time event winners & team standings
-              </p>
-            </div>
-          </div>
-          <span class="material-icons text-[#f0d897] text-3xl"
-            >arrow_forward_ios</span
-          >
-        </div>
-      </a>
 
       <!-- Latest Announcements -->
-      <section class="max-w-lg mx-auto px-4 mt-10 mb-20">
+      <section class="max-w-2xl mx-auto px-4 mt-10 mb-20">
         <h2 class="text-lg font-semibold text-gray-800 mb-3">Latest Updates</h2>
 
         <div id="latestAnnouncements"></div>
@@ -430,10 +520,10 @@
     </nav>
 
     <!-- Footer -->
-    <footer class="text-center py-5 text-xs mt-12 border-t border-gray-200">
-      © 2026 Adage Automation Pvt. Ltd
-      <br />
-      25 JUST GETTING STARTED
+    <footer class="site-footer">
+      <img src="static/images/25-JGS.png" alt="" class="site-footer-logo" />
+      <p class="site-footer-tagline">25 &amp; JUST GETTING STARTED</p>
+      <p class="site-footer-copy">© 2026 Adage Automation Private Limited</p>
     </footer>
 
     <script type="module">
@@ -441,5 +531,6 @@
       renderAnnouncements("latestAnnouncements", { max: 2 });
     </script>
     <script src="static/js/install-prompt.js" defer></script>
+    <script src="static/js/motion.js" defer></script>
   </body>
 </html>

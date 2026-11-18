@@ -32,8 +32,19 @@ function formatWhen(createdAt) {
 
 // Renders a live-updating announcement feed into #<containerId>.
 // Pass { max } to cap how many show (e.g. index.html's "Latest Updates" teaser).
+function skeletonCard() {
+  return `
+    <div class="p-4 bg-white rounded-xl border border-gray-100 shadow-sm mt-3 first:mt-0">
+      <div class="skeleton h-3 w-16 rounded-full mb-3"></div>
+      <div class="skeleton h-3 w-3/4 rounded mb-2"></div>
+      <div class="skeleton h-3 w-1/2 rounded"></div>
+    </div>`;
+}
+
 export function renderAnnouncements(containerId, { max } = {}) {
   const container = document.getElementById(containerId);
+  container.innerHTML = skeletonCard().repeat(max || 2);
+
   let q = query(collection(db, "announcements"), orderBy("createdAt", "desc"));
   if (max) q = query(q, fsLimit(max));
 
@@ -49,7 +60,7 @@ export function renderAnnouncements(containerId, { max } = {}) {
         const style = CATEGORY_STYLES[data.category] || CATEGORY_STYLES.general;
         const when = formatWhen(data.createdAt);
         return `
-          <div class="p-4 bg-white rounded-xl border border-gray-100 border-l-4 ${style.border} shadow-sm hover:shadow-md transition mt-3 first:mt-0">
+          <div class="p-4 bg-white rounded-xl border border-gray-100 border-l-4 ${style.border} shadow-sm hover:shadow-md transition-shadow mt-3 first:mt-0">
             <div class="flex justify-between items-center mb-1">
               <span class="text-[10px] font-medium px-2 py-1 rounded-full ${style.badge}">${style.label}</span>
               ${when ? `<span class="text-[11px] text-gray-400">${when}</span>` : ""}

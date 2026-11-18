@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>Outstation Team Information — Adage Day 2026</title>
+    <title>Outstation Team Information, Adage Day 2026</title>
     <meta
       name="viewport"
       content="width=device-width, initial-scale=1.0, viewport-fit=cover"
@@ -19,11 +19,13 @@
       rel="stylesheet"
     />
     <link rel="manifest" href="manifest.json" />
-    <link rel="apple-touch-icon" href="static/images/logo.png" />
+    <link rel="icon" type="image/png" href="static/images/25-JGS-icon.png" />
+    <link rel="apple-touch-icon" href="static/images/25-JGS-icon.png" />
     <meta name="theme-color" content="#061820" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="mobile-web-app-capable" content="yes" />
-    <link rel="stylesheet" href="static/css/theme.css" />
+    <script>document.documentElement.classList.add("js-motion")</script>
+    <link rel="stylesheet" href="static/css/theme.css?v=4" />
 
     <style>
       body {
@@ -40,7 +42,7 @@
 
       nav a {
         border-bottom: 2px solid transparent;
-        transition: all 0.3s ease;
+        transition: color 0.25s var(--ease-premium, ease), border-color 0.25s var(--ease-premium, ease);
       }
       nav a:hover {
         color: #008b94;
@@ -107,10 +109,13 @@
       <div
         class="max-w-6xl mx-auto py-4 px-6 flex justify-between items-center"
       >
-        <span
-          class="text-lg lg:text-xl font-extrabold tracking-wide lg:tracking-widest text-[#008B94] uppercase shrink-0"
-          >Adage Day 2026</span
-        >
+        <a href="index.html" class="flex items-center gap-2.5 shrink-0">
+          <img src="static/images/25-JGS.png" alt="Adage Day 2026" class="h-9 w-auto" />
+          <span
+            class="brand-wordmark text-lg lg:text-xl font-extrabold tracking-[0.15em] lg:tracking-[0.2em] uppercase"
+            ><span class="text-white">Adage</span> <span class="text-[#19c3d1]">Day 2026</span></span
+          >
+        </a>
         <nav class="flex gap-3 lg:gap-6 text-xs lg:text-sm font-medium">
           <a href="index.html">Home</a>
           <a href="message.html">Message</a>
@@ -122,18 +127,16 @@
       </div>
     </header>
 
-    <section class="max-w-3xl mx-auto px-5 py-10 animate-fadeIn">
+    <section class="max-w-2xl mx-auto px-4 py-8 animate-fadeIn">
       <!-- Page Header -->
       <div class="page-hero text-center mb-8">
+        <span class="eyebrow">For Our Guests</span>
         <h1
-          class="text-3xl font-bold text-[#008B94] flex items-center justify-center gap-2"
+          class="heading-tight font-bold text-[#008B94]"
         >
-          <span class="material-icons">flight_takeoff</span>
-          Outstation Team Information
+          <span class="material-icons align-middle mr-1" style="font-size: 0.85em;">flight_takeoff</span>
+          Outstation Team <span class="accent">Information</span>
         </h1>
-        <p class="text-xs text-gray-600">
-          Travel • Accommodation • Pickup • Assistance
-        </p>
         <div class="mt-2 w-20 h-1 bg-[#C9A54A] mx-auto rounded-full"></div>
       </div>
 
@@ -148,7 +151,7 @@
           </h3>
 
           <div
-            class="overflow-x-auto rounded-lg border border-gray-100 shadow-sm"
+            class="overflow-x-auto"
           >
             <table class="w-full text-[12px] text-center border-collapse">
               <thead class="bg-[#008B94] text-white uppercase tracking-wide">
@@ -239,7 +242,7 @@
             Accommodation Details
           </h3>
 
-          <div class="bg-white p-4 rounded-lg border border-gray-100 shadow-sm">
+          <div>
             <p class="text-sm text-gray-800 leading-relaxed mb-3">
               <strong class="text-[#008B94]">Hotel:</strong>
               <span class="font-medium">Nanu Beach Resort & Spa, Goa</span>
@@ -248,7 +251,7 @@
             <a
               href="https://www.google.com/maps/dir//Nanu+Beach+Resort+%26+Spa,+Betalbatim+Beach+Salcette+near+Colva,+Beach,+Betalbatim,+Goa+403713/@15.368192,73.9387742,14z/data=!4m8!4m7!1m0!1m5!1m1!1s0x3bbfb69867f23ef1:0xbbb78dbf38eab4e9!2m2!1d73.9114139!2d15.2929009?entry=ttu&g_ep=EgoyMDI2MTExMC4wIKXMDSoASAFQAw%3D%3D"
               target="_blank"
-              class="inline-flex items-center gap-2 px-4 py-2 text-xs bg-[#008B94]/15 text-[#008B94] rounded-full hover:bg-[#008B94] hover:text-white transition duration-300 shadow-sm"
+              class="inline-flex items-center gap-2 px-4 py-2 text-xs bg-[#008B94]/15 text-[#008B94] rounded-full hover:bg-[#008B94] hover:text-white transition-colors duration-300 shadow-sm"
             >
               <span class="material-icons text-sm">navigation</span>
               Open in Google Maps
@@ -285,9 +288,12 @@
     </nav>
 
     <!-- Footer -->
-    <footer class="text-center py-5 text-xs mt-12 border-t border-gray-200">
-      © 2026 Adage Automation Pvt. Ltd<br />25 JUST GETTING STARTED
+    <footer class="site-footer">
+      <img src="static/images/25-JGS.png" alt="" class="site-footer-logo" />
+      <p class="site-footer-tagline">25 &amp; JUST GETTING STARTED</p>
+      <p class="site-footer-copy">© 2026 Adage Automation Private Limited</p>
     </footer>
     <script src="static/js/install-prompt.js" defer></script>
+    <script src="static/js/motion.js" defer></script>
   </body>
 </html>

@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>Live Status — Adage Day 2026</title>
+    <title>Live Status, Adage Day 2026</title>
     <meta
       name="viewport"
       content="width=device-width, initial-scale=1.0, viewport-fit=cover"
@@ -17,11 +17,13 @@
       rel="stylesheet"
     />
     <link rel="manifest" href="manifest.json" />
-    <link rel="apple-touch-icon" href="static/images/logo.png" />
+    <link rel="icon" type="image/png" href="static/images/25-JGS-icon.png" />
+    <link rel="apple-touch-icon" href="static/images/25-JGS-icon.png" />
     <meta name="theme-color" content="#061820" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="mobile-web-app-capable" content="yes" />
-    <link rel="stylesheet" href="static/css/theme.css" />
+    <script>document.documentElement.classList.add("js-motion")</script>
+    <link rel="stylesheet" href="static/css/theme.css?v=4" />
 
     <style>
       body {
@@ -29,7 +31,7 @@
         font-family: system-ui, sans-serif;
         padding-bottom: 90px;
         margin: 0;
-        overflow-x: hidden;
+        overflow-x: clip;
       }
       h1,
       h2,
@@ -51,7 +53,7 @@
         font-weight: 600;
       }
       .fourth {
-        color: #7c3aed;
+        color: #cfe3e5;
         font-weight: 600;
       }
 
@@ -67,24 +69,6 @@
         padding: 3px 10px;
         border-radius: 20px;
       }
-      .live-dot {
-        width: 7px;
-        height: 7px;
-        border-radius: 50%;
-        background: #1a9c5c;
-        animation: live-pulse 1.6s ease-in-out infinite;
-      }
-      @keyframes live-pulse {
-        0%, 100% {
-          opacity: 1;
-          box-shadow: 0 0 0 0 rgba(26, 156, 92, 0.5);
-        }
-        50% {
-          opacity: 0.6;
-          box-shadow: 0 0 0 4px rgba(26, 156, 92, 0);
-        }
-      }
-
       .event-card,
       .leader-card {
         background: white;
@@ -157,13 +141,13 @@
 
       tbody tr:hover {
         background-color: #f8f8f8;
-        transition: all 0.2s ease;
+        transition: background-color 0.2s var(--ease-premium, ease);
       }
 
       nav a {
         padding-bottom: 4px;
         border-bottom: 2px solid transparent;
-        transition: all 0.3s ease;
+        transition: color 0.25s var(--ease-premium, ease), border-color 0.25s var(--ease-premium, ease);
       }
       nav a:hover {
         color: #008b94;
@@ -214,10 +198,13 @@
       <div
         class="max-w-6xl mx-auto py-4 px-6 flex justify-between items-center"
       >
-        <span
-          class="text-lg lg:text-xl font-extrabold tracking-wide lg:tracking-widest text-[#008B94] uppercase shrink-0"
-          >Adage Day 2026</span
-        >
+        <a href="index.html" class="flex items-center gap-2.5 shrink-0">
+          <img src="static/images/25-JGS.png" alt="Adage Day 2026" class="h-9 w-auto" />
+          <span
+            class="brand-wordmark text-lg lg:text-xl font-extrabold tracking-[0.15em] lg:tracking-[0.2em] uppercase"
+            ><span class="text-white">Adage</span> <span class="text-[#19c3d1]">Day 2026</span></span
+          >
+        </a>
         <nav class="flex gap-3 lg:gap-6 text-xs lg:text-sm font-medium">
           <a href="index.html">Home</a>
           <a href="message.html">Message</a>
@@ -230,15 +217,16 @@
     </header>
 
     <!-- Main Content -->
-    <section class="max-w-3xl mx-auto px-4 py-10">
+    <section class="max-w-2xl mx-auto px-4 py-8">
       <div class="page-hero text-center mb-8">
-        <h1 class="text-3xl font-bold text-[#008B94]">Live Status</h1>
+        <span class="eyebrow">Live Now</span>
+        <h1 class="text-3xl font-bold text-[#008B94]">Live <span class="accent">Status</span></h1>
         <p class="text-xs text-gray-600">
           Updated Event Results & Team Prize Standings
         </p>
-        <span class="live-badge mt-2"><span class="live-dot"></span>Live</span>
         <div class="mt-2 w-20 h-1 bg-[#C9A54A] mx-auto rounded-full"></div>
         <div class="flex flex-wrap justify-center gap-2 mt-4">
+          <span class="live-badge">Live</span>
           <span class="stat-pill">6 Events</span>
           <span class="stat-pill">6 Teams Competing</span>
         </div>
@@ -259,7 +247,7 @@
           </thead>
           <tbody id="resultsBody">
             <tr>
-              <td colspan="5" class="text-gray-400 italic py-3">Loading results…</td>
+              <td colspan="5" class="py-3"><span class="skeleton h-3 w-32 mx-auto rounded"></span></td>
             </tr>
           </tbody>
         </table>
@@ -278,7 +266,11 @@
                 <th>Prize Money</th>
               </tr>
             </thead>
-            <tbody id="prizeDistributionBody"></tbody>
+            <tbody id="prizeDistributionBody">
+              <tr>
+                <td colspan="5" class="py-3"><span class="skeleton h-3 w-32 mx-auto rounded"></span></td>
+              </tr>
+            </tbody>
             <tfoot id="prizeDistributionTotals"></tfoot>
           </table>
         </div>
@@ -339,14 +331,15 @@
     </nav>
 
     <!-- Footer -->
-    <footer class="text-center py-5 text-xs mt-12 border-t border-gray-200">
-      © 2026 Adage Automation Pvt. Ltd
-      <br />
-      25 JUST GETTING STARTED
+    <footer class="site-footer">
+      <img src="static/images/25-JGS.png" alt="" class="site-footer-logo" />
+      <p class="site-footer-tagline">25 &amp; JUST GETTING STARTED</p>
+      <p class="site-footer-copy">© 2026 Adage Automation Private Limited</p>
     </footer>
 
-    <!-- Live results from Firestore — see static/js/live-status.js and LIVE_SCORES.md -->
+    <!-- Live results from Firestore, see static/js/live-status.js and LIVE_SCORES.md -->
     <script type="module" src="static/js/live-status.js"></script>
     <script src="static/js/install-prompt.js" defer></script>
+    <script src="static/js/motion.js" defer></script>
   </body>
 </html>

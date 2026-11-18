@@ -3,23 +3,25 @@
 
 <head>
   <meta charset="UTF-8" />
-  <title>Event Contact Directory — Adage Day 2026</title>
+  <title>Event Contact Directory, Adage Day 2026</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="manifest" href="manifest.json" />
-  <link rel="apple-touch-icon" href="static/images/logo.png" />
+  <link rel="icon" type="image/png" href="static/images/25-JGS-icon.png" />
+  <link rel="apple-touch-icon" href="static/images/25-JGS-icon.png" />
   <meta name="theme-color" content="#061820" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="mobile-web-app-capable" content="yes" />
-  <link rel="stylesheet" href="static/css/theme.css" />
+  <script>document.documentElement.classList.add("js-motion")</script>
+  <link rel="stylesheet" href="static/css/theme.css?v=4" />
 
   <style>
     body { font-family: system-ui, sans-serif; background-color: #FFF8F3; padding-bottom: 80px; }
     h1, h2, h3 { font-family: 'Poppins', sans-serif; }
 
-    nav a { border-bottom: 2px solid transparent; transition: all 0.3s ease; }
+    nav a { border-bottom: 2px solid transparent; transition: color 0.25s var(--ease-premium, ease), border-color 0.25s var(--ease-premium, ease); }
     nav a:hover { color: #008B94; border-bottom: 2px solid #008B94; }
     .nav-active { color: #f0d897 !important; font-weight: 600; text-shadow: 0 0 14px rgba(216, 180, 95, 0.35); }
     .page-hero { background: radial-gradient(circle at 50% 0%, rgba(25, 195, 209, 0.12) 0%, rgba(25, 195, 209, 0) 70%); border-radius: 24px; padding: 28px 16px 16px; }
@@ -59,7 +61,10 @@
   <!-- Header (Desktop) -->
   <header class="hidden md:block shadow-sm bg-white">
     <div class="max-w-6xl mx-auto py-4 px-6 flex justify-between items-center">
-      <span class="text-lg lg:text-xl font-extrabold tracking-wide lg:tracking-widest text-[#008B94] uppercase shrink-0">Adage Day 2026</span>
+      <a href="index.html" class="flex items-center gap-2.5 shrink-0">
+        <img src="static/images/25-JGS.png" alt="Adage Day 2026" class="h-9 w-auto" />
+        <span class="brand-wordmark text-lg lg:text-xl font-extrabold tracking-[0.15em] lg:tracking-[0.2em] uppercase"><span class="text-white">Adage</span> <span class="text-[#19c3d1]">Day 2026</span></span>
+      </a>
       <nav class="flex gap-3 lg:gap-6 text-xs lg:text-sm font-medium">
         <a href="index.html">Home</a>
         <a href="message.html">Message</a>
@@ -71,12 +76,12 @@
     </div>
   </header>
 
-<section class="max-w-3xl mx-auto px-5 py-10 animate-fadeIn">
+<section class="max-w-2xl mx-auto px-4 py-8 animate-fadeIn">
 
   <!-- Page Header -->
   <div class="page-hero text-center mb-8">
-    <h2 class="text-3xl font-bold text-[#008B94]">Event Contact Directory</h2>
-    <p class="text-xs text-gray-600">Travel • Stay • Support • Transportation • Assistance</p>
+    <span class="eyebrow">Need Help?</span>
+    <h2 class="text-3xl font-bold text-[#008B94]">Event Contact <span class="accent">Directory</span></h2>
     <div class="mt-2 w-20 h-1 bg-[#C9A54A] mx-auto rounded-full"></div>
   </div>
 
@@ -84,7 +89,7 @@
   <div class="space-y-6">
 
     <!-- Travel -->
-    <div class="bg-white rounded-2xl shadow-md p-6 hover:shadow-lg transition border border-gray-100">
+    <div class="bg-white rounded-2xl shadow-md p-6 hover:shadow-lg transition-shadow border border-gray-100">
       <div class="flex items-center gap-2 mb-4">
         <span class="material-icons text-[#008B94]">commute</span>
         <h3 class="text-lg font-bold">Travel</h3>
@@ -92,7 +97,7 @@
       <div class="space-y-3">
         <div class="flex items-center justify-between py-3 border-b">
           <div class="flex items-center gap-3">
-            <div class="w-10 h-10 flex items-center justify-center rounded-full bg-[#E0F3F3] text-[#008B94] font-bold">D</div>
+            <div class="w-10 h-10 flex items-center justify-center rounded-full bg-[#E0F3F3] text-[#008B94] font-bold">S</div>
             <p class="font-semibold text-sm">Sagar S</p>
           </div>
           <div class="flex gap-3 text-lg">
@@ -103,7 +108,7 @@
 
         <div class="flex items-center justify-between py-3 border-b">
           <div class="flex items-center gap-3">
-            <div class="w-10 h-10 flex items-center justify-center rounded-full bg-[#E0F3F3] text-[#008B94] font-bold">P</div>
+            <div class="w-10 h-10 flex items-center justify-center rounded-full bg-[#E0F3F3] text-[#008B94] font-bold">D</div>
             <p class="font-semibold text-sm">Diwan Chand</p>
           </div>
           <div class="flex gap-3 text-lg">
@@ -114,7 +119,7 @@
 
         <div class="flex items-center justify-between py-3 border-b">
           <div class="flex items-center gap-3">
-            <div class="w-10 h-10 flex items-center justify-center rounded-full bg-[#E0F3F3] text-[#008B94] font-bold">S</div>
+            <div class="w-10 h-10 flex items-center justify-center rounded-full bg-[#E0F3F3] text-[#008B94] font-bold">R</div>
             <p class="font-semibold text-sm">Ramesh Bhogle</p>
           </div>
           <div class="flex gap-3 text-lg">
@@ -137,7 +142,7 @@
     </div>
 
     <!-- Local Transport -->
-    <div class="bg-white rounded-2xl shadow-md p-6 hover:shadow-lg transition border border-gray-100">
+    <div class="bg-white rounded-2xl shadow-md p-6 hover:shadow-lg transition-shadow border border-gray-100">
       <div class="flex items-center gap-2 mb-4">
         <span class="material-icons text-[#008B94]">local_taxi</span>
         <h3 class="text-lg font-bold">Local Transportation</h3>
@@ -179,7 +184,7 @@
     </div>
 
     <!-- Accommodation -->
-    <div class="bg-white rounded-2xl shadow-md p-6 hover:shadow-lg transition border border-gray-100">
+    <div class="bg-white rounded-2xl shadow-md p-6 hover:shadow-lg transition-shadow border border-gray-100">
       <div class="flex items-center gap-2 mb-4">
         <span class="material-icons text-[#008B94]">hotel</span>
         <h3 class="text-lg font-bold">Accommodation</h3>
@@ -200,7 +205,7 @@
     </div>
 
     <!-- Other Assistance -->
-    <div class="bg-white rounded-2xl shadow-md p-6 hover:shadow-lg transition border border-gray-100">
+    <div class="bg-white rounded-2xl shadow-md p-6 hover:shadow-lg transition-shadow border border-gray-100">
       <div class="flex items-center gap-2 mb-4">
         <span class="material-icons text-[#008B94]">support_agent</span>
         <h3 class="text-lg font-bold">Any Other Assistance</h3>
@@ -277,11 +282,12 @@
   </nav>
 
   <!-- Footer -->
-  <footer class="text-center py-5 text-xs mt-12 border-t border-gray-200">
-    © 2026 Adage Automation Pvt. Ltd
-    <br/>
-    25 JUST GETTING STARTED
-  </footer>
+  <footer class="site-footer">
+      <img src="static/images/25-JGS.png" alt="" class="site-footer-logo" />
+      <p class="site-footer-tagline">25 &amp; JUST GETTING STARTED</p>
+      <p class="site-footer-copy">© 2026 Adage Automation Private Limited</p>
+    </footer>
   <script src="static/js/install-prompt.js" defer></script>
+  <script src="static/js/motion.js" defer></script>
 </body>
 </html>

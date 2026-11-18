@@ -1,11 +1,11 @@
-# Live Scores & Announcements — Architecture & Setup
+# Live Scores & Announcements , Architecture & Setup
 
 ## The problem (2025)
 
 Last year's results on `live_status.html` (and the announcement cards on `index.html` /
-`announcements.html`) were hardcoded directly in the HTML — any update meant editing a
+`announcements.html`) were hardcoded directly in the HTML , any update meant editing a
 file, committing, and redeploying. Hosting was also on Render's free tier, which spins
-its container down when idle and rate-limits requests — during the event this meant the
+its container down when idle and rate-limits requests , during the event this meant the
 app went unreachable right when people needed it most.
 
 ## What changed for 2026
@@ -17,7 +17,7 @@ Two separate problems, two separate fixes:
    There is no container to spin down.
 2. **Score & announcement updates** → **Firebase Firestore**. A managed, serverless
    database (Google's infra, not a free-tier container either). Reading data is free up
-   to 50,000 reads/day and writes up to 20,000/day — a few hundred people checking a
+   to 50,000 reads/day and writes up to 20,000/day , a few hundred people checking a
    results or announcements page over a weekend doesn't get close to that.
 
 Neither piece has anything that "goes to sleep" or "runs out of requests" the way Render's
@@ -26,19 +26,19 @@ free web service did.
 ## The pieces
 
 ```
-static/js/adage-data.js         — shared TEAMS, TEAM_COLORS, PLACES, EVENTS, and prize distribution
-static/js/firebase-config.js    — your Firebase project's public config (fill in once)
-static/js/firebase-init.js      — initializes the Firebase SDK, exports db + auth
-static/js/live-status.js        — live_status.html: listens to Firestore, renders results live
-static/js/announcements-feed.js — index.html + announcements.html: renders the live announcement feed
-static/js/admin.js              — admin page: sign-in + score entry + post/delete announcements
-static/js/install-prompt.js     — registers sw.js, shows the custom "Install App" banner
-admin.html                      — the admin UI (not linked from public nav — bookmark it)
-live_status.html                — public results, prize distribution, and leaderboard
-announcements.html              — public announcements page (data source changed)
-firestore.rules                 — security rules: anyone can read, only signed-in users can write
-manifest.json                   — PWA manifest (app name, icon, "standalone" display)
-sw.js                           — minimal service worker; required by Chrome before it will
+static/js/adage-data.js         , shared TEAMS, TEAM_COLORS, PLACES, EVENTS, and prize distribution
+static/js/firebase-config.js    , your Firebase project's public config (fill in once)
+static/js/firebase-init.js      , initializes the Firebase SDK, exports db + auth
+static/js/live-status.js        , live_status.html: listens to Firestore, renders results live
+static/js/announcements-feed.js , index.html + announcements.html: renders the live announcement feed
+static/js/admin.js              , admin page: sign-in + score entry + post/delete announcements
+static/js/install-prompt.js     , registers sw.js, shows the custom "Install App" banner
+admin.html                      , the admin UI (not linked from public nav , bookmark it)
+live_status.html                , public results, prize distribution, and leaderboard
+announcements.html              , public announcements page (data source changed)
+firestore.rules                 , security rules: anyone can read, only signed-in users can write
+manifest.json                   , PWA manifest (app name, icon, "standalone" display)
+sw.js                           , minimal service worker; required by Chrome before it will
                                    offer the install prompt at all
 ```
 
@@ -56,7 +56,7 @@ One Firestore collection, `results`, one document per event (doc ID = event id f
 }
 ```
 
-`teams` is an array because places can tie (e.g. two teams sharing 1st) — the leaderboard
+`teams` is an array because places can tie (e.g. two teams sharing 1st) , the leaderboard
 math splits that place's prize money evenly across however many teams are listed, same
 logic the 2025 version used, just driven by Firestore instead of hardcoded `data-team`
 attributes. Team names, colors, places, and per-event prize amounts are defined in
@@ -78,13 +78,13 @@ A second collection, `announcements`, one auto-ID document per announcement:
 }
 ```
 
-`category` is one of `"important" | "reminder" | "general"` — it drives the badge color
+`category` is one of `"important" | "reminder" | "general"` , it drives the badge color
 on the public pages. `index.html` shows the 2 most recent (via `renderAnnouncements(id, { max: 2 })`);
 `announcements.html` shows all of them, newest first. Both use the same
 `static/js/announcements-feed.js` module so the rendering logic only exists once.
 
 Titles/bodies are free text typed by whoever's signed into `admin.html`, so
-`announcements-feed.js` escapes them before inserting into the page — this is the one
+`announcements-feed.js` escapes them before inserting into the page , this is the one
 place in the app where admin-entered text isn't from a fixed list (unlike team names),
 so it's the one place that needs that guard.
 
@@ -92,11 +92,11 @@ so it's the one place that needs that guard.
 
 - **Realtime Database** (Firebase's older sibling) would work too, but Firestore has
   better structured queries and is the one Google recommends for new projects.
-- **Google Sheets + a fetch()** was considered — simpler mentally, but either needs a
+- **Google Sheets + a fetch()** was considered , simpler mentally, but either needs a
   public proxy service (another thing that can go down, same class of risk as last
   year's Render outage) or exposing an API key for a real Sheets API call with no
   real-time updates.
-- **Supabase** is solid but free-tier projects pause after a week of inactivity — fine
+- **Supabase** is solid but free-tier projects pause after a week of inactivity , fine
   between events, but means remembering to "wake it up" beforehand. Firestore has no
   such pause.
 
@@ -106,28 +106,28 @@ Firestore has no built-in UI meant for non-technical users to safely punch in re
 or post updates during a live event. `admin.html` is one small gated page with two
 sections: score entry (check off winning team(s) for each of the four places, review
 the configured prize amount, and hit Save) and announcements (title, message, category,
-Post — plus a Delete button per existing announcement). Prize amounts are controlled
+Post , plus a Delete button per existing announcement). Prize amounts are controlled
 by the shared configuration rather than entered separately for each result. Every write
 shows up on the public pages within a second via Firestore's real-time listeners
-(`onSnapshot`) — no refresh needed on anyone's screen.
+(`onSnapshot`) , no refresh needed on anyone's screen.
 
-### PWA — "Install App" prompt
+### PWA , "Install App" prompt
 
 `manifest.json` + `sw.js` + `static/js/install-prompt.js` let Chrome offer to install
 the site as an app icon on the home screen/desktop, with a custom banner (instead of
-relying on Chrome's easy-to-miss address-bar icon) — registered on every public page
+relying on Chrome's easy-to-miss address-bar icon) , registered on every public page
 except `admin.html` (internal tool, not meant to be installed).
 
 **Important if you ever deploy somewhere other than the exact setup below:** every path
 in those three files must stay *relative* (`"manifest.json"`, `"sw.js"`, start_url `"."`),
 never root-absolute (`"/manifest.json"`). GitHub Pages serves this repo under a sub-path
 (`/AdageDayApp/`, not the domain root), so a root-absolute path silently 404s and the
-service worker/install prompt never show up — this already happened once and was fixed
+service worker/install prompt never show up , this already happened once and was fixed
 by switching everything to relative paths. If you move hosts and the install banner
 stops appearing, check this first.
 
 iOS Safari has no `beforeinstallprompt` API, so the banner only ever appears on Chrome/
-Edge/Android — iOS users still install via Share → Add to Home Screen, just without a
+Edge/Android , iOS users still install via Share → Add to Home Screen, just without a
 popup prompting them.
 
 ---
@@ -139,7 +139,7 @@ Follow these in order. Budget ~30-45 minutes, one-time, done well before the eve
 ### 1. Create the Firebase project
 
 1. Go to https://console.firebase.google.com and sign in with a Google account (use
-   one that whoever maintains this app next year can also access — e.g. a shared
+   one that whoever maintains this app next year can also access , e.g. a shared
    company Google account, not a personal one).
 2. Click **Add project**.
 3. Name it something like `adage-day-2026` → Continue.
@@ -150,7 +150,7 @@ Follow these in order. Budget ~30-45 minutes, one-time, done well before the eve
 
 1. In the left sidebar: **Build → Firestore Database**.
 2. Click **Create database**.
-3. Choose a location close to your users (e.g. `asia-south1` for India) — this
+3. Choose a location close to your users (e.g. `asia-south1` for India) , this
    **cannot be changed later**, so pick carefully.
 4. Start in **production mode** (we'll paste our own rules in step 5).
 5. Click **Create**.
@@ -161,7 +161,7 @@ Follow these in order. Budget ~30-45 minutes, one-time, done well before the eve
 2. Under **Sign-in method**, click **Email/Password**, enable it, Save.
 3. Go to the **Users** tab → **Add user**.
 4. Add one entry per person who'll be on score-entry duty during the event
-   (or a single shared login if that's simpler — e.g.
+   (or a single shared login if that's simpler , e.g.
    `scores@adage-automation.com` with a password you share verbally with the team).
 5. Repeat for as many admins as you want. You can add/remove users here any time,
    no code changes needed.
@@ -171,7 +171,7 @@ Follow these in order. Budget ~30-45 minutes, one-time, done well before the eve
 1. Left sidebar: click the **gear icon → Project settings**.
 2. Scroll to **Your apps** → click the **`</>`** (Web) icon.
 3. Give it a nickname (e.g. `adage-day-web`) → **Register app**.
-   (You can skip the "Firebase Hosting" checkbox — we're using GitHub Pages instead.)
+   (You can skip the "Firebase Hosting" checkbox , we're using GitHub Pages instead.)
 4. It will show a `firebaseConfig` object like:
    ```js
    const firebaseConfig = {
@@ -185,7 +185,7 @@ Follow these in order. Budget ~30-45 minutes, one-time, done well before the eve
    ```
 5. Open `static/js/firebase-config.js` in this repo and replace the `YOUR_...`
    placeholders with these exact values. Save the file.
-   (This is safe to commit — it's a public identifier, not a secret. Real access
+   (This is safe to commit , it's a public identifier, not a secret. Real access
    control is the rules file in the next step.)
 
 ### 5. Apply the security rules
@@ -199,15 +199,20 @@ Follow these in order. Budget ~30-45 minutes, one-time, done well before the eve
 
 ### 6. Test it locally before deploying
 
-Opening `admin.html` by double-clicking the file (`file://...`) will **not** work —
+Opening `admin.html` by double-clicking the file (`file://...`) will **not** work ,
 browsers block ES module imports over `file://`. Serve it over a local HTTP server
 first:
 
 ```bash
 cd AdageDayApp
-python -m http.server 8080
+python -m http.server 8080 --bind 127.0.0.1
 # then open http://localhost:8080/admin.html
 ```
+
+`--bind 127.0.0.1` matters: without it, Python prints `Serving HTTP on :: port 8080
+(http://[::]:8080/) ...` , that's the IPv6 wildcard address, not a real link to open.
+Always type `http://localhost:8080/...` in the browser yourself; don't click or paste
+whatever address the terminal prints.
 
 Walk through once:
 1. Sign in with one of the admin users from step 3.
@@ -215,40 +220,40 @@ Walk through once:
    the configured prize amounts appear beside all four places.
 3. Post a test announcement (title + message + category), click **Post**.
 4. Open `http://localhost:8080/live_status.html`, `index.html`, and `announcements.html`
-   in other tabs — confirm the score, leaderboard, and announcement all appear without
+   in other tabs , confirm the score, leaderboard, and announcement all appear without
    a page refresh.
 5. Open them in an incognito window too, to confirm it works for a signed-out viewer.
 6. Back in `admin.html`, click **Delete** on the test announcement to clean it up.
 
 If nothing shows up: open the browser console (F12) on both pages and check for errors
-— most common causes are a typo in `firebase-config.js` or the rules not published yet.
+, most common causes are a typo in `firebase-config.js` or the rules not published yet.
 
-### 7. Deploy (static hosting — no server, nothing to sleep or rate-limit)
+### 7. Deploy (static hosting , no server, nothing to sleep or rate-limit)
 
-**Option A — GitHub Pages (simplest, you're already on GitHub):**
+**Option A , GitHub Pages (simplest, you're already on GitHub):**
 1. Merge/push this branch's work to the branch you want live (e.g. `main`).
 2. On GitHub: repo → **Settings → Pages**.
 3. Under **Build and deployment → Source**, choose **Deploy from a branch**.
 4. Pick the branch (e.g. `main`) and folder `/ (root)` → Save.
-5. GitHub gives you a URL like `https://<org-or-username>.github.io/AdageDayApp/` —
+5. GitHub gives you a URL like `https://<org-or-username>.github.io/AdageDayApp/` ,
    that's your live site. `admin.html` lives at `.../admin.html`.
 
-**Option B — Cloudflare Pages (unlimited free bandwidth, also simple):**
+**Option B , Cloudflare Pages (unlimited free bandwidth, also simple):**
 1. https://dash.cloudflare.com → **Workers & Pages → Create → Pages → Connect to Git**.
 2. Pick this GitHub repo and branch.
 3. Leave build settings blank (it's a static site, no build step) → Deploy.
 
-Either way: no server process, no free-tier container to spin down — this is the
+Either way: no server process, no free-tier container to spin down , this is the
 piece that fixes last year's "app became unreachable" problem.
 
-**Required either way — authorize the live domain in Firebase:**
+**Required either way , authorize the live domain in Firebase:**
 
 Firebase Auth only allows sign-in from domains you've explicitly listed. Skip this and
 `admin.html` sign-in will fail on the live site even though it worked locally.
 
 1. Firebase Console → your project → **Authentication → Settings → Authorized domains**.
 2. **Add domain** → enter the *bare hostname only*, e.g. `adage-automation.github.io`
-   — no `https://`, no trailing slash, no sub-path (`/AdageDayApp`), and no stray
+   , no `https://`, no trailing slash, no sub-path (`/AdageDayApp`), and no stray
    suffix like `.com` tacked onto the real GitHub Pages domain.
 3. Save, then re-test signing in to `admin.html` on the live URL.
 
@@ -263,7 +268,7 @@ Firebase Auth only allows sign-in from domains you've explicitly listed. Skip th
       starts (open `admin.html`, uncheck test winning teams, Save, and delete test
       announcements).
 - [ ] On the live URL, open DevTools → Application → Service Workers and confirm
-      `sw.js` is registered (empty panel means the install prompt won't work — see
+      `sw.js` is registered (empty panel means the install prompt won't work , see
       the PWA note above about relative vs. root-absolute paths).
 
 ## Next year
