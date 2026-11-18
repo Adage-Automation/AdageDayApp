@@ -271,46 +271,56 @@ header.bg-white {
   filter: drop-shadow(0 20px 30px rgba(0, 0, 0, 0.8));
 }
 
-/* The source 25-JGS.png is flat, single-tone vector art, it has no
-   internal shading to "brighten" with a filter. To get a glossy/
-   metallic read, this layer uses the PNG's own alpha channel as a
-   stencil (mask-image) and paints a diagonal chrome gradient plus two
-   warm gold glints through it, then blends that over the real image
-   with mix-blend-mode so it reads as lighting on the actual asset
-   rather than a separate floating shape. */
-.logo-chrome-overlay {
+/* Home logo: the artwork keeps its own colours. Only the outer circles
+   (the two rings and the text arc running along them) get a gold finish:
+   a gold layer stencilled by the logo's own shape AND a ring-shaped band
+   measured from the file (circle centre 50% / 42.03%, band 87.3-100% of a
+   1960px radius on the 4144x4956 artwork). */
+.logo-ring-gold {
   position: absolute;
   inset: 0;
   pointer-events: none;
-  mix-blend-mode: overlay;
-  -webkit-mask-image: url("../images/25-JGS.png");
-  mask-image: url("../images/25-JGS.png");
-  -webkit-mask-size: contain;
-  mask-size: contain;
-  -webkit-mask-repeat: no-repeat;
-  mask-repeat: no-repeat;
-  -webkit-mask-position: center;
-  mask-position: center;
-  background:
-    radial-gradient(circle at 15% 16%, #fff6df 0%, #fbe9bf 10%, rgba(240, 216, 151, 0.6) 20%, transparent 36%),
-    radial-gradient(circle at 13% 92%, #fbe9bf 0%, rgba(240, 216, 151, 0.55) 16%, transparent 30%),
-    radial-gradient(circle at 88% 90%, #fbe9bf 0%, rgba(240, 216, 151, 0.55) 16%, transparent 30%),
-    linear-gradient(135deg, #04141a 0%, #19c3d1 30%, #ffffff 48%, #19c3d1 66%, #04141a 100%);
+  -webkit-mask:
+    url("../images/25-JGS.png") center / contain no-repeat,
+    radial-gradient(47.3% 39.55% at 50% 42.03%, #000 99.8%, transparent 100%);
+  -webkit-mask-composite: source-in;
+  mask:
+    url("../images/25-JGS.png") center / contain no-repeat,
+    radial-gradient(47.3% 39.55% at 50% 42.03%, #000 99.8%, transparent 100%);
+  mask-composite: intersect;
+  /* Deep teal rings with two gold arcs on opposite sides that orbit the
+     circle centre. --ring-angle is registered below so it can animate;
+     browsers without @property just show the arcs standing still. */
+  background: conic-gradient(from var(--ring-angle) at 50% 42.03%,
+    #0a6670 0deg, #0a6670 25deg,
+    #c9a54a 55deg, #fff1c8 72deg, #c9a54a 89deg,
+    #0a6670 120deg, #0a6670 205deg,
+    #c9a54a 235deg, #fff1c8 252deg, #c9a54a 269deg,
+    #0a6670 300deg, #0a6670 360deg);
+  animation: ring-gold-in 0.9s ease 0.45s both, ring-orbit 10s linear 0.45s infinite;
 }
-
-/* A small warm flare sitting right on the ring's edge, unclipped so
-   its rays can spill slightly past the outline, matching the bright
-   flare on the left side of the reference image. */
-.logo-flare-left {
+/* Keeps only a 1px edge of the gold layer, so the 25 gets a moving
+   outline while its fill stays the logo's own teal. The thin rings are
+   narrower than the edge, so they stay fully coloured. */
+.logo-edge {
   position: absolute;
-  left: 9%;
-  top: 11%;
-  width: 34px;
-  height: 34px;
+  inset: 0;
   pointer-events: none;
-  mix-blend-mode: screen;
-  background: radial-gradient(circle, #fff6df 0%, rgba(251, 233, 191, 0.8) 25%, rgba(216, 180, 95, 0.4) 50%, transparent 75%);
+  filter: url(#logo-edge-filter);
+  opacity: 0.8;
 }
+@property --ring-angle {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
+@keyframes ring-gold-in { from { opacity: 0; } }
+@keyframes ring-orbit { to { --ring-angle: 360deg; } }
+
+/* Subtle entrance: the logo rises and fades in, then the rings take on
+   the teal and gold orbit. */
+#heroLogo > img { animation: logo-intro 0.9s var(--ease-premium) both; }
+@keyframes logo-intro { from { opacity: 0; transform: translateY(10px) scale(0.97); } }
 
 /* Countdown card needs to visibly separate from the dark hero behind
    it rather than using the same near-black panel tone. */

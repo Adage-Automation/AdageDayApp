@@ -28,7 +28,7 @@
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="mobile-web-app-capable" content="yes" />
     <script>document.documentElement.classList.add("js-motion")</script>
-    <link rel="stylesheet" href="static/css/theme.css?v=4" />
+    <link rel="stylesheet" href="static/css/theme.css?v=10" />
 
     <style>
       body {
@@ -285,19 +285,24 @@
           </p>
 
           <!-- Logo -->
-          <div class="relative mx-auto w-64 md:w-80">
+          <div id="heroLogo" class="relative mx-auto w-64 md:w-80">
             <img
               src="static/images/25-JGS.png"
               class="hero-logo-glow relative w-full h-auto"
               alt="Adage Logo"
             />
-            <div class="logo-chrome-overlay"></div>
-            <span class="logo-flare-left"></span>
+            <div class="logo-edge" aria-hidden="true"><div class="logo-ring-gold"></div></div>
+            <svg width="0" height="0" class="absolute" aria-hidden="true">
+              <filter id="logo-edge-filter">
+                <feMorphology in="SourceAlpha" operator="erode" radius="1" result="inner" />
+                <feComposite in="SourceGraphic" in2="inner" operator="out" />
+              </filter>
+            </svg>
           </div>
 
           <p class="mt-7 text-xl md:text-2xl font-extrabold tracking-tight">
             Celebrating 25 Years of
-            <span class="text-[#7fe9ef]" style="text-shadow: 0 0 22px rgba(127, 233, 239, 0.55);">Adage</span>
+            <span class="text-[#7fe9ef]" style="text-shadow: 0 0 10px rgba(127, 233, 239, 0.18);">Adage</span>
           </p>
 
           <p class="text-sm text-white/80 mt-1.5">28–30 November 2026</p>
