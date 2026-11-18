@@ -8,7 +8,7 @@ import {
   PRIZE_DISTRIBUTION,
   getPrizeTotals,
 } from "./adage-data.js";
-import { escapeHtml } from "./announcements-feed.js";
+import { announcementCardHtml } from "./announcements-feed.js";
 import {
   signInWithEmailAndPassword,
   onAuthStateChanged,
@@ -18,6 +18,7 @@ import {
   doc,
   getDoc,
   setDoc,
+  updateDoc,
   collection,
   addDoc,
   deleteDoc,
@@ -35,6 +36,15 @@ const signOutBtn = document.getElementById("signOutBtn");
 const loginError = document.getElementById("loginError");
 const signInBtn = document.getElementById("signInBtn");
 
+// Shows a status message next to a button; success messages clear themselves.
+function setStatus(el, text, ok) {
+  el.textContent = text;
+  el.classList.toggle("text-green-500", ok);
+  el.classList.toggle("text-red-400", !ok);
+  clearTimeout(el._timer);
+  if (ok) el._timer = setTimeout(() => (el.textContent = ""), 2500);
+}
+
 document.getElementById("loginForm").addEventListener("submit", async (e) => {
   e.preventDefault();
   loginError.textContent = "";
@@ -47,14 +57,20 @@ document.getElementById("loginForm").addEventListener("submit", async (e) => {
       document.getElementById("password").value
     );
   } catch (err) {
-    loginError.textContent = "Sign-in failed: check email/password.";
+    loginError.textContent =
+      err.code === "auth/network-request-failed"
+        ? "No connection. Check your internet and try again."
+        : "Sign-in failed: check email/password.";
   } finally {
     signInBtn.disabled = false;
     signInBtn.textContent = "Sign In";
   }
 });
 
-signOutBtn.addEventListener("click", () => signOut(auth));
+signOutBtn.addEventListener("click", () => {
+  if (hasUnsaved() && !confirm("You have unsaved score changes. Sign out anyway?")) return;
+  signOut(auth);
+});
 
 let unsubscribeAnnouncements = null;
 
@@ -70,6 +86,8 @@ onAuthStateChanged(auth, (user) => {
     unsubscribeAnnouncements = null;
   }
 });
+
+// ---------- Scores ----------
 
 function placeRowHtml(eventId, place, saved) {
   const savedTeams = (saved?.teams || []).map(normalizeTeamName);
@@ -87,10 +105,22 @@ function placeRowHtml(eventId, place, saved) {
 
   return `
     <div class="place-row">
-      <p class="text-xs font-semibold text-gray-600 mb-1">${place.label}</p>
-      <div class="flex flex-wrap mb-2">${teamCheckboxes}</div>
+      <p class="text-sm font-semibold text-gray-600 mb-2">${place.label}</p>
+      <div class="flex flex-wrap mb-1">${teamCheckboxes}</div>
       <p class="text-xs text-gray-500">Prize money: <strong class="text-gray-700">₹${formatCurrency(prizeAmount)}</strong></p>
     </div>`;
+}
+
+// One-line summary under each collapsed event name, e.g. "1st Zeus, 2nd Thor + Ares".
+function eventStatus(eventId) {
+  const card = document.querySelector(`[data-event-card="${eventId}"]`);
+  const parts = PLACES.map((place) => {
+    const teams = [...card.querySelectorAll(`.team-check[data-place="${place.key}"]:checked`)].map((el) => el.value);
+    return teams.length ? `${place.shortLabel} ${teams.join(" + ")}` : "";
+  }).filter(Boolean);
+  const status = card.querySelector(".event-status");
+  status.textContent = parts.length ? parts.join(", ") : "No results entered";
+  status.classList.toggle("done", parts.length > 0);
 }
 
 const eventFormsContainer = document.getElementById("eventForms");
@@ -114,25 +144,41 @@ renderPrizePoolSummary();
 async function buildForms() {
   eventFormsContainer.innerHTML = "<p class='text-center text-gray-400 text-sm'>Loading…</p>";
 
-  const cards = await Promise.all(
-    EVENTS.map(async (event) => {
-      const snap = await getDoc(doc(db, "results", event.id));
-      const data = snap.exists() ? snap.data() : {};
-      const rows = PLACES.map((p) => placeRowHtml(event.id, p, data[p.key])).join("");
-      return `
-        <div class="card" data-event-card="${event.id}">
-          <h3 class="text-base font-semibold text-[#008B94] mb-2">${event.name}</h3>
-          ${rows}
-          <div class="flex items-center gap-3 mt-2">
-            <button class="primary save-btn" data-event="${event.id}">Save</button>
-            <span class="unsaved-dot hidden" data-event="${event.id}">Unsaved changes</span>
-            <span class="text-xs save-status" data-event="${event.id}"></span>
-          </div>
-        </div>`;
-    })
-  );
+  try {
+    const cards = await Promise.all(
+      EVENTS.map(async (event) => {
+        const snap = await getDoc(doc(db, "results", event.id));
+        const data = snap.exists() ? snap.data() : {};
+        const rows = PLACES.map((p) => placeRowHtml(event.id, p, data[p.key])).join("");
+        return `
+          <details class="card" data-event-card="${event.id}">
+            <summary>
+              <span class="min-w-0">
+                <span class="block text-base font-semibold text-[#008B94]">${event.name}</span>
+                <span class="event-status block"></span>
+              </span>
+            </summary>
+            ${rows}
+            <div class="flex items-center gap-3 mt-2 flex-wrap">
+              <button class="primary save-btn" data-event="${event.id}">Save</button>
+              <span class="unsaved-dot hidden" data-event="${event.id}">Unsaved changes</span>
+              <span class="text-sm save-status" role="status" data-event="${event.id}"></span>
+            </div>
+          </details>`;
+      })
+    );
+    eventFormsContainer.innerHTML = cards.join("");
+  } catch (err) {
+    eventFormsContainer.innerHTML = `
+      <div class="card text-center text-sm">
+        <p class="text-red-400 mb-3">Couldn't load saved results. Check your connection.</p>
+        <button class="primary" id="retryLoadBtn">Try again</button>
+      </div>`;
+    document.getElementById("retryLoadBtn").addEventListener("click", buildForms);
+    return;
+  }
 
-  eventFormsContainer.innerHTML = cards.join("");
+  EVENTS.forEach((event) => eventStatus(event.id));
   eventFormsContainer.querySelectorAll(".save-btn").forEach((btn) =>
     btn.addEventListener("click", () => saveEvent(btn.dataset.event))
   );
@@ -144,36 +190,39 @@ async function buildForms() {
 // only its contents; re-attaching on every sign-in would stack duplicate listeners.
 eventFormsContainer.addEventListener("change", (e) => {
   const checkbox = e.target.closest(".team-check");
-  if (checkbox) {
-    checkbox.closest("label").classList.toggle("selected", checkbox.checked);
+  if (!checkbox) return;
+  checkbox.closest("label").classList.toggle("selected", checkbox.checked);
 
-    if (checkbox.checked) {
-      const eventId = checkbox.dataset.event;
-      const team = checkbox.value;
-      eventFormsContainer
-        .querySelectorAll(`.team-check[data-event="${eventId}"][value="${team}"]`)
-        .forEach((other) => {
-          if (other !== checkbox && other.checked) {
-            other.checked = false;
-            other.closest("label").classList.remove("selected");
-          }
-        });
-    }
+  if (checkbox.checked) {
+    const eventId = checkbox.dataset.event;
+    const team = checkbox.value;
+    eventFormsContainer
+      .querySelectorAll(`.team-check[data-event="${eventId}"][value="${team}"]`)
+      .forEach((other) => {
+        if (other !== checkbox && other.checked) {
+          other.checked = false;
+          other.closest("label").classList.remove("selected");
+        }
+      });
   }
 
-  if (e.target.closest(".team-check")) {
-    markUnsaved(e.target.closest("[data-event-card]").dataset.eventCard);
-  }
+  const eventId = checkbox.closest("[data-event-card]").dataset.eventCard;
+  document.querySelector(`.unsaved-dot[data-event="${eventId}"]`).classList.remove("hidden");
+  eventStatus(eventId);
 });
 
-function markUnsaved(eventId) {
-  const dot = document.querySelector(`.unsaved-dot[data-event="${eventId}"]`);
-  if (dot) dot.classList.remove("hidden");
-}
+const hasUnsaved = () => !!document.querySelector(".unsaved-dot:not(.hidden)");
+
+// Closing or refreshing the tab with unsaved scores asks first.
+window.addEventListener("beforeunload", (e) => {
+  if (hasUnsaved()) e.preventDefault();
+});
 
 async function saveEvent(eventId) {
   const card = document.querySelector(`[data-event-card="${eventId}"]`);
   const eventPrizes = PRIZE_DISTRIBUTION[eventId];
+  const btn = card.querySelector(".save-btn");
+  const status = card.querySelector(".save-status");
   const result = {};
 
   PLACES.forEach((place) => {
@@ -183,104 +232,159 @@ async function saveEvent(eventId) {
     result[place.key] = { teams, money: eventPrizes[place.key] };
   });
 
-  const status = card.querySelector(".save-status");
+  btn.disabled = true;
+  btn.textContent = "Saving…";
   try {
     await setDoc(doc(db, "results", eventId), result, { merge: true });
     card.querySelector(".unsaved-dot").classList.add("hidden");
-    status.classList.remove("text-red-500");
-    status.classList.add("text-green-600");
-    status.textContent = "Saved ✓";
+    setStatus(status, "Saved ✓ Live for everyone", true);
   } catch (err) {
-    status.classList.remove("text-green-600");
-    status.classList.add("text-red-500");
-    status.textContent = "Save failed: check your connection and try again.";
-    return;
+    setStatus(status, "Save failed: check your connection and try again.", false);
+  } finally {
+    btn.disabled = false;
+    btn.textContent = "Save";
   }
-  setTimeout(() => (status.textContent = ""), 2000);
 }
 
-const CATEGORY_PREVIEW = {
-  important: "bg-red-100 text-red-600",
-  reminder: "bg-yellow-100 text-yellow-600",
-  general: "bg-teal-100 text-teal-600",
-};
+// ---------- Announcements ----------
 
-const annCategorySelect = document.getElementById("annCategory");
-const annCategoryPreview = document.getElementById("annCategoryPreview");
+const annForm = document.getElementById("annForm");
+const annTitle = document.getElementById("annTitle");
+const annBody = document.getElementById("annBody");
+const annCategory = document.getElementById("annCategory");
+const annStatus = document.getElementById("announcementStatus");
+const postBtn = document.getElementById("postAnnouncementBtn");
+const cancelEditBtn = document.getElementById("cancelEditBtn");
+let editingId = null;
 
-function updateCategoryPreview() {
-  const value = annCategorySelect.value;
-  annCategoryPreview.className =
-    "text-[10px] font-medium px-2 py-1 rounded-full whitespace-nowrap " + CATEGORY_PREVIEW[value];
-  annCategoryPreview.textContent = value.charAt(0).toUpperCase() + value.slice(1);
+function updatePreview() {
+  document.getElementById("annBodyCount").textContent = `${annBody.value.length} / 500`;
+  document.getElementById("annPreview").innerHTML = announcementCardHtml({
+    title: annTitle.value.trim() || "Title",
+    body: annBody.value.trim() || "Message",
+    category: annCategory.value,
+  });
 }
 
-annCategorySelect.addEventListener("change", updateCategoryPreview);
-updateCategoryPreview();
+[annTitle, annBody, annCategory].forEach((el) =>
+  el.addEventListener("input", () => {
+    updatePreview();
+    if (annStatus.classList.contains("text-red-400")) annStatus.textContent = "";
+  })
+);
+updatePreview();
 
-document.getElementById("postAnnouncementBtn").addEventListener("click", async () => {
-  const titleInput = document.getElementById("annTitle");
-  const bodyInput = document.getElementById("annBody");
-  const categorySelect = document.getElementById("annCategory");
-  const status = document.getElementById("announcementStatus");
+function resetForm() {
+  editingId = null;
+  annForm.reset();
+  document.getElementById("annFormTitle").textContent = "New announcement";
+  postBtn.textContent = "Post";
+  cancelEditBtn.classList.add("hidden");
+  updatePreview();
+}
 
-  const title = titleInput.value.trim();
-  const body = bodyInput.value.trim();
+cancelEditBtn.addEventListener("click", resetForm);
+
+function startEdit(id, data) {
+  editingId = id;
+  annTitle.value = data.title || "";
+  annBody.value = data.body || "";
+  annCategory.value = data.category || "general";
+  document.getElementById("annFormTitle").textContent = "Edit announcement";
+  postBtn.textContent = "Update";
+  cancelEditBtn.classList.remove("hidden");
+  annStatus.textContent = "";
+  updatePreview();
+  annForm.scrollIntoView({ behavior: "smooth", block: "start" });
+  annTitle.focus({ preventScroll: true });
+}
+
+annForm.addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const title = annTitle.value.trim();
+  const body = annBody.value.trim();
   if (!title || !body) {
-    status.textContent = "Title and message are required.";
-    status.classList.add("text-red-500");
+    setStatus(annStatus, "Title and message are required.", false);
+    (title ? annBody : annTitle).focus();
     return;
   }
 
+  const confirmText = editingId
+    ? "Update this announcement for everyone?"
+    : "Post this announcement? Everyone with the app open will get an alert.";
+  if (!confirm(confirmText)) return;
+
+  postBtn.disabled = true;
   try {
-    await addDoc(collection(db, "announcements"), {
-      title,
-      body,
-      category: categorySelect.value,
-      createdAt: serverTimestamp(),
-    });
+    if (editingId) {
+      // createdAt is kept, so the post stays in place and doesn't re-alert people.
+      await updateDoc(doc(db, "announcements", editingId), { title, body, category: annCategory.value });
+    } else {
+      await addDoc(collection(db, "announcements"), {
+        title,
+        body,
+        category: annCategory.value,
+        createdAt: serverTimestamp(),
+      });
+    }
   } catch (err) {
-    status.classList.add("text-red-500");
-    status.textContent = "Post failed: check your connection and try again.";
+    setStatus(annStatus, `${editingId ? "Update" : "Post"} failed: check your connection and try again.`, false);
+    postBtn.disabled = false;
     return;
   }
 
-  titleInput.value = "";
-  bodyInput.value = "";
-  status.classList.remove("text-red-500");
-  status.textContent = "Posted ✓";
-  setTimeout(() => (status.textContent = ""), 2000);
+  const done = editingId ? "Updated ✓" : "Posted ✓";
+  postBtn.disabled = false;
+  resetForm();
+  setStatus(annStatus, done, true);
 });
 
 function watchAnnouncements() {
   const list = document.getElementById("announcementsAdminList");
   const q = query(collection(db, "announcements"), orderBy("createdAt", "desc"));
 
-  return onSnapshot(q, (snapshot) => {
-    if (snapshot.empty) {
-      list.innerHTML = "<p class='text-xs text-gray-400 italic'>No announcements posted yet.</p>";
-      return;
+  return onSnapshot(
+    q,
+    (snapshot) => {
+      if (snapshot.empty) {
+        list.innerHTML = "<p class='text-sm text-gray-400 italic'>No announcements posted yet.</p>";
+        return;
+      }
+
+      list.innerHTML =
+        `<h3 class="text-base font-semibold text-[#008B94] mb-2">Posted (${snapshot.size})</h3>` +
+        snapshot.docs
+          .map(
+            (docSnap) => `
+        <div class="ann-item" data-id="${docSnap.id}">
+          <div class="flex-1 min-w-0">${announcementCardHtml(docSnap.data())}</div>
+          <div class="flex flex-col items-end">
+            <button class="link edit-ann-btn" data-id="${docSnap.id}">Edit</button>
+            <button class="danger delete-ann-btn" data-id="${docSnap.id}">Delete</button>
+          </div>
+        </div>`
+          )
+          .join("");
+
+      const byId = Object.fromEntries(snapshot.docs.map((d) => [d.id, d.data()]));
+      list.querySelectorAll(".edit-ann-btn").forEach((btn) =>
+        btn.addEventListener("click", () => startEdit(btn.dataset.id, byId[btn.dataset.id]))
+      );
+      list.querySelectorAll(".delete-ann-btn").forEach((btn) =>
+        btn.addEventListener("click", async () => {
+          const title = byId[btn.dataset.id].title;
+          if (!confirm(`Delete "${title}"? This can't be undone.`)) return;
+          try {
+            await deleteDoc(doc(db, "announcements", btn.dataset.id));
+            if (editingId === btn.dataset.id) resetForm();
+          } catch (err) {
+            alert("Delete failed: check your connection and try again.");
+          }
+        })
+      );
+    },
+    () => {
+      list.innerHTML = "<p class='text-sm text-red-400'>Couldn't load announcements. Check your connection and refresh.</p>";
     }
-
-    list.innerHTML = snapshot.docs
-      .map(
-        (docSnap) => `
-      <div class="ann-item" data-id="${docSnap.id}">
-        <div>
-          <strong>${escapeHtml(docSnap.data().title)}</strong>
-          <span class="text-gray-500">: ${escapeHtml(docSnap.data().body)}</span>
-        </div>
-        <button class="danger delete-ann-btn" data-id="${docSnap.id}">Delete</button>
-      </div>`
-      )
-      .join("");
-
-    list.querySelectorAll(".delete-ann-btn").forEach((btn) =>
-      btn.addEventListener("click", () => {
-        if (confirm("Delete this announcement? This can't be undone.")) {
-          deleteDoc(doc(db, "announcements", btn.dataset.id));
-        }
-      })
-    );
-  });
+  );
 }

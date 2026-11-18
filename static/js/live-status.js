@@ -8,6 +8,7 @@ import {
   getPrizeTotals,
   calculateTeamPrizeTotals,
 } from "./adage-data.js";
+import { escapeHtml } from "./announcements-feed.js";
 import {
   collection,
   onSnapshot,
@@ -19,7 +20,7 @@ const formatCurrency = (amount) =>
 function teamChip(name) {
   const team = normalizeTeamName(name);
   const color = TEAM_COLORS[team] || "#999";
-  return `<span class="team-dot" style="background:${color}"></span>${team}`;
+  return `<span class="team-dot" style="background:${color}"></span>${escapeHtml(team)}`;
 }
 
 function placeCell(place) {

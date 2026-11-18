@@ -30,6 +30,21 @@ function formatWhen(createdAt) {
   });
 }
 
+// One announcement card, as the public pages show it (admin.html previews with it too).
+export function announcementCardHtml(data) {
+  const style = CATEGORY_STYLES[data.category] || CATEGORY_STYLES.general;
+  const when = formatWhen(data.createdAt);
+  return `
+    <div class="p-4 bg-white rounded-xl border border-gray-100 border-l-4 ${style.border} shadow-sm hover:shadow-md transition-shadow mt-3 first:mt-0">
+      <div class="flex justify-between items-center mb-1">
+        <span class="text-[10px] font-medium px-2 py-1 rounded-full ${style.badge}">${style.label}</span>
+        ${when ? `<span class="text-[11px] text-gray-400">${when}</span>` : ""}
+      </div>
+      <p class="font-semibold text-sm">${escapeHtml(data.title)}</p>
+      <p class="text-xs text-gray-600 mt-1 whitespace-pre-line">${escapeHtml(data.body)}</p>
+    </div>`;
+}
+
 // Renders a live-updating announcement feed into #<containerId>.
 // Pass { max } to cap how many show (e.g. index.html's "Latest Updates" teaser).
 function skeletonCard() {
@@ -54,22 +69,7 @@ export function renderAnnouncements(containerId, { max } = {}) {
       return;
     }
 
-    container.innerHTML = snapshot.docs
-      .map((doc) => {
-        const data = doc.data();
-        const style = CATEGORY_STYLES[data.category] || CATEGORY_STYLES.general;
-        const when = formatWhen(data.createdAt);
-        return `
-          <div class="p-4 bg-white rounded-xl border border-gray-100 border-l-4 ${style.border} shadow-sm hover:shadow-md transition-shadow mt-3 first:mt-0">
-            <div class="flex justify-between items-center mb-1">
-              <span class="text-[10px] font-medium px-2 py-1 rounded-full ${style.badge}">${style.label}</span>
-              ${when ? `<span class="text-[11px] text-gray-400">${when}</span>` : ""}
-            </div>
-            <p class="font-semibold text-sm">${escapeHtml(data.title)}</p>
-            <p class="text-xs text-gray-600 mt-1">${escapeHtml(data.body)}</p>
-          </div>`;
-      })
-      .join("");
+    container.innerHTML = snapshot.docs.map((doc) => announcementCardHtml(doc.data())).join("");
   }, () => {
     container.innerHTML = `<p class="text-xs text-gray-400 italic text-center py-2">Couldn't load announcements. Check your connection and refresh.</p>`;
   });

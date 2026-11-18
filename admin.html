@@ -13,6 +13,7 @@
       href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
     <meta name="theme-color" content="#061820" />
     <link rel="stylesheet" href="static/css/theme.css?v=11" />
 
@@ -44,9 +45,10 @@
       .team-chip {
         display: inline-flex;
         align-items: center;
-        gap: 5px;
-        font-size: 12px;
-        padding: 6px 12px;
+        gap: 6px;
+        font-size: 14px;
+        min-height: 40px;
+        padding: 8px 14px;
         border-radius: 20px;
         border: 1px solid #ddd;
         background: white;
@@ -86,30 +88,63 @@
         content: "●";
         font-size: 9px;
       }
-      input[type="text"], input[type="password"], input[type="number"], textarea, select {
-        border: 1px solid #ddd;
-        border-radius: 8px;
-        padding: 8px 10px;
-        font-size: 13px;
+      /* 16px stops iPhones zooming in on focus; ids beat Tailwind's preflight. */
+      #loginForm input, #annForm input, #annForm textarea, #annForm select {
+        border-radius: 10px;
+        padding: 10px 12px;
+        font-size: 16px;
         width: 100%;
         font-family: inherit;
       }
-      button.primary {
-        background-color: #008b94;
-        color: white;
-        border-radius: 8px;
-        padding: 8px 16px;
-        font-size: 13px;
+      #annForm select option { background: #0b1e22; color: #f1fbfc; }
+      .field-label { display: block; font-size: 12px; font-weight: 600; color: var(--text-mid); margin-bottom: 4px; }
+      .field-hint { font-size: 11px; color: var(--text-faint); text-align: right; margin-top: 2px; }
+      button.primary, button.ghost {
+        border-radius: 10px;
+        padding: 10px 20px;
+        font-size: 14px;
         font-weight: 600;
+        min-height: 44px;
+      }
+      button.primary { background-color: #008b94; color: white; }
+      button.ghost { color: var(--text-mid); border: 1px solid var(--border-teal); }
+      button:disabled { opacity: 0.6; cursor: wait; }
+      button:focus-visible, summary:focus-visible, .team-chip:focus-within {
+        outline: 2px solid var(--gold-soft);
+        outline-offset: 2px;
       }
       button.primary:hover {
         background-color: #00727a;
       }
-      button.danger {
-        color: #d33;
-        font-size: 12px;
+      button.danger, button.link {
+        font-size: 13px;
         font-weight: 600;
+        padding: 6px 4px;
       }
+      button.danger { color: #f87171; }
+      button.link { color: var(--teal-soft); }
+      /* Event cards collapse so the day's 6 events fit on one screen. */
+      details.card > summary {
+        list-style: none;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        cursor: pointer;
+        min-height: 44px;
+      }
+      details.card > summary::-webkit-details-marker { display: none; }
+      details.card > summary::after {
+        content: "expand_more";
+        font-family: "Material Icons";
+        font-size: 24px;
+        color: var(--text-dim);
+        transition: transform 0.2s var(--ease-premium, ease);
+      }
+      details.card[open] > summary::after { transform: rotate(180deg); }
+      details.card[open] > summary { margin-bottom: 8px; }
+      .event-status { font-size: 12px; color: var(--text-dim); margin-top: 2px; }
+      .event-status.done { color: var(--gold-soft); }
       .ann-item {
         border-top: 1px solid #f0f0f0;
         padding: 8px 0;
@@ -117,7 +152,7 @@
         justify-content: space-between;
         align-items: start;
         gap: 10px;
-        font-size: 13px;
+        font-size: 14px;
       }
       .ann-item:first-of-type {
         border-top: none;
@@ -145,11 +180,12 @@
       <div class="max-w-4xl mx-auto py-4 px-6 flex justify-between items-center">
         <span class="flex items-center gap-2.5">
           <img src="static/images/25-JGS.png" alt="Adage Day 2026" class="nav-logo" />
-          <span class="brand-wordmark text-lg font-extrabold tracking-[0.15em] uppercase">
-            <span class="text-white">Adage</span> <span class="text-[#19c3d1]">Day 2026</span> <span class="text-gray-500">Admin</span>
+          <span class="brand-wordmark text-sm sm:text-lg font-extrabold tracking-[0.15em] uppercase">
+            <span class="text-white">Adage</span> <span class="text-[#19c3d1]">Day 2026</span>
           </span>
+          <span class="text-[10px] font-semibold px-2 py-0.5 rounded-full border border-[#d8b45f]/50 text-[#f0d897]">Admin</span>
         </span>
-        <button id="signOutBtn" class="hidden text-xs text-gray-500 hover:text-[#008B94]">
+        <button id="signOutBtn" class="hidden whitespace-nowrap text-sm text-gray-500 hover:text-[#008B94] px-2 py-2">
           Sign Out
         </button>
       </div>
@@ -160,8 +196,8 @@
       <div class="card">
         <h2 class="text-lg font-semibold text-[#008B94] mb-4 text-center">Admin Sign In</h2>
         <form id="loginForm" class="space-y-3">
-          <input type="text" id="email" placeholder="Email" autocomplete="username" />
-          <input type="password" id="password" placeholder="Password" autocomplete="current-password" />
+          <input type="email" id="email" placeholder="Email" autocomplete="username" aria-label="Email" required />
+          <input type="password" id="password" placeholder="Password" autocomplete="current-password" aria-label="Password" required />
           <button id="signInBtn" type="submit" class="primary w-full">Sign In</button>
           <p id="loginError" class="text-xs text-red-500 text-center"></p>
         </form>
@@ -185,24 +221,35 @@
       </div>
 
       <div id="announcementsTab" class="hidden">
-        <div class="card">
-          <div class="space-y-2">
-            <input type="text" id="annTitle" placeholder="Title" />
-            <textarea id="annBody" placeholder="Message" rows="2"></textarea>
-            <div class="flex items-center gap-2">
-              <select id="annCategory" class="flex-1">
-                <option value="important">Important</option>
-                <option value="reminder">Reminder</option>
-                <option value="general" selected>General</option>
-              </select>
-              <span id="annCategoryPreview" class="text-[10px] font-medium px-2 py-1 rounded-full whitespace-nowrap"></span>
-            </div>
-            <div class="flex items-center gap-3">
-              <button id="postAnnouncementBtn" class="primary">Post</button>
-              <span id="announcementStatus" class="text-xs text-green-600"></span>
-            </div>
+        <form id="annForm" class="card space-y-3" novalidate>
+          <h3 id="annFormTitle" class="text-base font-semibold text-[#008B94]">New announcement</h3>
+          <div>
+            <label for="annTitle" class="field-label">Title</label>
+            <input type="text" id="annTitle" maxlength="80" />
           </div>
-        </div>
+          <div>
+            <label for="annBody" class="field-label">Message</label>
+            <textarea id="annBody" rows="3" maxlength="500"></textarea>
+            <p id="annBodyCount" class="field-hint">0 / 500</p>
+          </div>
+          <div>
+            <label for="annCategory" class="field-label">Category</label>
+            <select id="annCategory">
+              <option value="important">Important</option>
+              <option value="reminder">Reminder</option>
+              <option value="general" selected>General</option>
+            </select>
+          </div>
+          <div>
+            <p class="field-label">Preview</p>
+            <div id="annPreview"></div>
+          </div>
+          <div class="flex items-center gap-3 flex-wrap">
+            <button id="postAnnouncementBtn" type="submit" class="primary">Post</button>
+            <button id="cancelEditBtn" type="button" class="ghost hidden">Cancel</button>
+            <span id="announcementStatus" class="text-sm" role="status"></span>
+          </div>
+        </form>
         <div id="announcementsAdminList" class="card"></div>
       </div>
     </section>
