@@ -13,7 +13,7 @@
   <meta name="theme-color" content="#061820" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="mobile-web-app-capable" content="yes" />
-  <link rel="stylesheet" href="static/css/theme.css" />
+  <link rel="stylesheet" href="static/css/theme.css?v=3" />
 
   <style>
     body { font-family: system-ui, sans-serif; background-color: #FFF8F3; padding-bottom: 80px; }
@@ -59,7 +59,10 @@
   <!-- Header (Desktop) -->
   <header class="hidden md:block shadow-sm bg-white">
     <div class="max-w-6xl mx-auto py-4 px-6 flex justify-between items-center">
-      <span class="text-lg lg:text-xl font-extrabold tracking-wide lg:tracking-widest text-[#008B94] uppercase shrink-0">Adage Day 2026</span>
+      <a href="index.html" class="flex items-center gap-2.5 shrink-0">
+        <img src="static/images/logo.png" alt="Adage Day 2026" class="h-9 w-auto" />
+        <span class="brand-wordmark text-lg lg:text-xl font-extrabold tracking-[0.15em] lg:tracking-[0.2em] uppercase"><span class="text-white">Adage</span> <span class="text-[#19c3d1]">Day 2026</span></span>
+      </a>
       <nav class="flex gap-3 lg:gap-6 text-xs lg:text-sm font-medium">
         <a href="index.html">Home</a>
         <a href="message.html">Message</a>
@@ -75,7 +78,8 @@
 
   <!-- Page Header -->
   <div class="page-hero text-center mb-8">
-    <h2 class="text-3xl font-bold text-[#008B94]">Event Contact Directory</h2>
+    <span class="eyebrow">Need Help?</span>
+    <h2 class="text-3xl font-bold text-[#008B94]">Event Contact <span class="accent">Directory</span></h2>
     <p class="text-xs text-gray-600">Travel • Stay • Support • Transportation • Assistance</p>
     <div class="mt-2 w-20 h-1 bg-[#C9A54A] mx-auto rounded-full"></div>
   </div>
@@ -280,7 +284,7 @@
   <footer class="text-center py-5 text-xs mt-12 border-t border-gray-200">
     © 2026 Adage Automation Pvt. Ltd
     <br/>
-    25 JUST GETTING STARTED
+    25 AND JUST GETTING STARTED
   </footer>
   <script src="static/js/install-prompt.js" defer></script>
 </body>

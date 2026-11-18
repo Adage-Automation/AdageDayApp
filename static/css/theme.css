@@ -102,10 +102,69 @@ a { color: inherit; }
 }
 
 header.bg-white {
-  background: rgba(6, 16, 19, 0.82) !important;
-  backdrop-filter: blur(14px);
+  background: rgba(6, 16, 19, 0.72) !important;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--border-teal-soft);
   box-shadow: 0 1px 0 rgba(25, 195, 209, 0.08);
+}
+
+.brand-wordmark {
+  font-family: "Poppins", sans-serif;
+}
+
+.hero-logo-glow {
+  filter: drop-shadow(0 20px 30px rgba(0, 0, 0, 0.8));
+}
+
+/* The source logo.png is flat, single-tone vector art — it has no
+   internal shading to "brighten" with a filter. To get a glossy/
+   metallic read, this layer uses the PNG's own alpha channel as a
+   stencil (mask-image) and paints a diagonal chrome gradient plus two
+   warm gold glints through it, then blends that over the real image
+   with mix-blend-mode so it reads as lighting on the actual asset
+   rather than a separate floating shape. */
+.logo-chrome-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  mix-blend-mode: overlay;
+  -webkit-mask-image: url("../images/logo.png");
+  mask-image: url("../images/logo.png");
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+  background:
+    radial-gradient(circle at 15% 16%, #fff6df 0%, #fbe9bf 10%, rgba(240, 216, 151, 0.6) 20%, transparent 36%),
+    radial-gradient(circle at 13% 92%, #fbe9bf 0%, rgba(240, 216, 151, 0.55) 16%, transparent 30%),
+    radial-gradient(circle at 88% 90%, #fbe9bf 0%, rgba(240, 216, 151, 0.55) 16%, transparent 30%),
+    linear-gradient(135deg, #04141a 0%, #19c3d1 30%, #ffffff 48%, #19c3d1 66%, #04141a 100%);
+}
+
+/* A small warm flare sitting right on the ring's edge, unclipped so
+   its rays can spill slightly past the outline — matching the bright
+   flare on the left side of the reference image. */
+.logo-flare-left {
+  position: absolute;
+  left: 9%;
+  top: 11%;
+  width: 34px;
+  height: 34px;
+  pointer-events: none;
+  mix-blend-mode: screen;
+  background: radial-gradient(circle, #fff6df 0%, rgba(251, 233, 191, 0.8) 25%, rgba(216, 180, 95, 0.4) 50%, transparent 75%);
+}
+
+/* Countdown card needs to visibly separate from the dark hero behind
+   it rather than using the same near-black panel tone. */
+.countdown-card {
+  background: linear-gradient(160deg, rgba(25, 195, 209, 0.16), rgba(10, 28, 32, 0.6)) !important;
+  border: 1px solid rgba(25, 195, 209, 0.3) !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35), 0 0 24px rgba(25, 195, 209, 0.18) !important;
+  backdrop-filter: blur(10px);
 }
 
 /* Keep intentionally "light" chips as light — they sit on a solid
@@ -262,3 +321,74 @@ button.primary:hover { background-color: var(--teal-dim) !important; }
 }
 
 footer { color: var(--text-dim) !important; border-top-color: var(--border-teal-soft) !important; }
+
+/* ---------- Brand teal, brightened ----------
+   The brand teal (#008B94) reads muted/low-contrast on the new dark
+   backgrounds — brighten every instance of it site-wide (icons, card
+   titles, header wordmark, countdown, links) to the same cyan already
+   used as the accent on message.html. */
+.text-\[\#008B94\] { color: var(--teal) !important; }
+
+/* Page titles go fully white, like message.html's heading, instead of
+   staying brand-teal — the color accent lives in the small eyebrow/'s
+   divider instead, so the title itself reads clean on dark. */
+.page-hero h1,
+.page-hero h2 {
+  color: var(--text-hi) !important;
+  font-size: 2.25rem !important;
+  line-height: 1.15 !important;
+  font-weight: 800 !important;
+  letter-spacing: -0.01em;
+}
+@media (min-width: 768px) {
+  .page-hero h1,
+  .page-hero h2 {
+    font-size: 3rem !important;
+  }
+}
+.page-hero h1 .accent,
+.page-hero h2 .accent {
+  color: var(--teal-soft) !important;
+}
+
+/* Longer titles (3+ words, sometimes with a leading icon) need to stay
+   on one line instead of using the full big size — a smaller, still-bold
+   size that actually fits the page-hero width. */
+.page-hero h1.heading-tight {
+  font-size: 1.5rem !important;
+  line-height: 1.25 !important;
+}
+@media (min-width: 480px) {
+  .page-hero h1.heading-tight {
+    font-size: 1.875rem !important;
+    white-space: nowrap;
+  }
+}
+@media (min-width: 640px) {
+  .page-hero h1.heading-tight {
+    font-size: 2.25rem !important;
+  }
+}
+
+/* Small rounded label shown above a page-hero title, same component as
+   message.html's "A Word From Leadership" kicker. */
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--teal-soft);
+  padding: 6px 16px;
+  border: 1px solid rgba(25, 195, 209, 0.3);
+  border-radius: 999px;
+  background: rgba(25, 195, 209, 0.08);
+  margin-bottom: 14px;
+}
+
+/* The Install button sits on its own white pill, not a dark panel —
+   keep its label the original brand teal for proper contrast there. */
+#installBanner .text-\[\#008B94\] { color: #008b94 !important; }
+

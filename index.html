@@ -26,7 +26,7 @@
     <meta name="theme-color" content="#061820" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="mobile-web-app-capable" content="yes" />
-    <link rel="stylesheet" href="static/css/theme.css" />
+    <link rel="stylesheet" href="static/css/theme.css?v=3" />
 
     <style>
       body {
@@ -89,13 +89,18 @@
       .stat-pill {
         display: inline-flex;
         align-items: center;
-        font-size: 11px;
+        font-size: 12px;
         font-weight: 600;
-        color: white;
-        background: rgba(255, 255, 255, 0.14);
-        border: 1px solid rgba(255, 255, 255, 0.25);
-        padding: 5px 14px;
+        color: rgba(255, 255, 255, 0.9);
+        background: rgba(4, 12, 14, 0.45);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.16);
+        padding: 6px 16px;
         border-radius: 20px;
+      }
+      .stat-pill strong {
+        font-weight: 800;
+        margin-right: 2px;
       }
 
       /* Event Schedule Navigation Cards */
@@ -179,10 +184,13 @@
       <div
         class="max-w-6xl mx-auto py-4 px-6 flex justify-between items-center"
       >
-        <span
-          class="text-lg lg:text-xl font-extrabold tracking-wide lg:tracking-widest text-[#008B94] uppercase shrink-0"
-          >Adage Day 2026</span
-        >
+        <a href="index.html" class="flex items-center gap-2.5 shrink-0">
+          <img src="static/images/logo.png" alt="Adage Day 2026" class="h-9 w-auto" />
+          <span
+            class="brand-wordmark text-lg lg:text-xl font-extrabold tracking-[0.15em] lg:tracking-[0.2em] uppercase"
+            ><span class="text-white">Adage</span> <span class="text-[#19c3d1]">Day 2026</span></span
+          >
+        </a>
         <nav class="flex gap-3 lg:gap-6 text-xs lg:text-sm font-medium">
           <a href="index.html" class="nav-active">Home</a>
           <a href="message.html">Message</a>
@@ -197,59 +205,58 @@
     <main class="pb-24">
       <!-- Hero Section -->
       <section
-        class="relative text-center py-14 px-6 bg-gradient-to-b from-[#063940] via-[#00838d] to-[#02161a] text-white rounded-b-3xl shadow-xl overflow-hidden"
+        class="relative text-center py-10 md:py-12 px-6 text-white rounded-b-3xl shadow-xl overflow-hidden"
+        style="background-image: linear-gradient(to bottom, #020b0d, #04171b, #010607);"
       >
         <!-- Soft Glow Background -->
         <div
-          class="absolute inset-0 opacity-30 blur-3xl"
+          class="absolute inset-0 opacity-25 blur-3xl"
           style="
-            background: radial-gradient(
-              circle at center,
-              #00d4df40,
-              transparent 70%
-            );
+            background: radial-gradient(circle at 50% 30%, rgba(25, 195, 209, 0.3), transparent 55%),
+              radial-gradient(circle at 50% 80%, rgba(216, 180, 95, 0.15), transparent 60%);
           "
         ></div>
 
         <div class="relative z-10">
           <p
-            class="uppercase tracking-[0.25em] text-[11px] opacity-95 mb-5 font-medium"
+            class="uppercase tracking-[0.3em] text-xs text-white mb-6 font-bold"
           >
             Adage Day 2026
           </p>
 
-          <!-- Logo Card -->
-          <div
-            class="mx-auto w-52 p-4 rounded-2xl bg-white border border-[#19c3d1]/30 shadow-[0_8px_30px_rgba(25,195,209,0.35)] transition hover:scale-105 duration-300"
-          >
+          <!-- Logo -->
+          <div class="relative mx-auto w-64 md:w-80">
             <img
               src="static/images/logo.png"
-              class="w-full h-auto"
+              class="hero-logo-glow relative w-full h-auto"
               alt="Adage Logo"
             />
+            <div class="logo-chrome-overlay"></div>
+            <span class="logo-flare-left"></span>
           </div>
 
-          <p class="mt-6 text-sm opacity-95 font-medium tracking-wide">
-            Celebrating 25 Years of Adage
+          <p class="mt-7 text-xl md:text-2xl font-extrabold tracking-tight">
+            Celebrating 25 Years of
+            <span class="text-[#7fe9ef]" style="text-shadow: 0 0 22px rgba(127, 233, 239, 0.55);">Adage</span>
           </p>
 
-          <p class="text-xs opacity-75 mt-1">28–30 November 2026</p>
+          <p class="text-sm text-white/80 mt-1.5">28–30 November 2026</p>
 
-          <div class="flex flex-wrap justify-center gap-2 mt-4">
-            <span class="stat-pill">25 Years</span>
-            <span class="stat-pill">3 Days</span>
-            <span class="stat-pill">6 Teams</span>
+          <div class="flex flex-wrap justify-center gap-2.5 mt-5">
+            <span class="stat-pill"><strong class="text-[#7fe9ef]">25</strong>&nbsp;Years</span>
+            <span class="stat-pill"><strong class="text-[#f0d897]">3</strong>&nbsp;Days</span>
+            <span class="stat-pill"><strong class="text-[#7fe9ef]">6</strong>&nbsp;Teams</span>
           </div>
         </div>
       </section>
 
       <!-- Countdown -->
       <div
-        class="text-center mt-6 max-w-xs mx-auto p-4 bg-white rounded-xl shadow-sm"
+        class="countdown-card text-center mt-6 max-w-xs mx-auto p-4 rounded-xl"
       >
-        <p class="text-xs text-gray-500">Countdown to Adage Day</p>
-        <h2 id="countdown" class="text-xl font-bold text-[#008B94] mt-1"></h2>
-        <p class="text-[11px] text-gray-400">
+        <p class="text-xs text-white/70">Countdown to Adage Day</p>
+        <h2 id="countdown" class="text-2xl font-extrabold mt-1" style="color: #19c3d1; text-shadow: 0 0 18px rgba(25, 195, 209, 0.5);"></h2>
+        <p class="text-[11px] text-white/50">
           Days • Hours • Minutes • Seconds
         </p>
       </div>
@@ -433,7 +440,7 @@
     <footer class="text-center py-5 text-xs mt-12 border-t border-gray-200">
       © 2026 Adage Automation Pvt. Ltd
       <br />
-      25 JUST GETTING STARTED
+      25 AND JUST GETTING STARTED
     </footer>
 
     <script type="module">
