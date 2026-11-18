@@ -447,7 +447,7 @@ nav a:hover { color: var(--teal-soft) !important; border-bottom-color: var(--tea
 .event-card .content-section { margin-top: 4px; }
 .event-card > .flex-wrap { margin-top: 16px; }
 
-table { color: var(--text-mid); }
+table { color: var(--text-hi); }
 tr:nth-child(even) { background-color: rgba(255, 255, 255, 0.02) !important; }
 tr:hover { background-color: rgba(25, 195, 209, 0.07) !important; }
 th { color: #ffffff; }
@@ -556,10 +556,23 @@ footer { color: var(--text-dim) !important; }
   background: linear-gradient(90deg, transparent, rgba(216, 180, 95, 0.7), transparent);
 }
 .site-footer-logo {
-  width: 44px;
-  height: auto;
+  width: 84px;
+  height: 84px;
+  object-fit: cover;
+  object-position: top;
   margin: 0 auto 12px;
   opacity: 0.85;
+}
+
+/* Nav-bar logo: same crop trick as the footer mark (object-fit: cover
+   anchored to the top of the full lockup), so the ADAGE wordmark
+   underneath the circle is cropped off here too, consistently. */
+.nav-logo {
+  width: 56px;
+  height: 56px;
+  object-fit: cover;
+  object-position: top;
+  flex-shrink: 0;
 }
 .site-footer-tagline {
   font-family: "Poppins", sans-serif;
