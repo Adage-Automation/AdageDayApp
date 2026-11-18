@@ -70,5 +70,7 @@ export function renderAnnouncements(containerId, { max } = {}) {
           </div>`;
       })
       .join("");
+  }, () => {
+    container.innerHTML = `<p class="text-xs text-gray-400 italic text-center py-2">Couldn't load announcements. Check your connection and refresh.</p>`;
   });
 }

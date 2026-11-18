@@ -16,12 +16,18 @@ self.addEventListener("activate", (event) => {
 // Network-first so live scores/announcements are never served stale while online;
 // falls back to the last cached copy only when the network request fails.
 self.addEventListener("fetch", (event) => {
+  // Only our own files. Firebase/Firestore, Tailwind and font requests go
+  // straight to the network: Firestore's live listener is a long-running
+  // stream that must never be cloned into the cache.
   if (event.request.method !== "GET") return;
+  if (new URL(event.request.url).origin !== self.location.origin) return;
   event.respondWith(
     fetch(event.request)
       .then((response) => {
-        const copy = response.clone();
-        caches.open(CACHE).then((cache) => cache.put(event.request, copy));
+        if (response.ok) {
+          const copy = response.clone();
+          caches.open(CACHE).then((cache) => cache.put(event.request, copy));
+        }
         return response;
       })
       .catch(() => caches.match(event.request))

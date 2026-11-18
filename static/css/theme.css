@@ -656,3 +656,59 @@ body *, body *::before, body *::after { border-color: var(--border-teal-soft); }
    keep its label the original brand teal for proper contrast there. */
 #installBanner .text-\[\#008B94\] { color: #008b94 !important; }
 
+
+/* New-announcement toast (static/js/announce-alert.js). Sits above the
+   mobile bottom nav; the install banner owns the top edge. */
+.ann-toast {
+  position: fixed;
+  left: 50%;
+  bottom: calc(5.5rem + env(safe-area-inset-bottom));
+  z-index: 55;
+  width: min(92%, 28rem);
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.25rem 0.25rem 0.25rem 0.5rem;
+  border-radius: 1rem;
+  border: 1px solid rgba(216, 180, 95, 0.55);
+  background: linear-gradient(155deg, var(--panel-soft), var(--navy));
+  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(240, 216, 151, 0.08) inset;
+  transform: translateX(-50%);
+  animation: ann-toast-in 0.5s var(--ease-premium) both;
+}
+@media (min-width: 768px) { .ann-toast { bottom: 1.5rem; } }
+@keyframes ann-toast-in {
+  from { opacity: 0; transform: translate(-50%, 12px); }
+}
+.ann-toast-link {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.5rem;
+  color: var(--text-hi);
+  text-decoration: none;
+}
+.ann-toast-link > .material-icons { color: var(--gold); }
+.ann-toast-text { display: flex; flex-direction: column; min-width: 0; }
+.ann-toast-label { font-size: 0.7rem; font-weight: 600; color: var(--gold-soft); }
+.ann-toast-title {
+  font-size: 0.875rem;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.ann-toast-close {
+  display: grid;
+  place-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 999px;
+  color: var(--text-dim);
+  background: transparent;
+}
+.ann-toast-close:hover { color: var(--text-hi); }
+.ann-toast a:focus-visible,
+.ann-toast-close:focus-visible { outline: 2px solid var(--gold-soft); outline-offset: 2px; border-radius: 0.75rem; }

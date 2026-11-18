@@ -1,6 +1,7 @@
 {
   "name": "Adage Day 2026",
   "short_name": "Adage Day",
+  "id": ".",
   "start_url": ".",
   "scope": ".",
   "display": "standalone",

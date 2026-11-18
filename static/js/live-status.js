@@ -107,4 +107,7 @@ onSnapshot(collection(db, "results"), (snapshot) => {
     resultsById[doc.id] = doc.data();
   });
   render(resultsById);
+}, () => {
+  document.getElementById("teamTotals").innerHTML =
+    `<tr><td colspan="3" class="text-gray-400 italic py-3">Couldn't load live results. Check your connection and refresh.</td></tr>`;
 });
