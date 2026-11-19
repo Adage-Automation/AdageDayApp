@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Event Schedule · Adage Day 2026 (gala mock)</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#04090b" />
+    <link rel="icon" type="image/png" href="../static/images/25-JGS-icon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet" />
+    <link rel="stylesheet" href="mock.css" />
+  </head>
+
+  <body>
+    <header class="topbar">
+      <div class="topbar-inner">
+        <a href="home.html" class="brand">
+          <img src="../static/images/25-JGS.png" alt="" />
+          <span>Adage <b>Day 2026</b></span>
+        </a>
+        <nav class="topnav" aria-label="Main">
+          <a href="home.html">Home</a>
+          <a href="../message.html">Message</a>
+          <a href="schedule.html" class="active">Schedule</a>
+          <a href="../rules.html">Guidelines</a>
+          <a href="../contacts.html">Contacts</a>
+          <a href="../guest.html">Outstation</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="wrap">
+      <section class="page-hero">
+        <span class="beam beam-l" aria-hidden="true"></span>
+        <span class="beam beam-r" aria-hidden="true"></span>
+        <div class="dust" data-dust="14" aria-hidden="true"></div>
+        <span class="eyebrow">What's Happening</span>
+        <h1>Event <span class="metal-teal sweep">Schedule</span></h1>
+        <p>28-30 November 2026, Goa</p>
+      </section>
+
+      <div class="day-switch" role="tablist" aria-label="Choose a day">
+        <span class="day-slider" aria-hidden="true"></span>
+        <button class="day-tab" role="tab" aria-selected="true"><b>Day 1</b><small>Sat, 28 Nov</small></button>
+        <button class="day-tab" role="tab" aria-selected="false"><b>Day 2</b><small>Sun, 29 Nov</small></button>
+        <button class="day-tab" role="tab" aria-selected="false"><b>Day 3</b><small>Mon, 30 Nov</small></button>
+      </div>
+
+      <!-- ================= DAY 1 ================= -->
+      <div class="day-panel active" id="day1">
+        <!-- Sports Day -->
+        <article class="event">
+          <div class="event-hero" data-mark="sports_soccer">
+            <div class="orb orb-lg"><span class="material-icons-round">sports_soccer</span></div>
+            <div>
+              <h2 class="event-title">Sports Day</h2>
+              <p class="event-meta"><span class="material-icons-round">wb_sunny</span>Saturday, 28 November 2026 · Morning</p>
+            </div>
+          </div>
+          <a class="venue" href="https://maps.app.goo.gl/e5Tf4UHbC63NQYK87" target="_blank" rel="noopener">
+            <span class="material-icons-round">location_on</span>
+            <span class="venue-text"><strong>Don Bosco College of Engineering</strong><span>Margao, Goa</span></span>
+            <span class="venue-go">Directions<span class="material-icons-round">north_east</span></span>
+          </a>
+          <div class="subtabs" role="tablist">
+            <button class="subtab" role="tab" data-panel="sportsSchedule" aria-selected="true"><span class="material-icons-round">schedule</span>Schedule</button>
+            <button class="subtab" role="tab" data-panel="sportsDress" aria-selected="false"><span class="material-icons-round">checkroom</span>Dress Code</button>
+            <button class="subtab" role="tab" data-panel="sportsRules" aria-selected="false"><span class="material-icons-round">fact_check</span>Rules</button>
+          </div>
+          <div class="panel active" id="sportsSchedule">
+            <ol class="timeline">
+              <li><time>05:00 AM</time><span>Reporting</span></li>
+              <li><time>06:00 AM</time><span>Running Event I</span></li>
+              <li><time>07:30 AM</time><span>Running Event II / Breakfast</span></li>
+              <li><time>08:00 AM</time><span>Football &amp; Futsal</span></li>
+              <li><time>11:30 AM</time><span>Lunch</span></li>
+            </ol>
+          </div>
+          <div class="panel" id="sportsDress">
+            <div class="info">
+              <div class="info-row"><span class="material-icons-round">directions_run</span><div><p class="info-title">Track events</p><p class="info-text">Team jersey, track pants or shorts, sports shoes.</p></div></div>
+              <div class="info-row"><span class="material-icons-round">sports_soccer</span><div><p class="info-title">Football / Futsal</p><p class="info-text">Team jersey, shorts, football shoes (no studs for futsal), socks and shin guards (compulsory).</p></div></div>
+              <div class="info-row"><span class="material-icons-round">water_drop</span><div><p class="info-title">Note</p><p class="info-text">Carry your own water bottle. Refills will be available.</p></div></div>
+            </div>
+          </div>
+          <div class="panel" id="sportsRules">
+            <div class="info">
+              <div class="info-row single"><span class="material-icons-round">check_circle</span><p class="info-text">Reporting at 5:00 AM</p></div>
+              <div class="info-row single"><span class="material-icons-round">check_circle</span><p class="info-text">Report in correct sports attire (sports shoes, team jersey, track pants or shorts)</p></div>
+              <div class="info-row single"><span class="material-icons-round">check_circle</span><p class="info-text">Carry your own water bottle</p></div>
+              <div class="info-row single"><span class="material-icons-round">check_circle</span><p class="info-text">Warm up and stretch before your event begins</p></div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Game Night -->
+        <article class="event event--gold">
+          <div class="event-hero" data-mark="casino">
+            <div class="orb orb-gold orb-lg"><span class="material-icons-round">casino</span></div>
+            <div>
+              <h2 class="event-title">Game Night</h2>
+              <p class="event-meta"><span class="material-icons-round">nights_stay</span>Saturday, 28 November 2026 · Evening</p>
+            </div>
+          </div>
+          <a class="venue" href="https://maps.app.goo.gl/ACETfEfKb1446Zcb7" target="_blank" rel="noopener">
+            <span class="material-icons-round">location_on</span>
+            <span class="venue-text"><strong>Adage Unit 1</strong><span>Verna, Goa</span></span>
+            <span class="venue-go">Directions<span class="material-icons-round">north_east</span></span>
+          </a>
+          <div class="subtabs" role="tablist">
+            <button class="subtab" role="tab" data-panel="awardsSchedule" aria-selected="true"><span class="material-icons-round">schedule</span>Schedule</button>
+            <button class="subtab" role="tab" data-panel="awardsDress" aria-selected="false"><span class="material-icons-round">checkroom</span>Dress Code</button>
+            <button class="subtab" role="tab" data-panel="awardsSeating" aria-selected="false"><span class="material-icons-round">event_seat</span>Seating</button>
+            <button class="subtab" role="tab" data-panel="awardsRules" aria-selected="false"><span class="material-icons-round">fact_check</span>Rules</button>
+          </div>
+          <div class="panel active" id="awardsSchedule">
+            <ol class="timeline">
+              <li><time>4:30 PM</time><span>Reporting &amp; Hi-Tea</span></li>
+              <li><time>5:00 PM</time><span>GTM</span></li>
+              <li><time>6:00 PM</time><span>Bio Break</span></li>
+              <li><time>6:30 PM</time><span>Treasure Hunt</span></li>
+              <li><time>7:45 PM</time><span>Lamp Lighting</span></li>
+              <li><time>8:00 PM</time><span>Long Service Awards</span></li>
+              <li><time>9:15 PM</time><span>Audio Visual</span></li>
+              <li><time>10:15 PM</time><span>Dinner</span></li>
+            </ol>
+          </div>
+          <div class="panel" id="awardsDress">
+            <div class="info"><div class="info-row single"><span class="material-icons-round">checkroom</span><p class="info-text">Smart Casual Party Wear</p></div></div>
+          </div>
+          <div class="panel" id="awardsSeating">
+            <div class="empty">
+              <div class="orb orb-gold"><span class="material-icons-round">event_seat</span></div>
+              <p class="empty-title">Seating will be shared soon</p>
+              <p class="empty-text">Watch <a href="../announcements.html">Announcements</a> for the update.</p>
+            </div>
+          </div>
+          <div class="panel" id="awardsRules">
+            <div class="info"><div class="info-row single"><span class="material-icons-round">check_circle</span><p class="info-text">Please arrive on time. Reporting on time is mandatory so every event can begin as planned.</p></div></div>
+          </div>
+        </article>
+      </div>
+
+      <!-- ================= DAY 2 ================= -->
+      <div class="day-panel" id="day2">
+        <!-- Photoshoot -->
+        <article class="event">
+          <div class="event-hero" data-mark="photo_camera">
+            <div class="orb orb-lg"><span class="material-icons-round">photo_camera</span></div>
+            <div>
+              <h2 class="event-title">Photoshoot</h2>
+              <p class="event-meta"><span class="material-icons-round">wb_sunny</span>Sunday, 29 November 2026 · Morning</p>
+            </div>
+          </div>
+          <a class="venue" href="https://maps.app.goo.gl/HvrmgaAh1kcYMAP46" target="_blank" rel="noopener">
+            <span class="material-icons-round">location_on</span>
+            <span class="venue-text"><strong>Adage Unit 3</strong><span>Verna Industrial Estate</span></span>
+            <span class="venue-go">Directions<span class="material-icons-round">north_east</span></span>
+          </a>
+          <div class="subtabs" role="tablist">
+            <button class="subtab" role="tab" data-panel="photoSchedule" aria-selected="true"><span class="material-icons-round">schedule</span>Schedule</button>
+            <button class="subtab" role="tab" data-panel="photoDress" aria-selected="false"><span class="material-icons-round">checkroom</span>Dress Code</button>
+            <button class="subtab" role="tab" data-panel="photoStand" aria-selected="false"><span class="material-icons-round">groups</span>Standing</button>
+            <button class="subtab" role="tab" data-panel="photoRules" aria-selected="false"><span class="material-icons-round">fact_check</span>Rules</button>
+          </div>
+          <div class="panel active" id="photoSchedule">
+            <div class="report">
+              <div>
+                <p class="report-label">Reporting</p>
+                <p class="report-time metal-teal">06:30 AM</p>
+              </div>
+              <span class="sharp">Sharp</span>
+            </div>
+            <div class="note-gold">
+              <span class="material-icons-round">restaurant</span>
+              Breakfast will be served right after the photoshoot at the same venue.
+            </div>
+          </div>
+          <div class="panel" id="photoDress">
+            <div class="info"><div class="info-row single"><span class="material-icons-round">checkroom</span><p class="info-text">Official T-shirt, black denims or trousers, black belt and sports shoes</p></div></div>
+          </div>
+          <div class="panel" id="photoStand">
+            <div class="empty">
+              <div class="orb"><span class="material-icons-round">groups</span></div>
+              <p class="empty-title">Standing positions will be shared soon</p>
+              <p class="empty-text">Watch <a href="../announcements.html">Announcements</a> for the update.</p>
+            </div>
+          </div>
+          <div class="panel" id="photoRules">
+            <div class="info"><div class="info-row single"><span class="material-icons-round">check_circle</span><p class="info-text">Please arrive on time. Reporting on time is mandatory so every event can begin as planned.</p></div></div>
+          </div>
+        </article>
+
+        <!-- Awards Night -->
+        <article class="event event--gold">
+          <div class="event-hero" data-mark="emoji_events">
+            <div class="orb orb-gold orb-lg"><span class="material-icons-round">emoji_events</span></div>
+            <div>
+              <h2 class="event-title">Awards Night</h2>
+              <p class="event-meta"><span class="material-icons-round">nights_stay</span>Sunday, 29 November 2026 · Evening</p>
+            </div>
+          </div>
+          <a class="venue" href="https://maps.app.goo.gl/EUbLB18tVJaKrPC66?g_st=iw" target="_blank" rel="noopener">
+            <span class="material-icons-round">location_on</span>
+            <span class="venue-text"><strong>SUL Benaulim, Near Southern Deck</strong><span>Benaulim, Goa</span></span>
+            <span class="venue-go">Directions<span class="material-icons-round">north_east</span></span>
+          </a>
+          <div class="subtabs" role="tablist">
+            <button class="subtab" role="tab" data-panel="awardsScheduleDay2" aria-selected="true"><span class="material-icons-round">schedule</span>Schedule</button>
+            <button class="subtab" role="tab" data-panel="awardsDressDay2" aria-selected="false"><span class="material-icons-round">checkroom</span>Dress Code</button>
+            <button class="subtab" role="tab" data-panel="awardsSeatingDay2" aria-selected="false"><span class="material-icons-round">event_seat</span>Seating</button>
+            <button class="subtab" role="tab" data-panel="awardsRulesDay2" aria-selected="false"><span class="material-icons-round">fact_check</span>Rules</button>
+          </div>
+          <div class="panel active" id="awardsScheduleDay2">
+            <ol class="timeline">
+              <li><time>4:30-5:00 PM</time><span>Reporting &amp; Hi-Tea</span></li>
+              <li><time>5:00-5:15 PM</time><span>Opening Ceremony</span></li>
+              <li><time>5:15-5:30 PM</time><span>Welcome</span></li>
+              <li><time>5:30-7:00 PM</time><span>Performance Awards</span></li>
+              <li><time>7:00-7:15 PM</time><span>Bio Break</span></li>
+              <li><time>7:15-10:00 PM</time><span>Entertainment</span></li>
+              <li><time>10:00 PM onwards</time><span>Dinner</span></li>
+            </ol>
+          </div>
+          <div class="panel" id="awardsDressDay2">
+            <div class="info"><div class="info-row single"><span class="material-icons-round">checkroom</span><p class="info-text">Urban Western Wear</p></div></div>
+          </div>
+          <div class="panel" id="awardsSeatingDay2">
+            <div class="empty">
+              <div class="orb orb-gold"><span class="material-icons-round">event_seat</span></div>
+              <p class="empty-title">Seating will be shared soon</p>
+              <p class="empty-text">Watch <a href="../announcements.html">Announcements</a> for the update.</p>
+            </div>
+          </div>
+          <div class="panel" id="awardsRulesDay2">
+            <div class="info"><div class="info-row single"><span class="material-icons-round">check_circle</span><p class="info-text">Please arrive on time. Reporting on time is mandatory so every event can begin as planned.</p></div></div>
+          </div>
+        </article>
+      </div>
+
+      <!-- ================= DAY 3 ================= -->
+      <div class="day-panel" id="day3">
+        <article class="event event--gold">
+          <div class="event-hero" data-mark="celebration">
+            <div class="orb orb-gold orb-lg"><span class="material-icons-round">celebration</span></div>
+            <div>
+              <h2 class="event-title">Gala Night</h2>
+              <p class="event-meta"><span class="material-icons-round">nights_stay</span>Monday, 30 November 2026 · Evening</p>
+            </div>
+          </div>
+          <a class="venue" href="https://maps.app.goo.gl/H6oGtwhRBJqYUosC9" target="_blank" rel="noopener">
+            <span class="material-icons-round">location_on</span>
+            <span class="venue-text"><strong>Adage Unit 2</strong><span>Verna, Goa</span></span>
+            <span class="venue-go">Directions<span class="material-icons-round">north_east</span></span>
+          </a>
+          <div class="subtabs" role="tablist">
+            <button class="subtab" role="tab" data-panel="galaSchedule" aria-selected="true"><span class="material-icons-round">schedule</span>Schedule</button>
+            <button class="subtab" role="tab" data-panel="galaDress" aria-selected="false"><span class="material-icons-round">checkroom</span>Dress Code</button>
+            <button class="subtab" role="tab" data-panel="galaSeating" aria-selected="false"><span class="material-icons-round">event_seat</span>Seating</button>
+            <button class="subtab" role="tab" data-panel="galaRules" aria-selected="false"><span class="material-icons-round">fact_check</span>Rules</button>
+          </div>
+          <div class="panel active" id="galaSchedule">
+            <ol class="timeline">
+              <li><time>5:00 PM</time><span>Reporting</span></li>
+              <li><time>5:30 PM</time><span>Opening Ceremony</span></li>
+              <li><time>6:00 PM</time><span>Welcome &amp; Cake Cutting</span></li>
+              <li><time>7:15 PM</time><span>Entertainment Part 1</span></li>
+              <li><time>8:45 PM</time><span>Entertainment Part 2</span></li>
+              <li><time>10:15 PM</time><span>SOA</span></li>
+              <li><time>10:45 PM</time><span>Dinner &amp; Party Begins</span></li>
+            </ol>
+          </div>
+          <div class="panel" id="galaDress">
+            <div class="info"><div class="info-row single"><span class="material-icons-round">checkroom</span><p class="info-text">Western Party Wear</p></div></div>
+          </div>
+          <div class="panel" id="galaSeating">
+            <div class="empty">
+              <div class="orb orb-gold"><span class="material-icons-round">event_seat</span></div>
+              <p class="empty-title">Seating will be shared soon</p>
+              <p class="empty-text">Watch <a href="../announcements.html">Announcements</a> for the update.</p>
+            </div>
+          </div>
+          <div class="panel" id="galaRules">
+            <div class="info"><div class="info-row single"><span class="material-icons-round">check_circle</span><p class="info-text">Please arrive on time. Reporting on time is mandatory so every event can begin as planned.</p></div></div>
+          </div>
+        </article>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <img src="../static/images/25-JGS.png" alt="" />
+      <p class="footer-tag metal">25 &amp; JUST GETTING STARTED</p>
+      <p class="footer-copy">&copy; 2026 Adage Automation Private Limited</p>
+    </footer>
+
+    <nav class="dock" aria-label="Main">
+      <a href="home.html"><span class="material-icons-round">home</span>Home</a>
+      <a href="schedule.html" class="active"><span class="material-icons-round">event</span>Schedule</a>
+      <a href="../rules.html"><span class="material-icons-round">rule</span>Guidelines</a>
+      <a href="../contacts.html"><span class="material-icons-round">call</span>Contacts</a>
+      <a href="../guest.html"><span class="material-icons-round">flight_takeoff</span>Outstation</a>
+    </nav>
+
+    <script src="mock.js"></script>
+  </body>
+</html>

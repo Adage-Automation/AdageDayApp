@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Adage Day 2026 · Home (gala mock)</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#04090b" />
+    <link rel="icon" type="image/png" href="../static/images/25-JGS-icon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet" />
+    <link rel="stylesheet" href="mock.css" />
+  </head>
+
+  <body>
+    <!-- Desktop header -->
+    <header class="topbar">
+      <div class="topbar-inner">
+        <a href="home.html" class="brand">
+          <img src="../static/images/25-JGS.png" alt="" />
+          <span>Adage <b>Day 2026</b></span>
+        </a>
+        <nav class="topnav" aria-label="Main">
+          <a href="home.html" class="active">Home</a>
+          <a href="../message.html">Message</a>
+          <a href="schedule.html">Schedule</a>
+          <a href="../rules.html">Guidelines</a>
+          <a href="../contacts.html">Contacts</a>
+          <a href="../guest.html">Outstation</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <!-- Hero: gala stage -->
+      <section class="hero">
+        <span class="beam beam-l" aria-hidden="true"></span>
+        <span class="beam beam-r" aria-hidden="true"></span>
+        <div class="dust" data-dust="28" aria-hidden="true"></div>
+
+        <div class="hero-inner">
+          <div class="hero-copy">
+            <p class="kicker">Adage Day 2026</p>
+            <h1 class="hero-title">Celebrating <span class="metal sweep">25 Years</span><br />of Adage</h1>
+            <p class="hero-date">
+              <span class="material-icons-round">event</span>28-30 November 2026, Goa
+            </p>
+
+            <div class="countdown" id="cdTiles" aria-label="Countdown to Adage Day">
+              <div class="cd-tile"><span class="cd-num">00</span><span class="cd-label">Days</span></div>
+              <div class="cd-tile"><span class="cd-num">00</span><span class="cd-label">Hours</span></div>
+              <div class="cd-tile"><span class="cd-num">00</span><span class="cd-label">Mins</span></div>
+              <div class="cd-tile"><span class="cd-num">00</span><span class="cd-label">Secs</span></div>
+            </div>
+            <p class="cd-caption" id="cdCaption">Countdown to Adage Day</p>
+          </div>
+
+          <div class="emblem" aria-hidden="true">
+            <div class="emblem-3d">
+              <div class="emblem-disc"></div>
+              <div class="orbit o1"></div>
+              <div class="orbit o2"></div>
+              <div class="orbit o3"></div>
+              <div class="emblem-logo">
+                <img src="../static/images/25-JGS.png" alt="" />
+                <div class="logo-edge"><div class="logo-ring-gold"></div></div>
+                <svg width="0" height="0" style="position: absolute">
+                  <filter id="logo-edge-filter">
+                    <feMorphology in="SourceAlpha" operator="erode" radius="1" result="inner" />
+                    <feComposite in="SourceGraphic" in2="inner" operator="out" />
+                  </filter>
+                </svg>
+              </div>
+            </div>
+            <div class="emblem-floor"></div>
+          </div>
+        </div>
+      </section>
+
+      <div class="wrap">
+        <!-- MD message + Live status -->
+        <div class="pair">
+          <div class="glow-edge" data-reveal>
+            <a href="../message.html" class="md-card">
+              <div class="md-photo"><img src="../static/images/md_photo.png" alt="Managing Director" /></div>
+              <div>
+                <p class="card-kicker">A message from</p>
+                <p class="card-title">Our Managing Director</p>
+                <p class="card-sub">A welcome note for Adage Day</p>
+              </div>
+              <span class="go"><span class="material-icons-round">arrow_forward</span></span>
+            </a>
+          </div>
+
+          <a href="../live_status.html" class="live-card" data-reveal>
+            <div class="orb orb-gold orb-lg"><span class="material-icons-round">emoji_events</span></div>
+            <div>
+              <span class="live-chip"><i></i>Live</span>
+              <p class="card-title" style="margin-top: 6px">Team Status &amp; Rankings</p>
+              <p class="card-sub">Event winners and team standings in real time</p>
+            </div>
+            <span class="go"><span class="material-icons-round">arrow_forward</span></span>
+          </a>
+        </div>
+
+        <!-- Event schedule as gala tickets -->
+        <section class="section">
+          <div class="section-head">
+            <h2>Event Schedule</h2>
+            <p>Tap an event for timings, venue and dress code</p>
+          </div>
+
+          <div class="day-group" data-reveal>
+            <h3 class="day-label">Day 1 <span>Saturday, 28 Nov</span></h3>
+            <div class="tickets">
+              <a href="schedule.html?day=1&section=sportsSchedule" class="ticket" data-tilt="6">
+                <div class="ticket-stub"><span class="stub-day">28</span><span class="stub-mon">Nov</span></div>
+                <div class="ticket-main">
+                  <div class="orb lift"><span class="material-icons-round">sports_soccer</span></div>
+                  <div class="ticket-info lift-sm">
+                    <p class="ticket-title">Sports Day</p>
+                    <p class="ticket-meta"><span class="material-icons-round">wb_sunny</span>Morning, Don Bosco College</p>
+                  </div>
+                  <span class="go"><span class="material-icons-round">chevron_right</span></span>
+                </div>
+                <span class="glare"></span>
+              </a>
+              <a href="schedule.html?day=1&section=awardsSchedule" class="ticket ticket--gold" data-tilt="6">
+                <div class="ticket-stub"><span class="stub-day">28</span><span class="stub-mon">Nov</span></div>
+                <div class="ticket-main">
+                  <div class="orb orb-gold lift"><span class="material-icons-round">casino</span></div>
+                  <div class="ticket-info lift-sm">
+                    <p class="ticket-title">Game Night</p>
+                    <p class="ticket-meta"><span class="material-icons-round">nights_stay</span>Evening, Adage Unit 1</p>
+                  </div>
+                  <span class="go"><span class="material-icons-round">chevron_right</span></span>
+                </div>
+                <span class="glare"></span>
+              </a>
+            </div>
+          </div>
+
+          <div class="day-group" data-reveal>
+            <h3 class="day-label">Day 2 <span>Sunday, 29 Nov</span></h3>
+            <div class="tickets">
+              <a href="schedule.html?day=2&section=photoSchedule" class="ticket" data-tilt="6">
+                <div class="ticket-stub"><span class="stub-day">29</span><span class="stub-mon">Nov</span></div>
+                <div class="ticket-main">
+                  <div class="orb lift"><span class="material-icons-round">photo_camera</span></div>
+                  <div class="ticket-info lift-sm">
+                    <p class="ticket-title">Photoshoot</p>
+                    <p class="ticket-meta"><span class="material-icons-round">wb_sunny</span>Morning, Adage Unit 3</p>
+                  </div>
+                  <span class="go"><span class="material-icons-round">chevron_right</span></span>
+                </div>
+                <span class="glare"></span>
+              </a>
+              <a href="schedule.html?day=2&section=awardsScheduleDay2" class="ticket ticket--gold" data-tilt="6">
+                <div class="ticket-stub"><span class="stub-day">29</span><span class="stub-mon">Nov</span></div>
+                <div class="ticket-main">
+                  <div class="orb orb-gold lift"><span class="material-icons-round">emoji_events</span></div>
+                  <div class="ticket-info lift-sm">
+                    <p class="ticket-title">Awards Night</p>
+                    <p class="ticket-meta"><span class="material-icons-round">nights_stay</span>Evening, SUL Benaulim</p>
+                  </div>
+                  <span class="go"><span class="material-icons-round">chevron_right</span></span>
+                </div>
+                <span class="glare"></span>
+              </a>
+            </div>
+          </div>
+
+          <div class="day-group" data-reveal>
+            <h3 class="day-label">Day 3 <span>Monday, 30 Nov</span></h3>
+            <div class="tickets">
+              <a href="schedule.html?day=3&section=galaSchedule" class="ticket ticket--gold" data-tilt="5">
+                <div class="ticket-stub"><span class="stub-day">30</span><span class="stub-mon">Nov</span></div>
+                <div class="ticket-main">
+                  <div class="orb orb-gold lift"><span class="material-icons-round">celebration</span></div>
+                  <div class="ticket-info lift-sm">
+                    <p class="ticket-title">Gala Night</p>
+                    <p class="ticket-meta"><span class="material-icons-round">nights_stay</span>Evening, Adage Unit 2</p>
+                  </div>
+                  <span class="go"><span class="material-icons-round">chevron_right</span></span>
+                </div>
+                <span class="glare"></span>
+              </a>
+            </div>
+          </div>
+        </section>
+
+        <!-- Latest updates (SAMPLE content: the real page fills this from Firebase) -->
+        <section class="section">
+          <div class="section-head">
+            <h2>Latest Updates</h2>
+          </div>
+          <div class="updates" data-reveal>
+            <article class="update">
+              <div class="update-top"><span class="tag">Reminder</span><time>2h ago</time></div>
+              <h3>Sports Day reporting at 5:00 AM</h3>
+              <p>Wear your team jersey and sports shoes, and bring your own water bottle.</p>
+            </article>
+            <article class="update is-gold">
+              <div class="update-top"><span class="tag gold">General</span><time>Yesterday</time></div>
+              <h3>Gala Night dress code</h3>
+              <p>Western party wear for Gala Night at Adage Unit 2 on 30 November.</p>
+            </article>
+          </div>
+          <div style="text-align: center">
+            <a href="../announcements.html" class="btn-ghost">All announcements<span class="material-icons-round">arrow_forward</span></a>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <img src="../static/images/25-JGS.png" alt="" />
+      <p class="footer-tag metal">25 &amp; JUST GETTING STARTED</p>
+      <p class="footer-copy">&copy; 2026 Adage Automation Private Limited</p>
+    </footer>
+
+    <!-- Mobile dock -->
+    <nav class="dock" aria-label="Main">
+      <a href="home.html" class="active"><span class="material-icons-round">home</span>Home</a>
+      <a href="schedule.html"><span class="material-icons-round">event</span>Schedule</a>
+      <a href="../rules.html"><span class="material-icons-round">rule</span>Guidelines</a>
+      <a href="../contacts.html"><span class="material-icons-round">call</span>Contacts</a>
+      <a href="../guest.html"><span class="material-icons-round">flight_takeoff</span>Outstation</a>
+    </nav>
+
+    <script src="mock.js"></script>
+  </body>
+</html>
