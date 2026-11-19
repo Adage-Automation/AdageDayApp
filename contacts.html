@@ -1,294 +1,163 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Event Contact Directory, Adage Day 2026</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#04090b" />
+    <link rel="manifest" href="manifest.json" />
+    <link rel="icon" type="image/png" href="static/images/25-JGS-icon.png" />
+    <link rel="apple-touch-icon" href="static/images/25-JGS-icon.png" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="mobile-web-app-capable" content="yes" />
 
-<head>
-  <meta charset="UTF-8" />
-  <title>Event Contact Directory, Adage Day 2026</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="manifest" href="manifest.json" />
-  <link rel="icon" type="image/png" href="static/images/25-JGS-icon.png" />
-  <link rel="apple-touch-icon" href="static/images/25-JGS-icon.png" />
-  <meta name="theme-color" content="#061820" />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="mobile-web-app-capable" content="yes" />
-  <script>document.documentElement.classList.add("js-motion")</script>
-  <link rel="stylesheet" href="static/css/theme.css?v=11" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet" />
 
-  <style>
-    body { font-family: system-ui, sans-serif; background-color: #FFF8F3; padding-bottom: 80px; }
-    h1, h2, h3 { font-family: 'Poppins', sans-serif; }
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="static/css/site.css?v=1" />
+  </head>
 
-    nav a { border-bottom: 2px solid transparent; transition: color 0.25s var(--ease-premium, ease), border-color 0.25s var(--ease-premium, ease); }
-    nav a:hover { color: #008B94; border-bottom: 2px solid #008B94; }
-    .nav-active { color: #f0d897 !important; font-weight: 600; text-shadow: 0 0 14px rgba(216, 180, 95, 0.35); }
-    .page-hero { background: radial-gradient(circle at 50% 0%, rgba(25, 195, 209, 0.12) 0%, rgba(25, 195, 209, 0) 70%); border-radius: 24px; padding: 28px 16px 16px; }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(8px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    .animate-fadeIn { animation: fadeIn 0.6s ease-in-out; }
-
-    /* Bottom Mobile Navigation Styling */
-    .mobile-nav {
-      background: rgba(255, 255, 255, 0.92);
-      backdrop-filter: blur(12px);
-      box-shadow: 0 -4px 14px rgba(0, 0, 0, 0.1);
-      border-radius: 28px;
-    }
-    .mobile-nav a {
-      flex: 1; text-align: center; padding: 6px 0; font-size: 11px;
-      transition: transform 0.2s ease;
-    }
-    .mobile-nav a:hover { background-color: rgba(201, 165, 74, 0.15); }
-    .mobile-nav a:active { transform: scale(0.93); }
-  </style>
-</head>
-
-<body class="text-gray-800">
-
-  <div id="installBanner" class="hidden fixed top-0 inset-x-0 z-[60] bg-[#008B94] text-white text-xs md:text-sm px-4 py-2 flex items-center justify-between gap-3 shadow-md">
-    <span>📲 Install Adage Day on your device for quick access.</span>
-    <div class="flex items-center gap-2 shrink-0">
-      <button id="installBtn" class="bg-white text-[#008B94] font-semibold px-3 py-1 rounded-full">Install</button>
-      <button id="installDismiss" class="text-white/80 text-base leading-none">✕</button>
-    </div>
-  </div>
-
-  <!-- Header (Desktop) -->
-  <header class="hidden md:block shadow-sm bg-white">
-    <div class="max-w-6xl mx-auto py-4 px-6 flex justify-between items-center">
-      <a href="index.html" class="flex items-center gap-2.5 shrink-0">
-        <img src="static/images/25-JGS.png" alt="Adage Day 2026" class="nav-logo" />
-        <span class="brand-wordmark text-lg lg:text-xl font-extrabold tracking-[0.15em] lg:tracking-[0.2em] uppercase"><span class="text-white">Adage</span> <span class="text-[#19c3d1]">Day 2026</span></span>
-      </a>
-      <nav class="flex gap-3 lg:gap-6 text-xs lg:text-sm font-medium">
-        <a href="index.html">Home</a>
-        <a href="message.html">Message</a>
-        <a href="schedule.html">Schedule</a>
-        <a href="rules.html">Guidelines</a>
-        <a href="contacts.html" class="nav-active">Contacts</a>
-        <a href="guest.html">Outstation</a>
-      </nav>
-    </div>
-  </header>
-
-<section class="max-w-2xl mx-auto px-4 py-8 animate-fadeIn">
-
-  <!-- Page Header -->
-  <div class="page-hero text-center mb-8">
-    <span class="eyebrow">Need Help?</span>
-    <h2 class="text-3xl font-bold text-[#008B94]">Event Contact <span class="accent">Directory</span></h2>
-    <div class="mt-2 w-20 h-1 bg-[#C9A54A] mx-auto rounded-full"></div>
-  </div>
-
-  <!-- Contact Sections -->
-  <div class="space-y-6">
-
-    <!-- Travel -->
-    <div class="bg-white rounded-2xl shadow-md p-6 hover:shadow-lg transition-shadow border border-gray-100">
-      <div class="flex items-center gap-2 mb-4">
-        <span class="material-icons text-[#008B94]">commute</span>
-        <h3 class="text-lg font-bold">Travel</h3>
-      </div>
-      <div class="space-y-3">
-        <div class="flex items-center justify-between py-3 border-b">
-          <div class="flex items-center gap-3">
-            <div class="w-10 h-10 flex items-center justify-center rounded-full bg-[#E0F3F3] text-[#008B94] font-bold">S</div>
-            <p class="font-semibold text-sm">Sagar S</p>
-          </div>
-          <div class="flex gap-3 text-lg">
-            <a href="tel:9960073748">📞</a>
-            <a href="https://wa.me/+919960073748" target="_blank">💬</a>
-          </div>
-        </div>
-
-        <div class="flex items-center justify-between py-3 border-b">
-          <div class="flex items-center gap-3">
-            <div class="w-10 h-10 flex items-center justify-center rounded-full bg-[#E0F3F3] text-[#008B94] font-bold">D</div>
-            <p class="font-semibold text-sm">Diwan Chand</p>
-          </div>
-          <div class="flex gap-3 text-lg">
-            <a href="tel:8669222611">📞</a>
-            <a href="https://wa.me/+918669222611" target="_blank">💬</a>
-          </div>
-        </div>
-
-        <div class="flex items-center justify-between py-3 border-b">
-          <div class="flex items-center gap-3">
-            <div class="w-10 h-10 flex items-center justify-center rounded-full bg-[#E0F3F3] text-[#008B94] font-bold">R</div>
-            <p class="font-semibold text-sm">Ramesh Bhogle</p>
-          </div>
-          <div class="flex gap-3 text-lg">
-            <a href="tel:9004765393">📞</a>
-            <a href="https://wa.me/+919004765393" target="_blank">💬</a>
-          </div>
-        </div>
-
-        <div class="flex items-center justify-between py-3">
-          <div class="flex items-center gap-3">
-            <div class="w-10 h-10 flex items-center justify-center rounded-full bg-[#E0F3F3] text-[#008B94] font-bold">A</div>
-            <p class="font-semibold text-sm">Aman Pandey</p>
-          </div>
-          <div class="flex gap-3 text-lg">
-            <a href="tel:7972488508">📞</a>
-            <a href="https://wa.me/+917972488508" target="_blank">💬</a>
-          </div>
-        </div>
+  <body>
+    <div id="installBanner" class="hidden fixed top-0 inset-x-0 z-[60] bg-[#008B94] text-white text-xs md:text-sm px-4 py-2 flex items-center justify-between gap-3 shadow-md">
+      <span>📲 Install Adage Day on your device for quick access.</span>
+      <div class="flex items-center gap-2 shrink-0">
+        <button id="installBtn" class="bg-white text-[#008B94] font-semibold px-3 py-1 rounded-full">Install</button>
+        <button id="installDismiss" class="text-white/80 text-base leading-none">✕</button>
       </div>
     </div>
 
-    <!-- Local Transport -->
-    <div class="bg-white rounded-2xl shadow-md p-6 hover:shadow-lg transition-shadow border border-gray-100">
-      <div class="flex items-center gap-2 mb-4">
-        <span class="material-icons text-[#008B94]">local_taxi</span>
-        <h3 class="text-lg font-bold">Local Transportation</h3>
+    <header class="topbar">
+      <div class="topbar-inner">
+        <a href="index.html" class="brand">
+          <img src="static/images/25-JGS.png" alt="" />
+          <span>Adage <b>Day 2026</b></span>
+        </a>
+        <nav class="topnav" aria-label="Main">
+          <a href="index.html">Home</a>
+          <a href="message.html">Message</a>
+          <a href="schedule.html">Schedule</a>
+          <a href="rules.html">Guidelines</a>
+          <a href="contacts.html" class="active">Contacts</a>
+          <a href="guest.html">Outstation</a>
+        </nav>
       </div>
-      <div class="space-y-3">
-        <div class="flex items-center justify-between py-3 border-b">
-          <div class="flex items-center gap-3">
-            <div class="w-10 h-10 flex items-center justify-center rounded-full bg-[#E0F3F3] text-[#008B94] font-bold">R</div>
-            <p class="font-semibold text-sm">Ramesh Bhogle</p>
+    </header>
+
+    <main class="wrap">
+      <section class="page-hero">
+        <span class="beam beam-l" aria-hidden="true"></span>
+        <span class="beam beam-r" aria-hidden="true"></span>
+        <div class="dust" data-dust="12" aria-hidden="true"></div>
+        <span class="eyebrow">Need Help?</span>
+        <h1>Event Contact <span class="metal-teal sweep">Directory</span></h1>
+        <p>Travel · Stay · Support · Transportation · Assistance</p>
+      </section>
+
+      <section class="section" style="margin-top: 26px">
+        <div data-reveal>
+          <!-- Travel -->
+          <div class="contact-card">
+            <h3><span class="material-icons-round">commute</span>Travel</h3>
+            <div>
+              <div class="contact-row">
+                <div class="contact-who"><div class="contact-avatar">S</div><p class="contact-name">Sagar S</p></div>
+                <div class="contact-actions"><a href="tel:9960073748" aria-label="Call Sagar S"><span class="material-icons-round">call</span></a><a href="https://wa.me/+919960073748" target="_blank" rel="noopener" aria-label="WhatsApp Sagar S"><span class="material-icons-round">chat</span></a></div>
+              </div>
+              <div class="contact-row">
+                <div class="contact-who"><div class="contact-avatar">D</div><p class="contact-name">Diwan Chand</p></div>
+                <div class="contact-actions"><a href="tel:8669222611" aria-label="Call Diwan Chand"><span class="material-icons-round">call</span></a><a href="https://wa.me/+918669222611" target="_blank" rel="noopener" aria-label="WhatsApp Diwan Chand"><span class="material-icons-round">chat</span></a></div>
+              </div>
+              <div class="contact-row">
+                <div class="contact-who"><div class="contact-avatar">R</div><p class="contact-name">Ramesh Bhogle</p></div>
+                <div class="contact-actions"><a href="tel:9004765393" aria-label="Call Ramesh Bhogle"><span class="material-icons-round">call</span></a><a href="https://wa.me/+919004765393" target="_blank" rel="noopener" aria-label="WhatsApp Ramesh Bhogle"><span class="material-icons-round">chat</span></a></div>
+              </div>
+              <div class="contact-row">
+                <div class="contact-who"><div class="contact-avatar">A</div><p class="contact-name">Aman Pandey</p></div>
+                <div class="contact-actions"><a href="tel:7972488508" aria-label="Call Aman Pandey"><span class="material-icons-round">call</span></a><a href="https://wa.me/+917972488508" target="_blank" rel="noopener" aria-label="WhatsApp Aman Pandey"><span class="material-icons-round">chat</span></a></div>
+              </div>
+            </div>
           </div>
-          <div class="flex gap-3 text-lg">
-            <a href="tel:9004765393">📞</a>
-            <a href="https://wa.me/+919004765393" target="_blank">💬</a>
+
+          <!-- Local Transport -->
+          <div class="contact-card">
+            <h3><span class="material-icons-round">local_taxi</span>Local Transportation</h3>
+            <div>
+              <div class="contact-row">
+                <div class="contact-who"><div class="contact-avatar">R</div><p class="contact-name">Ramesh Bhogle</p></div>
+                <div class="contact-actions"><a href="tel:9004765393" aria-label="Call Ramesh Bhogle"><span class="material-icons-round">call</span></a><a href="https://wa.me/+919004765393" target="_blank" rel="noopener" aria-label="WhatsApp Ramesh Bhogle"><span class="material-icons-round">chat</span></a></div>
+              </div>
+              <div class="contact-row">
+                <div class="contact-who"><div class="contact-avatar">S</div><p class="contact-name">Sagar S</p></div>
+                <div class="contact-actions"><a href="tel:9960073748" aria-label="Call Sagar S"><span class="material-icons-round">call</span></a><a href="https://wa.me/+919960073748" target="_blank" rel="noopener" aria-label="WhatsApp Sagar S"><span class="material-icons-round">chat</span></a></div>
+              </div>
+              <div class="contact-row">
+                <div class="contact-who"><div class="contact-avatar">A</div><p class="contact-name">Aman Pandey</p></div>
+                <div class="contact-actions"><a href="tel:7972488508" aria-label="Call Aman Pandey"><span class="material-icons-round">call</span></a><a href="https://wa.me/+917972488508" target="_blank" rel="noopener" aria-label="WhatsApp Aman Pandey"><span class="material-icons-round">chat</span></a></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Accommodation -->
+          <div class="contact-card">
+            <h3><span class="material-icons-round">hotel</span>Accommodation</h3>
+            <div>
+              <div class="contact-row">
+                <div class="contact-who"><div class="contact-avatar">D</div><p class="contact-name">Devyani S</p></div>
+                <div class="contact-actions"><a href="tel:9403824212" aria-label="Call Devyani S"><span class="material-icons-round">call</span></a><a href="https://wa.me/+919403824212" target="_blank" rel="noopener" aria-label="WhatsApp Devyani S"><span class="material-icons-round">chat</span></a></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Any Other Assistance -->
+          <div class="contact-card">
+            <h3><span class="material-icons-round">support_agent</span>Any Other Assistance</h3>
+            <div>
+              <div class="contact-row">
+                <div class="contact-who"><div class="contact-avatar">D</div><p class="contact-name">Devyani</p></div>
+                <div class="contact-actions"><a href="tel:9403824212" aria-label="Call Devyani"><span class="material-icons-round">call</span></a><a href="https://wa.me/+919403824212" target="_blank" rel="noopener" aria-label="WhatsApp Devyani"><span class="material-icons-round">chat</span></a></div>
+              </div>
+              <div class="contact-row">
+                <div class="contact-who"><div class="contact-avatar">P</div><p class="contact-name">Prachi Pai</p></div>
+                <div class="contact-actions"><a href="tel:9921448896" aria-label="Call Prachi Pai"><span class="material-icons-round">call</span></a><a href="https://wa.me/+919921448896" target="_blank" rel="noopener" aria-label="WhatsApp Prachi Pai"><span class="material-icons-round">chat</span></a></div>
+              </div>
+              <div class="contact-row">
+                <div class="contact-who"><div class="contact-avatar">R</div><p class="contact-name">Ramesh Bhogle</p></div>
+                <div class="contact-actions"><a href="tel:9004765393" aria-label="Call Ramesh Bhogle"><span class="material-icons-round">call</span></a><a href="https://wa.me/+919004765393" target="_blank" rel="noopener" aria-label="WhatsApp Ramesh Bhogle"><span class="material-icons-round">chat</span></a></div>
+              </div>
+              <div class="contact-row">
+                <div class="contact-who"><div class="contact-avatar">A</div><p class="contact-name">Anchal Tiwari</p></div>
+                <div class="contact-actions"><a href="tel:8999503726" aria-label="Call Anchal Tiwari"><span class="material-icons-round">call</span></a><a href="https://wa.me/+918999503726" target="_blank" rel="noopener" aria-label="WhatsApp Anchal Tiwari"><span class="material-icons-round">chat</span></a></div>
+              </div>
+              <div class="contact-row">
+                <div class="contact-who"><div class="contact-avatar">A</div><p class="contact-name">Aman Pandey</p></div>
+                <div class="contact-actions"><a href="tel:7972488508" aria-label="Call Aman Pandey"><span class="material-icons-round">call</span></a><a href="https://wa.me/+917972488508" target="_blank" rel="noopener" aria-label="WhatsApp Aman Pandey"><span class="material-icons-round">chat</span></a></div>
+              </div>
+            </div>
           </div>
         </div>
+      </section>
+    </main>
 
-        <div class="flex items-center justify-between py-3 border-b">
-          <div class="flex items-center gap-3">
-            <div class="w-10 h-10 flex items-center justify-center rounded-full bg-[#E0F3F3] text-[#008B94] font-bold">S</div>
-            <p class="font-semibold text-sm">Sagar S</p>
-          </div>
-          <div class="flex gap-3 text-lg">
-            <a href="tel:9960073748">📞</a>
-            <a href="https://wa.me/+919960073748" target="_blank">💬</a>
-          </div>
-        </div>
-
-        <div class="flex items-center justify-between py-3">
-          <div class="flex items-center gap-3">
-            <div class="w-10 h-10 flex items-center justify-center rounded-full bg-[#E0F3F3] text-[#008B94] font-bold">A</div>
-            <p class="font-semibold text-sm">Aman Pandey</p>
-          </div>
-          <div class="flex gap-3 text-lg">
-            <a href="tel:7972488508">📞</a>
-            <a href="https://wa.me/+917972488508" target="_blank">💬</a>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Accommodation -->
-    <div class="bg-white rounded-2xl shadow-md p-6 hover:shadow-lg transition-shadow border border-gray-100">
-      <div class="flex items-center gap-2 mb-4">
-        <span class="material-icons text-[#008B94]">hotel</span>
-        <h3 class="text-lg font-bold">Accommodation</h3>
-      </div>
-      <div class="space-y-3">
-        <div class="flex items-center justify-between py-3">
-          <div class="flex items-center gap-3">
-            <div class="w-10 h-10 flex items-center justify-center rounded-full bg-[#E0F3F3] text-[#008B94] font-bold">D</div>
-            <p class="font-semibold text-sm">Devyani S</p>
-          </div>
-          <div class="flex gap-3 text-lg">
-            <a href="tel:9403824212">📞</a>
-            <a href="https://wa.me/+919403824212" target="_blank">💬</a>
-          </div>
-        </div>
-
-      </div>
-    </div>
-
-    <!-- Other Assistance -->
-    <div class="bg-white rounded-2xl shadow-md p-6 hover:shadow-lg transition-shadow border border-gray-100">
-      <div class="flex items-center gap-2 mb-4">
-        <span class="material-icons text-[#008B94]">support_agent</span>
-        <h3 class="text-lg font-bold">Any Other Assistance</h3>
-      </div>
-      <div class="space-y-3">
-
-        <div class="flex items-center justify-between py-3 border-b">
-          <div class="flex items-center gap-3">
-            <div class="w-10 h-10 flex items-center justify-center rounded-full bg-[#E0F3F3] text-[#008B94] font-bold">D</div>
-            <p class="font-semibold text-sm">Devyani</p>
-          </div>
-          <div class="flex gap-3 text-lg">
-            <a href="tel:9403824212">📞</a>
-            <a href="https://wa.me/+919403824212" target="_blank">💬</a>
-          </div>
-        </div>
-
-        <div class="flex items-center justify-between py-3 border-b">
-          <div class="flex items-center gap-3">
-            <div class="w-10 h-10 flex items-center justify-center rounded-full bg-[#E0F3F3] text-[#008B94] font-bold">P</div>
-            <p class="font-semibold text-sm">Prachi Pai</p>
-          </div>
-          <div class="flex gap-3 text-lg">
-            <a href="tel:9921448896">📞</a>
-            <a href="https://wa.me/+919921448896" target="_blank">💬</a>
-          </div>
-        </div>
-
-        <div class="flex items-center justify-between py-3 border-b">
-          <div class="flex items-center gap-3">
-            <div class="w-10 h-10 flex items-center justify-center rounded-full bg-[#E0F3F3] text-[#008B94] font-bold">R</div>
-            <p class="font-semibold text-sm">Ramesh Bhogle</p>
-          </div>
-          <div class="flex gap-3 text-lg">
-            <a href="tel:9004765393">📞</a>
-            <a href="https://wa.me/+919004765393" target="_blank">💬</a>
-          </div>
-        </div>
-
-        <div class="flex items-center justify-between py-3 border-b">
-          <div class="flex items-center gap-3">
-            <div class="w-10 h-10 flex items-center justify-center rounded-full bg-[#E0F3F3] text-[#008B94] font-bold">A</div>
-            <p class="font-semibold text-sm">Anchal Tiwari</p>
-          </div>
-          <div class="flex gap-3 text-lg">
-            <a href="tel:8999503726">📞</a>
-            <a href="https://wa.me/+918999503726" target="_blank">💬</a>
-          </div>
-        </div>
-
-        <div class="flex items-center justify-between py-3">
-          <div class="flex items-center gap-3">
-            <div class="w-10 h-10 flex items-center justify-center rounded-full bg-[#E0F3F3] text-[#008B94] font-bold">A</div>
-            <p class="font-semibold text-sm">Aman Pandey</p>
-          </div>
-          <div class="flex gap-3 text-lg">
-            <a href="tel:7972488508">📞</a>
-            <a href="https://wa.me/+917972488508" target="_blank">💬</a>
-          </div>
-        </div>
-      </div>
-    </div>
-
-  </div>
-</section>
-
-  <!-- Bottom Navigation (Mobile) -->
-  <nav class="mobile-nav fixed bottom-3 left-1/2 -translate-x-1/2 w-[92%] px-4 py-2 rounded-full flex justify-around md:hidden z-50 shadow-lg">
-    <a href="index.html"><span class="material-icons">home</span><div>Home</div></a>
-    <a href="schedule.html"><span class="material-icons">event</span><div>Schedule</div></a>
-    <a href="rules.html"><span class="material-icons">rule</span><div>Guidelines</div></a>
-    <a href="contacts.html" class="text-[#008B94]"><span class="material-icons">call</span><div>Contacts</div></a>
-    <a href="guest.html"><span class="material-icons">flight_takeoff</span><div>Outstation</div></a>
-  </nav>
-
-  <!-- Footer -->
-  <footer class="site-footer">
-      <img src="static/images/25-JGS.png" alt="" class="site-footer-logo" />
-      <p class="site-footer-tagline">25 &amp; JUST GETTING STARTED</p>
-      <p class="site-footer-copy">© 2026 Adage Automation Private Limited</p>
+    <footer class="footer">
+      <img src="static/images/25-JGS.png" alt="" />
+      <p class="footer-tag metal">25 &amp; JUST GETTING STARTED</p>
+      <p class="footer-copy">&copy; 2026 Adage Automation Private Limited</p>
     </footer>
-  <script src="static/js/install-prompt.js" defer></script>
-  <script src="static/js/motion.js" defer></script>
-  <script type="module" src="static/js/announce-alert.js"></script>
-</body>
+
+    <nav class="dock" aria-label="Main">
+      <a href="index.html"><span class="material-icons-round">home</span>Home</a>
+      <a href="schedule.html"><span class="material-icons-round">event</span>Schedule</a>
+      <a href="rules.html"><span class="material-icons-round">rule</span>Guidelines</a>
+      <a href="contacts.html" class="active"><span class="material-icons-round">call</span>Contacts</a>
+      <a href="guest.html"><span class="material-icons-round">flight_takeoff</span>Outstation</a>
+    </nav>
+
+    <script src="static/js/install-prompt.js" defer></script>
+    <script src="static/js/site.js" defer></script>
+    <script type="module" src="static/js/announce-alert.js"></script>
+  </body>
 </html>

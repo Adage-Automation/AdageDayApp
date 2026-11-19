@@ -1,157 +1,114 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Event Guidelines, Adage Day 2026</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#04090b" />
+    <link rel="manifest" href="manifest.json" />
+    <link rel="icon" type="image/png" href="static/images/25-JGS-icon.png" />
+    <link rel="apple-touch-icon" href="static/images/25-JGS-icon.png" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="mobile-web-app-capable" content="yes" />
 
-<head>
-  <meta charset="UTF-8" />
-  <title>Event Guidelines, Adage Day 2026</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="manifest" href="manifest.json" />
-  <link rel="icon" type="image/png" href="static/images/25-JGS-icon.png" />
-  <link rel="apple-touch-icon" href="static/images/25-JGS-icon.png" />
-  <meta name="theme-color" content="#061820" />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="mobile-web-app-capable" content="yes" />
-  <script>document.documentElement.classList.add("js-motion")</script>
-  <link rel="stylesheet" href="static/css/theme.css?v=11" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet" />
 
-  <style>
-    body { font-family: system-ui, sans-serif; background-color: #FFF8F3; padding-bottom: 80px; }
-    h1, h2 { font-family: 'Poppins', sans-serif; }
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="static/css/site.css?v=1" />
+  </head>
 
-    nav a { padding-bottom: 4px; border-bottom: 2px solid transparent; transition: color 0.25s var(--ease-premium, ease), border-color 0.25s var(--ease-premium, ease); }
-    nav a:hover { color: #008B94; border-bottom: 2px solid #008B94; }
-    .nav-active { color: #f0d897 !important; font-weight: 600; text-shadow: 0 0 14px rgba(216, 180, 95, 0.35); }
-    .page-hero { background: radial-gradient(circle at 50% 0%, rgba(25, 195, 209, 0.12) 0%, rgba(25, 195, 209, 0) 70%); border-radius: 24px; padding: 28px 16px 16px; }
-
-    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px);} to { opacity: 1; transform: translateY(0);} }
-    .animate-fadeIn { animation: fadeIn 0.6s ease-in-out; }
-
-    .mobile-nav {
-      background: rgba(255, 255, 255, 0.92);
-      backdrop-filter: blur(12px);
-      box-shadow: 0 -4px 14px rgba(0, 0, 0, 0.1);
-      border-radius: 28px;
-    }
-    .mobile-nav a {
-      flex: 1; text-align: center; padding: 6px 0; font-size: 11px;
-      transition: transform 0.2s ease;
-    }
-    .mobile-nav a:hover { background-color: rgba(201, 165, 74, 0.15); }
-    .mobile-nav a:active { transform: scale(0.93); }
-
-    ul li {
-      display: flex;
-      align-items: flex-start;
-      gap: 8px;
-    }
-
-    ul li::before {
-      content: "•";
-      color: inherit;
-      font-size: 18px;
-      line-height: 1.2;
-    }
-  </style>
-</head>
-
-<body class="text-gray-800">
-
-  <div id="installBanner" class="hidden fixed top-0 inset-x-0 z-[60] bg-[#008B94] text-white text-xs md:text-sm px-4 py-2 flex items-center justify-between gap-3 shadow-md">
-    <span>📲 Install Adage Day on your device for quick access.</span>
-    <div class="flex items-center gap-2 shrink-0">
-      <button id="installBtn" class="bg-white text-[#008B94] font-semibold px-3 py-1 rounded-full">Install</button>
-      <button id="installDismiss" class="text-white/80 text-base leading-none">✕</button>
-    </div>
-  </div>
-
-  <!-- Header -->
-  <header class="hidden md:block shadow-sm bg-white">
-    <div class="max-w-6xl mx-auto py-4 px-6 flex justify-between items-center">
-      <a href="index.html" class="flex items-center gap-2.5 shrink-0">
-        <img src="static/images/25-JGS.png" alt="Adage Day 2026" class="nav-logo" />
-        <span class="brand-wordmark text-lg lg:text-xl font-extrabold tracking-[0.15em] lg:tracking-[0.2em] uppercase">
-          <span class="text-white">Adage</span> <span class="text-[#19c3d1]">Day 2026</span>
-        </span>
-      </a>
-      <nav class="flex gap-3 lg:gap-6 text-xs lg:text-sm font-medium">
-        <a href="index.html">Home</a>
-        <a href="message.html">Message</a>
-        <a href="schedule.html">Schedule</a>
-        <a href="rules.html" class="nav-active">Guidelines</a>
-        <a href="contacts.html">Contacts</a>
-        <a href="guest.html">Outstation</a>
-      </nav>
-    </div>
-  </header>
-
-<section class="max-w-2xl mx-auto px-4 py-8 animate-fadeIn">
-
-  <!-- Page Header -->
-  <div class="page-hero text-center mb-8">
-    <span class="eyebrow">Before You Go</span>
-    <h1 class="text-3xl font-extrabold text-[#008B94]">Event <span class="accent">Guidelines</span></h1>
-    <p class="text-sm text-gray-600">Follow the instructions to ensure smooth event experience</p>
-    <div class="mt-2 w-20 h-1 bg-[#C9A54A] mx-auto rounded-full"></div>
-  </div>
-
-  <!-- Guidelines Grid -->
-  <div class="grid md:grid-cols-2 gap-6">
-
-    <!-- DO'S -->
-    <div class="bg-white border border-green-100 rounded-xl p-6 shadow-sm">
-      <div class="flex items-center gap-2 mb-4">
-        <span class="material-icons text-green-600 text-xl">check_circle</span>
-        <h2 class="text-lg font-bold text-green-700">DO's</h2>
+  <body>
+    <div id="installBanner" class="hidden fixed top-0 inset-x-0 z-[60] bg-[#008B94] text-white text-xs md:text-sm px-4 py-2 flex items-center justify-between gap-3 shadow-md">
+      <span>📲 Install Adage Day on your device for quick access.</span>
+      <div class="flex items-center gap-2 shrink-0">
+        <button id="installBtn" class="bg-white text-[#008B94] font-semibold px-3 py-1 rounded-full">Install</button>
+        <button id="installDismiss" class="text-white/80 text-base leading-none">✕</button>
       </div>
-      <ul class="space-y-3 text-gray-700 text-sm leading-relaxed">
-        <li>Report on time for all events and follow the schedule strictly.</li>
-        <li>Dress as per the event-specific dress code (Sports / Photoshoot / Awards / Gala).</li>
-        <li>Do remember your standing position for the photoshoot.</li>
-        <li>Supervise your children and make sure they stay within designated areas.</li>
-        <li>Enjoy responsibly, stay involved, and encourage others in all activities.</li>
-        <li>Regional team members must arrive 15 minutes before their allotted bus pickup time. Late arrivals must arrange their own transport.</li>
-      </ul>
     </div>
 
-    <!-- DON'Ts -->
-    <div class="bg-white border border-red-100 rounded-xl p-6 shadow-sm">
-      <div class="flex items-center gap-2 mb-4">
-        <span class="material-icons text-red-600 text-xl">block</span>
-        <h2 class="text-lg font-bold text-red-700">DON'Ts</h2>
+    <header class="topbar">
+      <div class="topbar-inner">
+        <a href="index.html" class="brand">
+          <img src="static/images/25-JGS.png" alt="" />
+          <span>Adage <b>Day 2026</b></span>
+        </a>
+        <nav class="topnav" aria-label="Main">
+          <a href="index.html">Home</a>
+          <a href="message.html">Message</a>
+          <a href="schedule.html">Schedule</a>
+          <a href="rules.html" class="active">Guidelines</a>
+          <a href="contacts.html">Contacts</a>
+          <a href="guest.html">Outstation</a>
+        </nav>
       </div>
-      <ul class="space-y-3 text-gray-700 text-sm leading-relaxed">
-        <li>Do not litter or throw food, tissue, or bottles around; use dustbins provided.</li>
-        <li>Do not damage property, décor, lighting, or stage arrangements.</li>
-        <li>Children should not run, loiter, or interrupt any performances.</li>
-        <li>Do not wander into restricted areas, backstage zones, or performance zones.</li>
-        <li>Children below 3 years are not allowed at the event venues.</li>
-      </ul>
-    </div>
-  </div>
+    </header>
 
-</section>
+    <main class="wrap">
+      <section class="page-hero">
+        <span class="beam beam-l" aria-hidden="true"></span>
+        <span class="beam beam-r" aria-hidden="true"></span>
+        <div class="dust" data-dust="12" aria-hidden="true"></div>
+        <span class="eyebrow">Before You Go</span>
+        <h1>Event <span class="metal-teal sweep">Guidelines</span></h1>
+        <p>Follow the instructions to ensure a smooth event experience</p>
+      </section>
 
-  <!-- Mobile Bottom Navigation -->
-  <nav class="mobile-nav fixed bottom-3 left-1/2 -translate-x-1/2 w-[92%] px-4 py-2 rounded-full flex justify-around md:hidden z-50 shadow-lg">
-    <a href="index.html"><span class="material-icons">home</span><div>Home</div></a>
-    <a href="schedule.html"><span class="material-icons">event</span><div>Schedule</div></a>
-    <a href="rules.html" class="text-[#008B94]"><span class="material-icons">rule</span><div>Guidelines</div></a>
-    <a href="contacts.html"><span class="material-icons">call</span><div>Contacts</div></a>
-    <a href="guest.html"><span class="material-icons">flight_takeoff</span><div>Outstation</div></a>
-  </nav>
+      <section class="section" style="margin-top: 26px">
+        <div class="rules-grid" data-reveal>
+          <!-- DO'S -->
+          <div class="rules-card dos">
+            <div class="rules-head">
+              <span class="material-icons-round">check_circle</span>
+              <h2>DO's</h2>
+            </div>
+            <div class="rules-list">
+              <div class="rules-row"><span class="material-icons-round">check_circle</span>Report on time for all events and follow the schedule strictly.</div>
+              <div class="rules-row"><span class="material-icons-round">check_circle</span>Dress as per the event-specific dress code (Sports / Photoshoot / Awards / Gala).</div>
+              <div class="rules-row"><span class="material-icons-round">check_circle</span>Do remember your standing position for the photoshoot.</div>
+              <div class="rules-row"><span class="material-icons-round">check_circle</span>Supervise your children and make sure they stay within designated areas.</div>
+              <div class="rules-row"><span class="material-icons-round">check_circle</span>Enjoy responsibly, stay involved, and encourage others in all activities.</div>
+              <div class="rules-row"><span class="material-icons-round">check_circle</span>Regional team members must arrive 15 minutes before their allotted bus pickup time. Late arrivals must arrange their own transport.</div>
+            </div>
+          </div>
 
-  <!-- Footer -->
-  <footer class="site-footer">
-      <img src="static/images/25-JGS.png" alt="" class="site-footer-logo" />
-      <p class="site-footer-tagline">25 &amp; JUST GETTING STARTED</p>
-      <p class="site-footer-copy">© 2026 Adage Automation Private Limited</p>
+          <!-- DON'Ts -->
+          <div class="rules-card donts">
+            <div class="rules-head">
+              <span class="material-icons-round">block</span>
+              <h2>DON'Ts</h2>
+            </div>
+            <div class="rules-list">
+              <div class="rules-row"><span class="material-icons-round">block</span>Do not litter or throw food, tissue, or bottles around; use dustbins provided.</div>
+              <div class="rules-row"><span class="material-icons-round">block</span>Do not damage property, décor, lighting, or stage arrangements.</div>
+              <div class="rules-row"><span class="material-icons-round">block</span>Children should not run, loiter, or interrupt any performances.</div>
+              <div class="rules-row"><span class="material-icons-round">block</span>Do not wander into restricted areas, backstage zones, or performance zones.</div>
+              <div class="rules-row"><span class="material-icons-round">block</span>Children below 3 years are not allowed at the event venues.</div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <img src="static/images/25-JGS.png" alt="" />
+      <p class="footer-tag metal">25 &amp; JUST GETTING STARTED</p>
+      <p class="footer-copy">&copy; 2026 Adage Automation Private Limited</p>
     </footer>
 
-  <script src="static/js/install-prompt.js" defer></script>
-  <script src="static/js/motion.js" defer></script>
-  <script type="module" src="static/js/announce-alert.js"></script>
-</body>
+    <nav class="dock" aria-label="Main">
+      <a href="index.html"><span class="material-icons-round">home</span>Home</a>
+      <a href="schedule.html"><span class="material-icons-round">event</span>Schedule</a>
+      <a href="rules.html" class="active"><span class="material-icons-round">rule</span>Guidelines</a>
+      <a href="contacts.html"><span class="material-icons-round">call</span>Contacts</a>
+      <a href="guest.html"><span class="material-icons-round">flight_takeoff</span>Outstation</a>
+    </nav>
+
+    <script src="static/js/install-prompt.js" defer></script>
+    <script src="static/js/site.js" defer></script>
+    <script type="module" src="static/js/announce-alert.js"></script>
+  </body>
 </html>

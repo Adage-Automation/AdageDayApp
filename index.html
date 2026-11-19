@@ -3,240 +3,26 @@
   <head>
     <meta charset="UTF-8" />
     <title>Adage Day 2026, Celebrating 25 Years of Adage</title>
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
-    />
-
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-
-    <!-- Google Icons & Fonts -->
-    <link
-      href="https://fonts.googleapis.com/icon?family=Material+Icons"
-      rel="stylesheet"
-    />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
-      rel="stylesheet"
-    />
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#04090b" />
     <link rel="manifest" href="manifest.json" />
     <link rel="icon" type="image/png" href="static/images/25-JGS-icon.png" />
     <link rel="apple-touch-icon" href="static/images/25-JGS-icon.png" />
-    <meta name="theme-color" content="#061820" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="mobile-web-app-capable" content="yes" />
-    <script>document.documentElement.classList.add("js-motion")</script>
-    <link rel="stylesheet" href="static/css/theme.css?v=11" />
 
-    <style>
-      body {
-        font-family: system-ui, sans-serif;
-        background-color: #fff8f3;
-        margin: 0;
-        padding-bottom: 80px;
-      }
-      h1,
-      h2,
-      h3 {
-        font-family: "Poppins", sans-serif;
-      }
-      .page-hero {
-        border-radius: 24px;
-        padding: 32px 16px 24px;
-      }
-      nav a {
-        padding-bottom: 4px;
-        border-bottom: 2px solid transparent;
-        transition: color 0.25s var(--ease-premium, ease), border-color 0.25s var(--ease-premium, ease);
-      }
-      nav a:hover {
-        color: #008b94;
-        border-bottom: 2px solid #008b94;
-      }
-      .nav-active {
-        color: #f0d897 !important;
-        font-weight: 600;
-        text-shadow: 0 0 14px rgba(216, 180, 95, 0.35);
-      }
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet" />
 
-      /* Mobile Navigation */
-      .mobile-nav {
-        background: rgba(255, 255, 255, 0.92);
-        backdrop-filter: blur(12px);
-        box-shadow: 0 -4px 14px rgba(0, 0, 0, 0.1);
-        border-radius: 28px;
-      }
-      .mobile-nav a {
-        flex: 1;
-        text-align: center;
-        padding: 6px 0;
-        font-size: 11px;
-        transition: transform 0.2s ease;
-      }
-      .mobile-nav a:hover {
-        background-color: rgba(201, 165, 74, 0.15);
-      }
-      .mobile-nav a:active {
-        transform: scale(0.93);
-      }
-
-      /* Event Schedule Navigation Cards */
-      .day-group + .day-group { margin-top: 20px; }
-      .day-group-label {
-        font-size: 11px;
-        font-weight: 600;
-        color: #d8b45f;
-        margin-bottom: 8px;
-        padding-left: 2px;
-      }
-      .day-group-label span {
-        font-weight: 400;
-        color: rgba(226, 246, 247, 0.4);
-      }
-      .event-nav-grid {
-        display: grid;
-        gap: 14px;
-        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      }
-      .event-nav-card {
-        display: flex;
-        align-items: center;
-        gap: 14px;
-        background: linear-gradient(160deg, rgba(25, 195, 209, 0.07), rgba(7, 20, 24, 0.92));
-        border: 1px solid rgba(56, 212, 222, 0.14);
-        border-radius: 18px;
-        padding: 14px 16px;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-        transition: transform 0.25s ease, box-shadow 0.25s ease,
-          border-color 0.25s ease;
-      }
-      .event-nav-card:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 14px 30px rgba(25, 195, 209, 0.2);
-        border-color: rgba(25, 195, 209, 0.4);
-      }
-      .hero-countdown {
-        margin: 20px auto 0;
-        padding-top: 16px;
-        max-width: 18rem;
-        border-top: 1px solid rgba(240, 216, 151, 0.22);
-      }
-      #countdown {
-        display: flex;
-        justify-content: center;
-        align-items: flex-start;
-        gap: 6px;
-        margin-top: 8px;
-      }
-      .cd-unit {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        min-width: 3rem;
-      }
-      .cd-num {
-        display: inline-block;
-        font-family: "Poppins", sans-serif;
-        font-size: 1.75rem;
-        line-height: 1;
-        font-variant-numeric: tabular-nums;
-        background: linear-gradient(180deg, #f0d897 0%, #c9a54a 100%);
-        -webkit-background-clip: text;
-        background-clip: text;
-        color: transparent;
-      }
-      .cd-num.tick { animation: cd-tick 0.45s var(--ease-premium, ease); }
-      @keyframes cd-tick {
-        from { opacity: 0.15; transform: translateY(-6px); }
-      }
-      .cd-label {
-        margin-top: 6px;
-        font-size: 10px;
-        font-weight: 500;
-        color: rgba(226, 246, 247, 0.5);
-      }
-      .cd-sep {
-        font-size: 1.4rem;
-        line-height: 1.15;
-        color: rgba(240, 216, 151, 0.45);
-      }
-
-      /* Five events as one grouped list, not five separate cards */
-      .schedule-list {
-        background: linear-gradient(160deg, rgba(25, 195, 209, 0.07), rgba(7, 20, 24, 0.92));
-        border: 1px solid rgba(56, 212, 222, 0.14);
-        border-radius: 18px;
-        padding: 4px 16px 4px;
-      }
-      .schedule-list .day-group + .day-group { margin-top: 0; }
-      .schedule-list .day-group-label { margin: 14px 0 0; }
-      .schedule-list .event-nav-grid { grid-template-columns: 1fr; gap: 0; }
-      .schedule-list .event-nav-card {
-        background: none;
-        border: 0;
-        border-radius: 0;
-        box-shadow: none;
-        padding: 12px 0;
-        border-bottom: 1px solid rgba(56, 212, 222, 0.1);
-      }
-      .schedule-list .day-group:last-child .event-nav-card:last-child { border-bottom: 0; }
-      .schedule-list .event-nav-card:hover { transform: none; box-shadow: none; }
-
-      .live-cta { border-color: rgba(216, 180, 95, 0.35); }
-      .live-cta:hover { border-color: rgba(216, 180, 95, 0.6); }
-      .event-nav-card:active {
-        transform: translateY(0) scale(0.99);
-      }
-      .event-nav-icon {
-        flex-shrink: 0;
-        width: 46px;
-        height: 46px;
-        border-radius: 14px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 22px;
-        background: none;
-      }
-      .event-nav-icon.icon-cyan {
-        color: #19c3d1;
-      }
-      .event-nav-icon.icon-gold {
-        color: #f0d897;
-      }
-      .event-nav-info {
-        flex: 1;
-        min-width: 0;
-      }
-      .event-nav-title {
-        font-weight: 600;
-        font-size: 14px;
-        color: #f1fbfc;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-      }
-      .event-nav-date {
-        font-size: 12px;
-        color: rgba(226, 246, 247, 0.55);
-        margin-top: 2px;
-      }
-      .event-nav-arrow {
-        flex-shrink: 0;
-        font-size: 18px !important;
-        color: rgba(226, 246, 247, 0.3);
-        transition: transform 0.25s ease, color 0.25s ease;
-      }
-      .event-nav-card:hover .event-nav-arrow {
-        transform: translateX(3px);
-        color: #7fe9ef;
-      }
-    </style>
+    <!-- Tailwind: kept for the preserved hero logo block, the install banner, and a few one-off utilities -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="static/css/site.css?v=1" />
   </head>
 
-  <body class="text-gray-800">
+  <body>
     <!-- Install App Banner -->
     <div id="installBanner" class="hidden fixed top-0 inset-x-0 z-[60] bg-[#008B94] text-white text-xs md:text-sm px-4 py-2 flex items-center justify-between gap-3 shadow-md">
       <span>📲 Install Adage Day on your device for quick access.</span>
@@ -246,20 +32,15 @@
       </div>
     </div>
 
-    <!-- Desktop Header -->
-    <header class="hidden md:block shadow-sm bg-white">
-      <div
-        class="max-w-6xl mx-auto py-4 px-6 flex justify-between items-center"
-      >
-        <a href="index.html" class="flex items-center gap-2.5 shrink-0">
-          <img src="static/images/25-JGS.png" alt="Adage Day 2026" class="nav-logo" />
-          <span
-            class="brand-wordmark text-lg lg:text-xl font-extrabold tracking-[0.15em] lg:tracking-[0.2em] uppercase"
-            ><span class="text-white">Adage</span> <span class="text-[#19c3d1]">Day 2026</span></span
-          >
+    <!-- Desktop header -->
+    <header class="topbar">
+      <div class="topbar-inner">
+        <a href="index.html" class="brand">
+          <img src="static/images/25-JGS.png" alt="" />
+          <span>Adage <b>Day 2026</b></span>
         </a>
-        <nav class="flex gap-3 lg:gap-6 text-xs lg:text-sm font-medium">
-          <a href="index.html" class="nav-active">Home</a>
+        <nav class="topnav" aria-label="Main">
+          <a href="index.html" class="active">Home</a>
           <a href="message.html">Message</a>
           <a href="schedule.html">Schedule</a>
           <a href="rules.html">Guidelines</a>
@@ -269,281 +50,194 @@
       </div>
     </header>
 
-    <main class="pb-24">
-      <!-- Hero Section -->
-      <section
-        class="relative text-center py-10 md:py-12 px-6 text-white rounded-b-3xl shadow-xl overflow-hidden"
-        style="background-image: linear-gradient(to bottom, #020b0d, #04171b, #010607);"
-      >
-        <!-- Soft Glow Background -->
-        <div
-          class="absolute inset-0 opacity-25 blur-3xl"
-          style="
-            background: radial-gradient(circle at 50% 30%, rgba(25, 195, 209, 0.3), transparent 55%),
-              radial-gradient(circle at 50% 80%, rgba(216, 180, 95, 0.15), transparent 60%);
-          "
-        ></div>
+    <main>
+      <!-- Hero -->
+      <section class="hero">
+        <span class="beam beam-l" aria-hidden="true"></span>
+        <span class="beam beam-r" aria-hidden="true"></span>
+        <div class="dust" data-dust="28" aria-hidden="true"></div>
 
-        <div class="relative z-10">
-          <p
-            class="uppercase tracking-[0.3em] text-xs text-white mb-6 font-bold"
-          >
-            Adage Day 2026
-          </p>
+        <div class="hero-inner">
+          <div class="hero-copy">
+            <p class="kicker">Adage Day 2026</p>
+            <h1 class="hero-title">Celebrating <span class="metal sweep">25 Years</span><br />of Adage</h1>
+            <p class="hero-date"><span class="material-icons-round">event</span>28-30 November 2026, Goa</p>
 
-          <!-- Logo -->
-          <div id="heroLogo" class="relative mx-auto w-64 md:w-80">
-            <img
-              src="static/images/25-JGS.png"
-              class="hero-logo-glow relative w-full h-auto"
-              alt="Adage Logo"
-            />
-            <div class="logo-edge" aria-hidden="true"><div class="logo-ring-gold"></div></div>
-            <svg width="0" height="0" class="absolute" aria-hidden="true">
-              <filter id="logo-edge-filter">
-                <feMorphology in="SourceAlpha" operator="erode" radius="1" result="inner" />
-                <feComposite in="SourceGraphic" in2="inner" operator="out" />
-              </filter>
-            </svg>
+            <div class="countdown" id="cdTiles" aria-label="Countdown to Adage Day">
+              <div class="cd-tile"><span class="cd-num">00</span><span class="cd-label">Days</span></div>
+              <div class="cd-tile"><span class="cd-num">00</span><span class="cd-label">Hours</span></div>
+              <div class="cd-tile"><span class="cd-num">00</span><span class="cd-label">Mins</span></div>
+              <div class="cd-tile"><span class="cd-num">00</span><span class="cd-label">Secs</span></div>
+            </div>
+            <p class="cd-caption" id="cdCaption">Countdown to Adage Day</p>
           </div>
 
-          <p class="mt-7 text-xl md:text-2xl font-extrabold tracking-tight">
-            Celebrating 25 Years of
-            <span class="text-[#7fe9ef]" style="text-shadow: 0 0 10px rgba(127, 233, 239, 0.18);">Adage</span>
-          </p>
-
-          <p class="text-sm text-white/80 mt-1.5">28–30 November 2026</p>
-
-          <!-- Countdown -->
-          <div id="countdownCard" class="hero-countdown">
-            <p id="countdownLabel" class="text-xs text-gray-500">Countdown to Adage Day</p>
-            <h2 id="countdown" class="text-xl font-bold text-[#008B94] mt-1"></h2>
-            <p id="countdownSub" class="text-[11px] text-gray-400">
-              Days • Hours • Minutes • Seconds
-            </p>
+          <!-- Logo: unchanged from how it already appeared on the home page -->
+          <div class="emblem" aria-hidden="false">
+            <div id="heroLogo" class="relative w-full">
+              <img
+                src="static/images/25-JGS.png"
+                class="hero-logo-glow relative w-full h-auto"
+                alt="Adage Logo"
+              />
+              <div class="logo-edge" aria-hidden="true"><div class="logo-ring-gold"></div></div>
+              <svg width="0" height="0" class="absolute" aria-hidden="true">
+                <filter id="logo-edge-filter">
+                  <feMorphology in="SourceAlpha" operator="erode" radius="1" result="inner" />
+                  <feComposite in="SourceGraphic" in2="inner" operator="out" />
+                </filter>
+              </svg>
+            </div>
           </div>
         </div>
       </section>
 
-      <script>
-        const eventStart = new Date("2026-11-28T05:00:00+05:30").getTime();
-        const eventEnd = new Date("2026-12-01T00:00:00+05:30").getTime();
-        const countdownEl = document.getElementById("countdown");
-        const labelEl = document.getElementById("countdownLabel");
-        const subEl = document.getElementById("countdownSub");
-        const UNITS = ["Days", "Hours", "Minutes", "Seconds"];
-        let digits = null;
-
-        function showMessage(label, message, sub) {
-          digits = null;
-          labelEl.textContent = label;
-          countdownEl.innerText = message;
-          subEl.textContent = sub;
-          subEl.hidden = false;
-        }
-
-        function tick() {
-          const now = new Date().getTime();
-          if (now >= eventEnd) {
-            showMessage("Adage Day 2026", "🎉 That's a wrap!", "See you next year");
-            return true;
-          }
-          if (now >= eventStart) {
-            showMessage("Happening now", "🎊 Adage Day is live!", "Check Live Status for today's results");
-            return false;
-          }
-          if (!digits) {
-            countdownEl.innerHTML = UNITS.map(
-              (u) => `<span class="cd-unit"><span class="cd-num">00</span><span class="cd-label">${u}</span></span>`
-            ).join('<span class="cd-sep">:</span>');
-            digits = countdownEl.querySelectorAll(".cd-num");
-            subEl.hidden = true;
-          }
-          const diff = eventStart - now;
-          const values = [
-            Math.floor(diff / (1000 * 60 * 60 * 24)),
-            Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
-            Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60)),
-            Math.floor((diff % (1000 * 60)) / 1000),
-          ];
-          values.forEach((v, i) => {
-            const text = String(v).padStart(2, "0");
-            if (digits[i].textContent === text) return;
-            digits[i].textContent = text;
-            digits[i].classList.remove("tick");
-            void digits[i].offsetWidth; // restart the tick animation
-            digits[i].classList.add("tick");
-          });
-          return false;
-        }
-
-        if (!tick()) {
-          const timer = setInterval(() => {
-            if (tick() && new Date().getTime() >= eventEnd) clearInterval(timer);
-          }, 1000);
-        }
-      </script>
-
-      <!-- Message Highlight -->
-      <a href="message.html" class="block mt-6 max-w-2xl mx-auto px-4">
-        <div
-          class="flex items-center gap-4 p-4 bg-gradient-to-r from-[#0d262b] to-[#0a1d21] rounded-xl shadow-md hover:shadow-lg transition-shadow border border-[#19c3d1]/40"
-        >
-          <img
-            src="static/images/md_photo.png"
-            class="w-16 h-16 rounded-full object-cover border-4 border-[#008B94] shadow-md"
-            alt="Managing Director"
-          />
-
-          <div>
-            <p class="text-[11px] text-gray-500 tracking-wide">
-              ✉ Message from
-            </p>
-            <p class="text-sm font-bold text-[#008B94]">Managing Director →</p>
-          </div>
-        </div>
-      </a>
-
-      <div class="max-w-2xl mx-auto px-4 mt-6">
-        <a href="live_status.html" class="event-nav-card live-cta">
-          <div class="event-nav-icon icon-gold"><span class="material-icons" style="font-size: 22px">leaderboard</span></div>
-          <div class="event-nav-info">
-            <p class="event-nav-title">Team Live Status & Rankings</p>
-            <p class="event-nav-date">View real-time event winners & team standings</p>
-          </div>
-          <span class="material-icons event-nav-arrow">arrow_forward_ios</span>
-        </a>
-      </div>
-
-      <!-- Event Schedule Navigation -->
-      <section class="max-w-2xl mx-auto px-4 mt-10">
-        <div class="flex items-center justify-between mb-4 px-1">
-          <h2 class="text-lg font-semibold text-gray-800">Event Schedule</h2>
-          <span class="text-[11px] text-gray-400">Tap an event to view details</span>
-        </div>
-
-        <div class="schedule-list">
-        <div class="day-group">
-          <p class="day-group-label">Day 1 <span>· 28 Nov</span></p>
-          <div class="event-nav-grid">
-            <a href="schedule.html?day=1&section=sportsSchedule" class="event-nav-card">
-              <div class="event-nav-icon icon-cyan"><span class="material-icons" style="font-size: 22px">sports_soccer</span></div>
-              <div class="event-nav-info">
-                <p class="event-nav-title">Sports Day</p>
-                <p class="event-nav-date">28 Nov • Morning</p>
+      <div class="wrap">
+        <!-- MD message + Live status -->
+        <div class="pair">
+          <div class="glow-edge" data-reveal>
+            <a href="message.html" class="md-card">
+              <div class="md-photo"><img src="static/images/md_photo.png" alt="Managing Director" /></div>
+              <div>
+                <p class="card-kicker">A message from</p>
+                <p class="card-title">Our Managing Director</p>
+                <p class="card-sub">A welcome note for Adage Day</p>
               </div>
-              <span class="material-icons event-nav-arrow">arrow_forward_ios</span>
-            </a>
-
-            <a href="schedule.html?day=1&section=awardsSchedule" class="event-nav-card">
-              <div class="event-nav-icon icon-gold"><span class="material-icons" style="font-size: 22px">emoji_events</span></div>
-              <div class="event-nav-info">
-                <p class="event-nav-title">Game Night</p>
-                <p class="event-nav-date">28 Nov • Evening</p>
-              </div>
-              <span class="material-icons event-nav-arrow">arrow_forward_ios</span>
+              <span class="go"><span class="material-icons-round">arrow_forward</span></span>
             </a>
           </div>
-        </div>
 
-        <div class="day-group">
-          <p class="day-group-label">Day 2 <span>· 29 Nov</span></p>
-          <div class="event-nav-grid">
-            <a href="schedule.html?day=2&section=photoSchedule" class="event-nav-card">
-              <div class="event-nav-icon icon-cyan"><span class="material-icons" style="font-size: 22px">photo_camera</span></div>
-              <div class="event-nav-info">
-                <p class="event-nav-title">Photoshoot</p>
-                <p class="event-nav-date">29 Nov • Morning</p>
-              </div>
-              <span class="material-icons event-nav-arrow">arrow_forward_ios</span>
-            </a>
-
-            <a href="schedule.html?day=2&section=awardsScheduleDay2" class="event-nav-card">
-              <div class="event-nav-icon icon-gold"><span class="material-icons" style="font-size: 22px">emoji_events</span></div>
-              <div class="event-nav-info">
-                <p class="event-nav-title">Awards Night</p>
-                <p class="event-nav-date">29 Nov • Evening</p>
-              </div>
-              <span class="material-icons event-nav-arrow">arrow_forward_ios</span>
-            </a>
-          </div>
-        </div>
-
-        <div class="day-group">
-          <p class="day-group-label">Day 3 <span>· 30 Nov</span></p>
-          <div class="event-nav-grid">
-            <a href="schedule.html?day=3&section=galaSchedule" class="event-nav-card">
-              <div class="event-nav-icon icon-gold"><span class="material-icons" style="font-size: 22px">celebration</span></div>
-              <div class="event-nav-info">
-                <p class="event-nav-title">Gala Night</p>
-                <p class="event-nav-date">30 Nov • Evening</p>
-              </div>
-              <span class="material-icons event-nav-arrow">arrow_forward_ios</span>
-            </a>
-          </div>
-        </div>
-        </div>
-      </section>
-
-      <!-- 🌟 Live Status Section -->
-
-      <!-- Latest Announcements -->
-      <section class="max-w-2xl mx-auto px-4 mt-10 mb-20">
-        <h2 class="text-lg font-semibold text-gray-800 mb-3">Latest Updates</h2>
-
-        <div id="latestAnnouncements"></div>
-
-        <!-- View All -->
-        <div class="text-center mt-5">
-          <a
-            href="announcements.html"
-            class="text-[#008B94] text-sm font-semibold hover:underline"
-          >
-            View All Announcements →
+          <a href="live_status.html" class="live-card" data-reveal>
+            <div class="orb orb-gold orb-lg"><span class="material-icons-round">emoji_events</span></div>
+            <div>
+              <span class="live-chip"><i></i>Live</span>
+              <p class="card-title" style="margin-top: 6px">Team Status &amp; Rankings</p>
+              <p class="card-sub">Event winners and team standings in real time</p>
+            </div>
+            <span class="go"><span class="material-icons-round">arrow_forward</span></span>
           </a>
         </div>
-      </section>
+
+        <!-- Event schedule as gala tickets -->
+        <section class="section">
+          <div class="section-head">
+            <h2>Event Schedule</h2>
+            <p>Tap an event for timings, venue and dress code</p>
+          </div>
+
+          <div class="day-group" data-reveal>
+            <h3 class="day-label">Day 1 <span>Saturday, 28 Nov</span></h3>
+            <div class="tickets">
+              <a href="schedule.html?day=1&section=sportsSchedule" class="ticket" data-tilt="6">
+                <div class="ticket-stub"><span class="stub-day">28</span><span class="stub-mon">Nov</span></div>
+                <div class="ticket-main">
+                  <div class="orb lift"><span class="material-icons-round">sports_soccer</span></div>
+                  <div class="ticket-info lift-sm">
+                    <p class="ticket-title">Sports Day</p>
+                    <p class="ticket-meta"><span class="material-icons-round">wb_sunny</span>Morning, Don Bosco College</p>
+                  </div>
+                  <span class="go"><span class="material-icons-round">chevron_right</span></span>
+                </div>
+                <span class="glare"></span>
+              </a>
+              <a href="schedule.html?day=1&section=awardsSchedule" class="ticket ticket--gold" data-tilt="6">
+                <div class="ticket-stub"><span class="stub-day">28</span><span class="stub-mon">Nov</span></div>
+                <div class="ticket-main">
+                  <div class="orb orb-gold lift"><span class="material-icons-round">casino</span></div>
+                  <div class="ticket-info lift-sm">
+                    <p class="ticket-title">Game Night</p>
+                    <p class="ticket-meta"><span class="material-icons-round">nights_stay</span>Evening, Adage Unit 1</p>
+                  </div>
+                  <span class="go"><span class="material-icons-round">chevron_right</span></span>
+                </div>
+                <span class="glare"></span>
+              </a>
+            </div>
+          </div>
+
+          <div class="day-group" data-reveal>
+            <h3 class="day-label">Day 2 <span>Sunday, 29 Nov</span></h3>
+            <div class="tickets">
+              <a href="schedule.html?day=2&section=photoSchedule" class="ticket" data-tilt="6">
+                <div class="ticket-stub"><span class="stub-day">29</span><span class="stub-mon">Nov</span></div>
+                <div class="ticket-main">
+                  <div class="orb lift"><span class="material-icons-round">photo_camera</span></div>
+                  <div class="ticket-info lift-sm">
+                    <p class="ticket-title">Photoshoot</p>
+                    <p class="ticket-meta"><span class="material-icons-round">wb_sunny</span>Morning, Adage Unit 3</p>
+                  </div>
+                  <span class="go"><span class="material-icons-round">chevron_right</span></span>
+                </div>
+                <span class="glare"></span>
+              </a>
+              <a href="schedule.html?day=2&section=awardsScheduleDay2" class="ticket ticket--gold" data-tilt="6">
+                <div class="ticket-stub"><span class="stub-day">29</span><span class="stub-mon">Nov</span></div>
+                <div class="ticket-main">
+                  <div class="orb orb-gold lift"><span class="material-icons-round">emoji_events</span></div>
+                  <div class="ticket-info lift-sm">
+                    <p class="ticket-title">Awards Night</p>
+                    <p class="ticket-meta"><span class="material-icons-round">nights_stay</span>Evening, SUL Benaulim</p>
+                  </div>
+                  <span class="go"><span class="material-icons-round">chevron_right</span></span>
+                </div>
+                <span class="glare"></span>
+              </a>
+            </div>
+          </div>
+
+          <div class="day-group" data-reveal>
+            <h3 class="day-label">Day 3 <span>Monday, 30 Nov</span></h3>
+            <div class="tickets">
+              <a href="schedule.html?day=3&section=galaSchedule" class="ticket ticket--gold" data-tilt="5">
+                <div class="ticket-stub"><span class="stub-day">30</span><span class="stub-mon">Nov</span></div>
+                <div class="ticket-main">
+                  <div class="orb orb-gold lift"><span class="material-icons-round">celebration</span></div>
+                  <div class="ticket-info lift-sm">
+                    <p class="ticket-title">Gala Night</p>
+                    <p class="ticket-meta"><span class="material-icons-round">nights_stay</span>Evening, Adage Unit 2</p>
+                  </div>
+                  <span class="go"><span class="material-icons-round">chevron_right</span></span>
+                </div>
+                <span class="glare"></span>
+              </a>
+            </div>
+          </div>
+        </section>
+
+        <!-- Latest updates (live from Firestore, see static/js/announcements-feed.js) -->
+        <section class="section">
+          <div class="section-head">
+            <h2>Latest Updates</h2>
+          </div>
+          <div class="updates" id="latestAnnouncements" data-reveal></div>
+          <div style="text-align: center">
+            <a href="announcements.html" class="btn-ghost">All announcements<span class="material-icons-round">arrow_forward</span></a>
+          </div>
+        </section>
+      </div>
     </main>
 
-    <!-- Bottom Mobile Navigation -->
-    <nav
-      class="mobile-nav fixed bottom-3 left-1/2 -translate-x-1/2 w-[92%] px-4 py-2 rounded-full flex justify-around md:hidden z-50 shadow-lg"
-    >
-      <a href="index.html" class="text-[#008B94]"
-        ><span class="material-icons">home</span>
-        <div>Home</div></a
-      >
-      <a href="schedule.html"
-        ><span class="material-icons">event</span>
-        <div>Schedule</div></a
-      >
-      <a href="rules.html"
-        ><span class="material-icons">rule</span>
-        <div>Guidelines</div></a
-      >
-      <a href="contacts.html"
-        ><span class="material-icons">call</span>
-        <div>Contacts</div></a
-      >
-      <a href="guest.html"
-        ><span class="material-icons">flight_takeoff</span>
-        <div>Outstation</div></a
-      >
-    </nav>
-
-    <!-- Footer -->
-    <footer class="site-footer">
-      <img src="static/images/25-JGS.png" alt="" class="site-footer-logo" />
-      <p class="site-footer-tagline">25 &amp; JUST GETTING STARTED</p>
-      <p class="site-footer-copy">© 2026 Adage Automation Private Limited</p>
+    <footer class="footer">
+      <img src="static/images/25-JGS.png" alt="" />
+      <p class="footer-tag metal">25 &amp; JUST GETTING STARTED</p>
+      <p class="footer-copy">&copy; 2026 Adage Automation Private Limited</p>
     </footer>
+
+    <!-- Mobile dock -->
+    <nav class="dock" aria-label="Main">
+      <a href="index.html" class="active"><span class="material-icons-round">home</span>Home</a>
+      <a href="schedule.html"><span class="material-icons-round">event</span>Schedule</a>
+      <a href="rules.html"><span class="material-icons-round">rule</span>Guidelines</a>
+      <a href="contacts.html"><span class="material-icons-round">call</span>Contacts</a>
+      <a href="guest.html"><span class="material-icons-round">flight_takeoff</span>Outstation</a>
+    </nav>
 
     <script type="module">
       import { renderAnnouncements } from "./static/js/announcements-feed.js";
       renderAnnouncements("latestAnnouncements", { max: 2 });
     </script>
     <script src="static/js/install-prompt.js" defer></script>
-    <script src="static/js/motion.js" defer></script>
+    <script src="static/js/site.js" defer></script>
     <script type="module" src="static/js/announce-alert.js"></script>
   </body>
 </html>

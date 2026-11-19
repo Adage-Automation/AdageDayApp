@@ -3,189 +3,25 @@
   <head>
     <meta charset="UTF-8" />
     <title>Live Status, Adage Day 2026</title>
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
-    />
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link
-      href="https://fonts.googleapis.com/icon?family=Material+Icons"
-      rel="stylesheet"
-    />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
-      rel="stylesheet"
-    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#04090b" />
     <link rel="manifest" href="manifest.json" />
     <link rel="icon" type="image/png" href="static/images/25-JGS-icon.png" />
     <link rel="apple-touch-icon" href="static/images/25-JGS-icon.png" />
-    <meta name="theme-color" content="#061820" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="mobile-web-app-capable" content="yes" />
-    <script>document.documentElement.classList.add("js-motion")</script>
-    <link rel="stylesheet" href="static/css/theme.css?v=11" />
 
-    <style>
-      body {
-        background-color: #fff8f3;
-        font-family: system-ui, sans-serif;
-        padding-bottom: 90px;
-        margin: 0;
-        overflow-x: clip;
-      }
-      h1,
-      h2,
-      h3,
-      h4 {
-        font-family: "Poppins", sans-serif;
-      }
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet" />
 
-      .gold {
-        color: #d4af37;
-        font-weight: 600;
-      }
-      .silver {
-        color: #c0c0c0;
-        font-weight: 600;
-      }
-      .bronze {
-        color: #cd7f32;
-        font-weight: 600;
-      }
-      .fourth {
-        color: #cfe3e5;
-        font-weight: 600;
-      }
-
-      .live-badge {
-        display: inline-flex;
-        align-items: center;
-        gap: 5px;
-        font-size: 11px;
-        font-weight: 600;
-        color: #4ade80;
-        background: rgba(74, 222, 128, 0.12);
-        border: 1px solid rgba(74, 222, 128, 0.3);
-        padding: 3px 10px;
-        border-radius: 20px;
-      }
-      .event-card,
-      .leader-card {
-        background: white;
-        padding: 20px;
-        border-radius: 20px;
-        border: 1px solid #edf2f2;
-        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
-        margin-bottom: 18px;
-      }
-
-      .page-hero {
-        background: radial-gradient(circle at 50% 0%, rgba(25, 195, 209, 0.12) 0%, rgba(25, 195, 209, 0) 70%);
-        border-radius: 24px;
-        padding: 28px 16px 16px;
-      }
-
-      .stat-pill {
-        display: inline-flex;
-        align-items: center;
-        font-size: 11px;
-        font-weight: 600;
-        color: #008b94;
-        background: #e9f7f6;
-        border: 1px solid #cdeae8;
-        padding: 5px 14px;
-        border-radius: 20px;
-      }
-
-      .leader-gold {
-        background: linear-gradient(160deg, rgba(216, 180, 95, 0.22), rgba(7, 20, 24, 0.9)) !important;
-        border: 2px solid rgba(216, 180, 95, 0.55) !important;
-        font-weight: 600;
-        color: #f0d897;
-      }
-
-      .rank-badge {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        width: 26px;
-        height: 26px;
-        border-radius: 50%;
-        background: #008b94;
-        color: white;
-        font-weight: 700;
-        font-size: 12px;
-      }
-      .rank-badge.rank-gold {
-        background: #d4af37;
-        font-size: 14px;
-      }
-
-      .team-dot {
-        display: inline-block;
-        width: 8px;
-        height: 8px;
-        border-radius: 50%;
-        border: 1px solid rgba(255, 255, 255, 0.45);
-        margin-right: 5px;
-        vertical-align: middle;
-      }
-
-      td,
-      th {
-        padding: 10px;
-      }
-      th {
-        font-weight: 600;
-      }
-
-      tbody tr:hover {
-        background-color: #f8f8f8;
-        transition: background-color 0.2s var(--ease-premium, ease);
-      }
-
-      nav a {
-        padding-bottom: 4px;
-        border-bottom: 2px solid transparent;
-        transition: color 0.25s var(--ease-premium, ease), border-color 0.25s var(--ease-premium, ease);
-      }
-      nav a:hover {
-        color: #008b94;
-        border-bottom: 2px solid #008b94;
-      }
-
-      .mobile-nav {
-        background: rgba(255, 255, 255, 0.92);
-        backdrop-filter: blur(12px);
-        border-radius: 28px;
-        box-shadow: 0 -4px 14px rgba(0, 0, 0, 0.1);
-      }
-      .mobile-nav a {
-        flex: 1;
-        text-align: center;
-        padding: 6px 0;
-        font-size: 11px;
-      }
-      /* 
-      .mobile-nav a {
-        flex: 1;
-        text-align: center;
-        font-size: 10px;
-      } */
-      .mobile-nav a span {
-        font-size: 22px;
-        display: block;
-      }
-      .mobile-nav a:hover {
-        background-color: rgba(201, 165, 74, 0.15);
-      }
-      .mobile-nav a:active {
-        transform: scale(0.93);
-      }
-    </style>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="static/css/site.css?v=1" />
   </head>
 
-  <body class="text-gray-800">
+  <body>
     <div id="installBanner" class="hidden fixed top-0 inset-x-0 z-[60] bg-[#008B94] text-white text-xs md:text-sm px-4 py-2 flex items-center justify-between gap-3 shadow-md">
       <span>📲 Install Adage Day on your device for quick access.</span>
       <div class="flex items-center gap-2 shrink-0">
@@ -193,19 +29,14 @@
         <button id="installDismiss" class="text-white/80 text-base leading-none">✕</button>
       </div>
     </div>
-    <!-- Desktop Header -->
-    <header class="hidden md:block shadow-sm bg-white">
-      <div
-        class="max-w-6xl mx-auto py-4 px-6 flex justify-between items-center"
-      >
-        <a href="index.html" class="flex items-center gap-2.5 shrink-0">
-          <img src="static/images/25-JGS.png" alt="Adage Day 2026" class="nav-logo" />
-          <span
-            class="brand-wordmark text-lg lg:text-xl font-extrabold tracking-[0.15em] lg:tracking-[0.2em] uppercase"
-            ><span class="text-white">Adage</span> <span class="text-[#19c3d1]">Day 2026</span></span
-          >
+
+    <header class="topbar">
+      <div class="topbar-inner">
+        <a href="index.html" class="brand">
+          <img src="static/images/25-JGS.png" alt="" />
+          <span>Adage <b>Day 2026</b></span>
         </a>
-        <nav class="flex gap-3 lg:gap-6 text-xs lg:text-sm font-medium">
+        <nav class="topnav" aria-label="Main">
           <a href="index.html">Home</a>
           <a href="message.html">Message</a>
           <a href="schedule.html">Schedule</a>
@@ -216,131 +47,104 @@
       </div>
     </header>
 
-    <!-- Main Content -->
-    <section class="max-w-2xl mx-auto px-4 py-8">
-      <div class="page-hero text-center mb-8">
+    <main class="wrap">
+      <section class="page-hero">
+        <span class="beam beam-l" aria-hidden="true"></span>
+        <span class="beam beam-r" aria-hidden="true"></span>
+        <div class="dust" data-dust="12" aria-hidden="true"></div>
         <span class="eyebrow">Live Now</span>
-        <h1 class="text-3xl font-bold text-[#008B94]">Live <span class="accent">Status</span></h1>
-        <p class="text-xs text-gray-600">
-          Updated Event Results & Team Prize Standings
-        </p>
-        <div class="mt-2 w-20 h-1 bg-[#C9A54A] mx-auto rounded-full"></div>
-        <div class="flex flex-wrap justify-center gap-2 mt-4">
+        <h1>Live <span class="metal-teal sweep">Status</span></h1>
+        <p>Updated event results &amp; team prize standings</p>
+        <div class="stat-pill-row">
           <span class="live-badge">Live</span>
           <span class="stat-pill">6 Events</span>
           <span class="stat-pill">6 Teams Competing</span>
         </div>
-      </div>
+      </section>
 
-      <!-- Event Results -->
-      <div class="event-card">
-        <h3 class="text-lg font-semibold text-[#008B94] mb-3">
-          🏁 Event-Wise Winners
-        </h3>
+      <section class="section" style="margin-top: 26px">
+        <div data-reveal>
+          <!-- Event Results -->
+          <div class="panel-card">
+            <h3><span style="font-size: 18px">🏁</span>Event-Wise Winners</h3>
+            <div class="table-wrap">
+              <table style="min-width: 600px">
+                <thead>
+                  <tr id="resultsHeader">
+                    <th>Event</th>
+                  </tr>
+                </thead>
+                <tbody id="resultsBody">
+                  <tr>
+                    <td colspan="5" style="padding: 14px"><span class="skeleton" style="height: 12px; width: 128px; margin: 0 auto;"></span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
 
-        <div class="overflow-x-auto -mx-1">
-        <table class="w-full min-w-[600px] text-xs text-center border-collapse">
-          <thead class="bg-[#008B94] text-white">
-            <tr id="resultsHeader">
-              <th>Event</th>
-            </tr>
-          </thead>
-          <tbody id="resultsBody">
-            <tr>
-              <td colspan="5" class="py-3"><span class="skeleton h-3 w-32 mx-auto rounded"></span></td>
-            </tr>
-          </tbody>
-        </table>
+          <!-- Prize Distribution -->
+          <div class="panel-card">
+            <h3><span style="font-size: 18px">💰</span>Prize Money Distribution</h3>
+            <div class="table-wrap">
+              <table style="min-width: 520px">
+                <thead class="gold">
+                  <tr id="prizeDistributionHeader">
+                    <th>Prize Money</th>
+                  </tr>
+                </thead>
+                <tbody id="prizeDistributionBody">
+                  <tr>
+                    <td colspan="5" style="padding: 14px"><span class="skeleton" style="height: 12px; width: 128px; margin: 0 auto;"></span></td>
+                  </tr>
+                </tbody>
+                <tfoot id="prizeDistributionTotals"></tfoot>
+              </table>
+            </div>
+          </div>
+
+          <!-- Leaderboard -->
+          <div class="panel-card">
+            <h3 style="justify-content: center">🏆 Team Prize Standings</h3>
+            <div class="table-wrap">
+              <table id="leaderboardTable">
+                <thead class="gold">
+                  <tr>
+                    <th>Rank</th>
+                    <th>Team</th>
+                    <th>Total Prize Money</th>
+                  </tr>
+                </thead>
+                <tbody id="teamTotals">
+                  <tr>
+                    <td colspan="3" class="text-dim" style="font-style: italic; padding: 14px">No event results yet</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
         </div>
-      </div>
+      </section>
+    </main>
 
-      <!-- Prize Distribution -->
-      <div class="event-card">
-        <h3 class="text-lg font-semibold text-[#008B94] mb-3">
-          💰 Prize Money Distribution
-        </h3>
-        <div class="overflow-x-auto -mx-1">
-          <table class="w-full min-w-[520px] text-xs text-center border-collapse">
-            <thead class="bg-[#C9A54A] text-white">
-              <tr id="prizeDistributionHeader">
-                <th>Prize Money</th>
-              </tr>
-            </thead>
-            <tbody id="prizeDistributionBody">
-              <tr>
-                <td colspan="5" class="py-3"><span class="skeleton h-3 w-32 mx-auto rounded"></span></td>
-              </tr>
-            </tbody>
-            <tfoot id="prizeDistributionTotals"></tfoot>
-          </table>
-        </div>
-      </div>
-
-      <!-- Leaderboard -->
-      <div class="mt-10 leader-card">
-        <h3 class="text-lg font-semibold text-[#008B94] mb-3 text-center">
-          🏆 Team Prize Standings
-        </h3>
-
-        <table
-          class="w-full text-xs text-center border-collapse"
-          id="leaderboardTable"
-        >
-          <thead class="bg-[#C9A54A] text-white">
-            <tr>
-              <th>Rank</th>
-              <th>Team</th>
-              <th>Total Prize Money</th>
-            </tr>
-          </thead>
-          <tbody id="teamTotals">
-            <tr>
-              <td colspan="3" class="text-gray-400 italic py-3">
-                No event results yet
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </section>
-
-    <!-- Bottom Mobile Navigation -->
-    <nav
-      class="mobile-nav fixed bottom-3 left-1/2 -translate-x-1/2 w-[92%] px-4 py-2 rounded-full flex justify-around md:hidden z-50 shadow-lg"
-    >
-      <a href="index.html"
-        ><span class="material-icons">home</span>
-        <div>Home</div></a
-      >
-      <a href="schedule.html"
-        ><span class="material-icons">event</span>
-        <div>Schedule</div></a
-      >
-      <a href="rules.html"
-        ><span class="material-icons">rule</span>
-        <div>Guidelines</div></a
-      >
-      <a href="contacts.html"
-        ><span class="material-icons">call</span>
-        <div>Contacts</div></a
-      >
-      <a href="guest.html"
-        ><span class="material-icons">flight_takeoff</span>
-        <div>Outstation</div></a
-      >
-    </nav>
-
-    <!-- Footer -->
-    <footer class="site-footer">
-      <img src="static/images/25-JGS.png" alt="" class="site-footer-logo" />
-      <p class="site-footer-tagline">25 &amp; JUST GETTING STARTED</p>
-      <p class="site-footer-copy">© 2026 Adage Automation Private Limited</p>
+    <footer class="footer">
+      <img src="static/images/25-JGS.png" alt="" />
+      <p class="footer-tag metal">25 &amp; JUST GETTING STARTED</p>
+      <p class="footer-copy">&copy; 2026 Adage Automation Private Limited</p>
     </footer>
+
+    <nav class="dock" aria-label="Main">
+      <a href="index.html"><span class="material-icons-round">home</span>Home</a>
+      <a href="schedule.html"><span class="material-icons-round">event</span>Schedule</a>
+      <a href="rules.html"><span class="material-icons-round">rule</span>Guidelines</a>
+      <a href="contacts.html"><span class="material-icons-round">call</span>Contacts</a>
+      <a href="guest.html"><span class="material-icons-round">flight_takeoff</span>Outstation</a>
+    </nav>
 
     <!-- Live results from Firestore, see static/js/live-status.js and LIVE_SCORES.md -->
     <script type="module" src="static/js/live-status.js"></script>
     <script src="static/js/install-prompt.js" defer></script>
-    <script src="static/js/motion.js" defer></script>
+    <script src="static/js/site.js" defer></script>
     <script type="module" src="static/js/announce-alert.js"></script>
   </body>
 </html>

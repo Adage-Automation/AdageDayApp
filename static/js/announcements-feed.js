@@ -8,9 +8,9 @@ import {
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 const CATEGORY_STYLES = {
-  important: { border: "border-red-500", badge: "bg-red-100 text-red-600", label: "Important" },
-  reminder: { border: "border-yellow-500", badge: "bg-yellow-100 text-yellow-600", label: "Reminder" },
-  general: { border: "border-teal-500", badge: "bg-teal-100 text-teal-600", label: "General" },
+  important: { variant: "is-red", tag: "red", label: "Important" },
+  reminder: { variant: "is-gold", tag: "gold", label: "Reminder" },
+  general: { variant: "", tag: "", label: "General" },
 };
 
 // Prevents a malicious/typo'd title or body from being interpreted as HTML when rendered.
@@ -35,25 +35,25 @@ export function announcementCardHtml(data) {
   const style = CATEGORY_STYLES[data.category] || CATEGORY_STYLES.general;
   const when = formatWhen(data.createdAt);
   return `
-    <div class="p-4 bg-white rounded-xl border border-gray-100 border-l-4 ${style.border} shadow-sm hover:shadow-md transition-shadow mt-3 first:mt-0">
-      <div class="flex justify-between items-center mb-1">
-        <span class="text-[10px] font-medium px-2 py-1 rounded-full ${style.badge}">${style.label}</span>
-        ${when ? `<span class="text-[11px] text-gray-400">${when}</span>` : ""}
+    <article class="update ${style.variant}">
+      <div class="update-top">
+        <span class="tag ${style.tag}">${style.label}</span>
+        ${when ? `<time>${when}</time>` : ""}
       </div>
-      <p class="font-semibold text-sm">${escapeHtml(data.title)}</p>
-      <p class="text-xs text-gray-600 mt-1 whitespace-pre-line">${escapeHtml(data.body)}</p>
-    </div>`;
+      <h3>${escapeHtml(data.title)}</h3>
+      <p>${escapeHtml(data.body)}</p>
+    </article>`;
 }
 
 // Renders a live-updating announcement feed into #<containerId>.
 // Pass { max } to cap how many show (e.g. index.html's "Latest Updates" teaser).
 function skeletonCard() {
   return `
-    <div class="p-4 bg-white rounded-xl border border-gray-100 shadow-sm mt-3 first:mt-0">
-      <div class="skeleton h-3 w-16 rounded-full mb-3"></div>
-      <div class="skeleton h-3 w-3/4 rounded mb-2"></div>
-      <div class="skeleton h-3 w-1/2 rounded"></div>
-    </div>`;
+    <article class="update">
+      <span class="skeleton" style="display:inline-block;height:12px;width:60px;margin-bottom:12px;"></span>
+      <span class="skeleton" style="display:block;height:12px;width:75%;margin-bottom:8px;"></span>
+      <span class="skeleton" style="display:block;height:12px;width:50%;"></span>
+    </article>`;
 }
 
 export function renderAnnouncements(containerId, { max } = {}) {
@@ -65,12 +65,12 @@ export function renderAnnouncements(containerId, { max } = {}) {
 
   onSnapshot(q, (snapshot) => {
     if (snapshot.empty) {
-      container.innerHTML = `<p class="text-xs text-gray-400 italic text-center py-2">No announcements yet.</p>`;
+      container.innerHTML = `<p class="text-dim" style="text-align:center;font-size:13px;font-style:italic;padding:8px 0;">No announcements yet.</p>`;
       return;
     }
 
     container.innerHTML = snapshot.docs.map((doc) => announcementCardHtml(doc.data())).join("");
   }, () => {
-    container.innerHTML = `<p class="text-xs text-gray-400 italic text-center py-2">Couldn't load announcements. Check your connection and refresh.</p>`;
+    container.innerHTML = `<p class="text-dim" style="text-align:center;font-size:13px;font-style:italic;padding:8px 0;">Couldn't load announcements. Check your connection and refresh.</p>`;
   });
 }

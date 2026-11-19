@@ -157,6 +157,28 @@
       .ann-item:first-of-type {
         border-top: none;
       }
+      /* Announcement card preview: matches the public pages' .update/.tag
+         component (static/css/site.css) so admin's preview looks like what
+         people will actually see, even though admin.html itself stays on
+         the plain theme.css layout. */
+      .update {
+        position: relative;
+        padding: 14px 14px 14px 18px;
+        border-radius: 14px;
+        background: linear-gradient(160deg, rgba(25, 195, 209, 0.07), rgba(7, 20, 24, 0.9));
+        border: 1px solid var(--border-teal-soft);
+        overflow: hidden;
+      }
+      .update::before { content: ""; position: absolute; left: 0; top: 12px; bottom: 12px; width: 3px; border-radius: 3px; background: var(--teal); box-shadow: 0 0 10px var(--teal); }
+      .update.is-gold::before { background: var(--gold); box-shadow: 0 0 10px var(--gold); }
+      .update.is-red::before { background: #ff5a5a; box-shadow: 0 0 10px #ff5a5a; }
+      .update-top { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+      .tag { font-size: 10px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; padding: 3px 9px; border-radius: 999px; color: var(--teal-soft); background: rgba(25, 195, 209, 0.12); border: 1px solid rgba(127, 233, 239, 0.3); }
+      .tag.gold { color: var(--gold-soft); background: rgba(216, 180, 95, 0.12); border-color: rgba(240, 216, 151, 0.35); }
+      .tag.red { color: #ffd9d9; background: rgba(255, 90, 90, 0.14); border-color: rgba(255, 120, 120, 0.35); }
+      .update time { font-size: 11px; color: var(--text-dim); }
+      .update h3 { margin-top: 8px; font-size: 14px; font-weight: 600; color: var(--text-hi); }
+      .update p { margin-top: 4px; font-size: 12.5px; line-height: 1.5; color: var(--text-dim); white-space: pre-line; }
       .admin-tab-btn {
         flex: 1;
         padding: 8px 0;
