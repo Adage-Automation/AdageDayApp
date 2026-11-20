@@ -23,9 +23,9 @@
   --gold-soft: #f0d897;
   --gold-pale: #fff3cf;
   --gold-deep: #8a6a22;
-  --text-hi: #f4fcfd;
-  --text-mid: rgba(232, 248, 249, 0.88);
-  --text-dim: rgba(232, 248, 249, 0.72);
+  --text-hi: #ffffff;
+  --text-mid: #ffffff;
+  --text-dim: #ffffff;
   --line: rgba(56, 212, 222, 0.16);
   --line-strong: rgba(127, 233, 239, 0.32);
   --line-gold: rgba(216, 180, 95, 0.4);
@@ -482,29 +482,16 @@ body::after {
 #heroLogo > img { animation: logo-intro 0.9s var(--ease) both; }
 @keyframes logo-intro { from { opacity: 0; transform: translateY(10px) scale(0.97); } }
 
-/* --- Countdown: four raised 3D slabs --- */
-.countdown { margin-top: 24px; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; width: min(100%, 360px); perspective: 600px; }
+/* --- Countdown: plain floating numbers, no tile/box --- */
+.countdown { margin-top: 24px; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; width: min(100%, 360px); }
 .cd-tile {
-  position: relative;
-  padding: 12px 0 10px;
-  border-radius: 16px;
   text-align: center;
-  background: linear-gradient(180deg, #14363d 0%, #0b2226 52%, #08191d 52%, #0b2125 100%);
-  border: 1px solid rgba(240, 216, 151, 0.32);
-  transform: rotateX(14deg);
-  transform-origin: 50% 100%;
-  box-shadow:
-    0 7px 0 -1px #052a2f,            /* slab thickness */
-    0 8px 0 0 rgba(240, 216, 151, 0.22),
-    0 20px 26px rgba(0, 0, 0, 0.55),
-    0 0 26px rgba(25, 195, 209, 0.16),
-    inset 0 1px 0 rgba(255, 243, 207, 0.25);
 }
 .cd-num {
   display: block;
   font-family: "Poppins", sans-serif;
   font-weight: 700;
-  font-size: clamp(24px, 7vw, 32px);
+  font-size: clamp(30px, 9vw, 44px);
   line-height: 1.1;
   font-variant-numeric: tabular-nums;
   background: var(--metal-gold);
@@ -621,7 +608,7 @@ a:hover .go { transform: translateX(3px); background: rgba(25, 195, 209, 0.2); }
 /* --- Event tickets --- */
 .day-group + .day-group { margin-top: 26px; }
 .day-label { display: flex; align-items: baseline; gap: 10px; margin: 0 2px 12px; font-family: "Poppins", sans-serif; font-size: 15px; font-weight: 700; color: var(--gold-soft); }
-.day-label span { font-family: system-ui, sans-serif; font-size: 12.5px; font-weight: 500; color: var(--text-dim); }
+.day-label span { font-family: "Poppins", sans-serif; font-size: 15px; font-weight: 700; color: #ffffff; }
 .tickets { display: grid; grid-template-columns: minmax(0, 1fr); gap: 14px; }
 @media (min-width: 768px) { .tickets { grid-template-columns: repeat(2, minmax(0, 1fr)); } .tickets > :only-child { grid-column: 1 / -1; } }
 
@@ -673,7 +660,7 @@ a:hover .go { transform: translateX(3px); background: rgba(25, 195, 209, 0.2); }
 .ticket-main { flex: 1; min-width: 0; display: flex; align-items: center; gap: 14px; padding: 14px 14px 14px 16px; }
 .ticket-info { flex: 1; min-width: 0; }
 .ticket-title { font-family: "Poppins", sans-serif; font-size: 16.5px; font-weight: 700; color: var(--text-hi); }
-.ticket-meta { margin-top: 4px; display: flex; align-items: flex-start; gap: 6px; font-size: 12.5px; line-height: 1.4; color: var(--text-dim); }
+.ticket-meta { margin-top: 4px; display: flex; align-items: flex-start; gap: 6px; font-size: 12.5px; line-height: 1.4; color: #ffffff; }
 .ticket-meta .material-icons-round { font-size: 15px; color: var(--accent-soft); margin-top: 1px; }
 @media (max-width: 420px) {
   .ticket { --stub: 64px; }
@@ -955,16 +942,12 @@ a:hover .go { transform: translateX(3px); background: rgba(25, 195, 209, 0.2); }
 .timeline time {
   flex-shrink: 0;
   width: 98px;
-  padding: 5px 8px;
-  border-radius: 10px;
-  text-align: center;
+  text-align: left;
   font-size: 12.5px;
   font-weight: 700;
   line-height: 1.3;
   font-variant-numeric: tabular-nums;
   color: var(--accent-soft);
-  background: var(--accent-tint);
-  border: 1px solid var(--accent-line);
 }
 .timeline span { font-size: 14.5px; font-weight: 600; color: var(--text-hi); line-height: 1.35; }
 
@@ -1008,7 +991,7 @@ a:hover .go { transform: translateX(3px); background: rgba(25, 195, 209, 0.2); }
 /* Small muted-text helpers (used instead of Tailwind's gray-* utilities,
    which have no dark-mode override once theme.css is out of the picture). */
 .text-dim { color: var(--text-dim); }
-.text-faint { color: rgba(232, 248, 249, 0.5); }
+.text-faint { color: #ffffff; }
 
 /* Loading skeleton (announcements teaser, live status tables) */
 @keyframes skeleton-sweep { 0% { background-position: -140% 0; } 100% { background-position: 140% 0; } }
@@ -1049,7 +1032,7 @@ a:hover .go { transform: translateX(3px); background: rgba(25, 195, 209, 0.2); }
 
 /* Place-colour text used by live-status.js (place.className) */
 .gold { color: #d4af37; font-weight: 600; }
-.silver { color: #c7d2d4; font-weight: 600; }
+.silver { color: #ffffff; font-weight: 600; }
 .bronze { color: #cd7f32; font-weight: 600; }
 .fourth { color: var(--text-dim); font-weight: 600; }
 
