@@ -74,16 +74,30 @@
   }
 
   // ---- Scroll reveal (IntersectionObserver, no scroll listeners) ----
+  // Reveal anything already on screen the instant this runs (synchronously,
+  // no observer round-trip): on a reload, mobile browsers often restore the
+  // previous scroll position before this script gets a chance to observe,
+  // and a shrunk rootMargin could then miss content that's already visible,
+  // leaving it invisible until the 3s fail-safe. Checking getBoundingClientRect
+  // up front removes that race entirely; the observer is only needed for
+  // content genuinely below the fold on first load.
   const revealables = document.querySelectorAll("[data-reveal]");
-  if ("IntersectionObserver" in window) {
+  const isInViewport = (el) => {
+    const r = el.getBoundingClientRect();
+    return r.top < innerHeight && r.bottom > 0;
+  };
+  const toObserve = [];
+  revealables.forEach((el) => (isInViewport(el) ? el.classList.add("in") : toObserve.push(el)));
+
+  if ("IntersectionObserver" in window && toObserve.length) {
     const io = new IntersectionObserver((entries) => {
       entries.forEach((en) => {
         if (en.isIntersecting) { en.target.classList.add("in"); io.unobserve(en.target); }
       });
-    }, { rootMargin: "0px 0px -8% 0px", threshold: 0.12 });
-    revealables.forEach((el) => io.observe(el));
+    }, { threshold: 0 });
+    toObserve.forEach((el) => io.observe(el));
   } else {
-    revealables.forEach((el) => el.classList.add("in"));
+    toObserve.forEach((el) => el.classList.add("in"));
   }
   setTimeout(() => revealables.forEach((el) => el.classList.add("in")), 3000); // fail-safe
 
