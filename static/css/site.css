@@ -500,8 +500,8 @@ body::after {
   color: transparent;
   filter: drop-shadow(0 0 10px rgba(240, 216, 151, 0.35));
 }
-.cd-num.flip { animation: flip 0.55s var(--ease); }
-@keyframes flip { from { transform: rotateX(-90deg); opacity: 0.2; } }
+.cd-num.flip { animation: cd-tick 0.45s var(--ease); }
+@keyframes cd-tick { from { opacity: 0.15; transform: translateY(-6px); } }
 .cd-label { display: block; margin-top: 4px; font-size: 10.5px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-dim); }
 .cd-caption { margin-top: 18px; font-size: 12px; color: var(--text-dim); }
 .cd-live { margin-top: 22px; font-family: "Poppins", sans-serif; font-weight: 700; font-size: 22px; }
