@@ -22,9 +22,15 @@
     });
   }
 
-  // ---- 3D tilt cards (feedback: the card answers the finger/cursor) ----
-  if (!reduce) {
-    document.querySelectorAll("[data-tilt]").forEach((el) => {
+  // ---- 3D tilt cards (feedback: the card answers the cursor) ----
+  // Mouse/trackpad only. On phones a tap fired pointermove (card tilts) and
+  // then navigated away before pointerleave could reset it; coming back
+  // (back button / bfcache) restored the card mid-tilt, and mobile browsers
+  // then failed to repaint the translateZ'd title/icon inside the masked
+  // ticket, so "Photoshoot" / "Awards Night" text vanished.
+  if (!reduce && canHover) {
+    const tiltEls = document.querySelectorAll("[data-tilt]");
+    tiltEls.forEach((el) => {
       const max = Number(el.dataset.tilt) || 7;
       let frame = 0;
       el.addEventListener("pointermove", (e) => {
@@ -48,7 +54,12 @@
       };
       el.addEventListener("pointerleave", reset);
       el.addEventListener("pointercancel", reset);
+      el._tiltReset = reset;
     });
+    // Clicking navigates away mid-tilt; never come back to a tilted card.
+    const resetAll = () => tiltEls.forEach((el) => el._tiltReset && el._tiltReset());
+    window.addEventListener("pagehide", resetAll);
+    window.addEventListener("pageshow", resetAll);
   }
 
   // ---- Emblem parallax: follows the cursor, or the phone's tilt ----

@@ -195,6 +195,13 @@ body::after {
   transition: opacity 0.3s var(--ease);
 }
 [data-tilt].is-tilting .glare { opacity: 1; }
+/* Touch screens: no 3D layers at all. preserve-3d + translateZ children
+   inside a masked card get dropped by mobile compositors after returning
+   to the page (text inside tickets disappeared). Flat = always painted. */
+@media (hover: none) {
+  [data-tilt] { transform: none; transform-style: flat; }
+  [data-tilt] .lift, [data-tilt] .lift-sm { transform: none; }
+}
 
 /* ---------- Scroll reveal ---------- */
 @media (prefers-reduced-motion: no-preference) {
