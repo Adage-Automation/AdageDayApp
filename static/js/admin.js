@@ -7,6 +7,7 @@ import {
   EVENTS,
   PRIZE_DISTRIBUTION,
   getPrizeTotals,
+  resolvePlaces,
 } from "./adage-data.js";
 import { announcementCardHtml } from "./announcements-feed.js";
 import {
@@ -104,11 +105,72 @@ function placeRowHtml(eventId, place, saved) {
   }).join("");
 
   return `
-    <div class="place-row">
+    <div class="place-row" data-place-row="${place.key}">
       <p class="text-sm font-semibold text-gray-600 mb-2">${place.label}</p>
+      <p class="draw-note hidden"></p>
       <div class="flex flex-wrap mb-1">${teamCheckboxes}</div>
-      <p class="text-xs text-gray-500">Prize money: <strong class="text-gray-700">₹${formatCurrency(prizeAmount)}</strong></p>
+      <p class="text-xs text-gray-500 prize-line">Prize money: <strong class="text-gray-700">₹${formatCurrency(prizeAmount)}</strong></p>
     </div>`;
+}
+
+const placeByKey = Object.fromEntries(PLACES.map((p) => [p.key, p]));
+
+function checkedTeamsByPlace(card) {
+  return Object.fromEntries(
+    PLACES.map(({ key }) => [
+      key,
+      [...card.querySelectorAll(`.team-check[data-place="${key}"]:checked`)].map((el) => el.value),
+    ])
+  );
+}
+
+// Applies the draw rule to one event card: places taken by a tie above are
+// cleared and locked, and tied places show the combined prize and each
+// team's share. Returns true if it had to clear any selected team.
+function applyDrawRules(eventId) {
+  const card = document.querySelector(`[data-event-card="${eventId}"]`);
+  const distribution = PRIZE_DISTRIBUTION[eventId];
+  const resolved = resolvePlaces(eventId, checkedTeamsByPlace(card));
+  let cleared = false;
+
+  resolved.forEach(({ key, teams, blockedBy, pool, share }, i) => {
+    const row = card.querySelector(`[data-place-row="${key}"]`);
+    const note = row.querySelector(".draw-note");
+    const prizeLine = row.querySelector(".prize-line");
+    const blocked = !!blockedBy;
+
+    row.classList.toggle("blocked", blocked);
+    row.querySelectorAll(".team-check").forEach((input) => {
+      if (blocked && input.checked) {
+        input.checked = false;
+        input.closest("label").classList.remove("selected");
+        cleared = true;
+      }
+      input.disabled = blocked;
+    });
+
+    if (blocked) {
+      const tied = resolved.find((r) => r.key === blockedBy).teams.length;
+      note.textContent = `No winner for this place: the ${tied}-way tie for ${placeByKey[blockedBy].shortLabel} takes this prize.`;
+      note.classList.remove("hidden");
+      prizeLine.innerHTML = `Prize money: <strong class="text-gray-700">₹${formatCurrency(distribution[key])}</strong> (goes to the tie above)`;
+      return;
+    }
+
+    note.classList.add("hidden");
+    if (teams.length > 1) {
+      const takenPlaces = resolved
+        .slice(i)
+        .filter((r, idx) => idx === 0 || r.blockedBy === key)
+        .map((r) => placeByKey[r.key].shortLabel)
+        .join(" + ");
+      prizeLine.innerHTML = `Tie: ${takenPlaces} prize = <strong class="text-gray-700">₹${formatCurrency(pool)}</strong>, split ${teams.length} ways = <strong class="text-gray-700">₹${formatCurrency(share)} each</strong>`;
+    } else {
+      prizeLine.innerHTML = `Prize money: <strong class="text-gray-700">₹${formatCurrency(distribution[key])}</strong>`;
+    }
+  });
+
+  return cleared;
 }
 
 // One-line summary under each collapsed event name, e.g. "1st Zeus, 2nd Thor + Ares".
@@ -178,7 +240,14 @@ async function buildForms() {
     return;
   }
 
-  EVENTS.forEach((event) => eventStatus(event.id));
+  EVENTS.forEach((event) => {
+    // Results saved before the draw rule existed may have a winner in a
+    // place a tie now takes; that winner is cleared and flagged for saving.
+    if (applyDrawRules(event.id)) {
+      document.querySelector(`.unsaved-dot[data-event="${event.id}"]`).classList.remove("hidden");
+    }
+    eventStatus(event.id);
+  });
   eventFormsContainer.querySelectorAll(".save-btn").forEach((btn) =>
     btn.addEventListener("click", () => saveEvent(btn.dataset.event))
   );
@@ -207,6 +276,7 @@ eventFormsContainer.addEventListener("change", (e) => {
   }
 
   const eventId = checkbox.closest("[data-event-card]").dataset.eventCard;
+  applyDrawRules(eventId);
   document.querySelector(`.unsaved-dot[data-event="${eventId}"]`).classList.remove("hidden");
   eventStatus(eventId);
 });
@@ -225,13 +295,11 @@ async function saveEvent(eventId) {
   const status = card.querySelector(".save-status");
   const result = {};
 
-  PLACES.forEach((place) => {
-    const teams = Array.from(
-      card.querySelectorAll(`.team-check[data-place="${place.key}"]:checked`)
-    ).map((el) => el.value);
-    result[place.key] = { teams, money: eventPrizes[place.key] };
+  // money stays the configured prize for that place; blockedBy / pool / share
+  // record the draw so the stored doc explains the payout on its own.
+  resolvePlaces(eventId, checkedTeamsByPlace(card)).forEach(({ key, teams, blockedBy, pool, share }) => {
+    result[key] = { teams, money: eventPrizes[key], blockedBy, pool, share };
   });
-
   btn.disabled = true;
   btn.textContent = "Saving…";
   try {

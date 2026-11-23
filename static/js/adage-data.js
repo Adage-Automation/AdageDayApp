@@ -63,18 +63,52 @@ export function getPrizeTotals() {
   };
 }
 
+// Draw rule (standard sports ranking): when N teams tie for a place, they
+// take that place and the next N-1 places. Those prizes are added together
+// and split evenly between the tied teams, and the places they took get no
+// winner. Example: 2 teams tie for 1st, they share 1st + 2nd prize money,
+// 2nd place is skipped, and the next team is 3rd.
+//
+// `teamsByPlace` is { first: [...], second: [...], ... }. Returns one entry
+// per place, in PLACES order:
+//   { key, teams, blockedBy, pool, share }
+// blockedBy is the key of the tied place that took this place, or null.
+// Teams entered for a blocked place are ignored.
+export function resolvePlaces(eventId, teamsByPlace) {
+  const distribution = PRIZE_DISTRIBUTION[eventId];
+  const resolved = PLACES.map(({ key }) => ({ key, teams: [], blockedBy: null, pool: 0, share: 0 }));
+
+  for (let i = 0; i < PLACES.length; ) {
+    const teams = [...new Set((teamsByPlace[PLACES[i].key] || []).map(normalizeTeamName))];
+    const span = Math.max(1, Math.min(teams.length, PLACES.length - i));
+    let pool = 0;
+    for (let j = i; j < i + span; j++) {
+      pool += distribution[PLACES[j].key];
+      if (j > i) resolved[j].blockedBy = PLACES[i].key;
+    }
+    Object.assign(resolved[i], {
+      teams,
+      pool,
+      share: teams.length ? Math.floor(pool / teams.length) : 0,
+    });
+    i += span;
+  }
+  return resolved;
+}
+
+// Pulls { first: [...teams], ... } out of a saved Firestore result doc.
+export function teamsByPlaceFromResult(result = {}) {
+  return Object.fromEntries(
+    PLACES.map(({ key }) => [key, Array.isArray(result[key]?.teams) ? result[key].teams : []])
+  );
+}
+
 export function calculateTeamPrizeTotals(resultsById) {
   const totals = Object.fromEntries(TEAMS.map((team) => [team, 0]));
 
   EVENTS.forEach((event) => {
-    const result = resultsById[event.id] || {};
-    const distribution = PRIZE_DISTRIBUTION[event.id];
-    PLACES.forEach(({ key }) => {
-      const place = result[key];
-      if (!place || !Array.isArray(place.teams) || place.teams.length === 0) return;
-
-      const teams = [...new Set(place.teams.map(normalizeTeamName))];
-      const share = Math.floor(distribution[key] / teams.length);
+    const resolved = resolvePlaces(event.id, teamsByPlaceFromResult(resultsById[event.id]));
+    resolved.forEach(({ teams, share }) => {
       teams.forEach((team) => {
         if (totals[team] !== undefined) totals[team] += share;
       });

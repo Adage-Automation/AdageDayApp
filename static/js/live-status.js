@@ -7,6 +7,8 @@ import {
   PRIZE_DISTRIBUTION,
   getPrizeTotals,
   calculateTeamPrizeTotals,
+  resolvePlaces,
+  teamsByPlaceFromResult,
 } from "./adage-data.js";
 import { escapeHtml } from "./announcements-feed.js";
 import {
@@ -66,12 +68,17 @@ function renderResultsHeader() {
 }
 
 function render(resultsById) {
-  // Event-wise winners table, always in the fixed EVENTS order.
+  // Event-wise winners table, always in the fixed EVENTS order. A place taken
+  // by a tie above it (see resolvePlaces) shows "Tie above" instead of "-".
   document.getElementById("resultsBody").innerHTML = EVENTS.map((event) => {
     const result = resultsById[event.id];
-    const cells = PLACES.map(
-      (place) => `<td class="${place.className}">${placeCell(result && result[place.key])}</td>`
-    ).join("");
+    const resolved = resolvePlaces(event.id, teamsByPlaceFromResult(result));
+    const cells = PLACES.map((place, i) => {
+      const content = resolved[i].blockedBy
+        ? `<span class="text-gray-400 italic">Tie above</span>`
+        : placeCell({ teams: resolved[i].teams });
+      return `<td class="${place.className}">${content}</td>`;
+    }).join("");
     return `<tr><td>${event.name}</td>${cells}</tr>`;
   }).join("");
 

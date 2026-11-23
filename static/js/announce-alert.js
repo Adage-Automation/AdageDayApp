@@ -35,10 +35,13 @@ function show(id, title) {
     <button type="button" class="ann-toast-close" aria-label="Dismiss">
       <span class="material-icons" aria-hidden="true">close</span>
     </button>`;
-  toast.querySelector("a").addEventListener("click", () => setSeen(id));
-  toast.querySelector("button").addEventListener("click", () => {
+  // A tap anywhere on the toast opens announcements; only the ✕ dismisses.
+  const el = toast;
+  el.style.cursor = "pointer";
+  el.addEventListener("click", (e) => {
     setSeen(id);
-    toast.remove();
+    if (e.target.closest(".ann-toast-close")) return el.remove();
+    if (!e.target.closest("a")) location.href = "announcements.html"; // the thin edge outside the link
   });
   document.body.appendChild(toast);
 }
