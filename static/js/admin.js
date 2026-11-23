@@ -300,6 +300,9 @@ async function saveEvent(eventId) {
   resolvePlaces(eventId, checkedTeamsByPlace(card)).forEach(({ key, teams, blockedBy, pool, share }) => {
     result[key] = { teams, money: eventPrizes[key], blockedBy, pool, share };
   });
+  // Every open page watches this to show a "Results updated" pop-up
+  // (see static/js/announce-alert.js).
+  result.updatedAt = serverTimestamp();
 
   btn.disabled = true;
   btn.textContent = "Saving…";
