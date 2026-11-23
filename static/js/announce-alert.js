@@ -39,10 +39,12 @@ function show({ icon, label, title, href, onSeen }) {
       <span class="material-icons" aria-hidden="true">close</span>
     </button>`;
   const el = toast;
-  el.querySelector("a").addEventListener("click", onSeen);
-  el.querySelector("button").addEventListener("click", () => {
+  // A tap anywhere on the toast opens the page; only the ✕ dismisses.
+  el.style.cursor = "pointer";
+  el.addEventListener("click", (e) => {
     onSeen();
-    el.remove();
+    if (e.target.closest(".ann-toast-close")) return el.remove();
+    if (!e.target.closest("a")) location.href = href; // the thin edge outside the link
   });
   document.body.appendChild(el);
 }
