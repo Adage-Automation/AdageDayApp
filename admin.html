@@ -77,6 +77,18 @@
         color: white;
         border-color: #00727a;
       }
+      /* A place taken by a tie above it: no winner can be picked. */
+      .place-row.blocked .team-chip {
+        opacity: 0.4;
+        cursor: not-allowed;
+      }
+      .place-row.blocked .team-chip:active { transform: none; }
+      .draw-note {
+        font-size: 12.5px;
+        font-weight: 600;
+        color: #b45309;
+        margin-bottom: 8px;
+      }
       .unsaved-dot {
         display: inline-flex;
         align-items: center;
