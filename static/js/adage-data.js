@@ -117,3 +117,33 @@ export function calculateTeamPrizeTotals(resultsById) {
 
   return totals;
 }
+
+// ---------- Seating / standing plans ----------
+// Each plan is a PDF pushed ahead of time to static/arrangements/ under the
+// file name below. The schedule page keeps it hidden until `opensAt`:
+// by default 1 hour before the event's reporting time. The admin "Plans" tab
+// can override that time per plan (stored in Firestore settings/plans), so
+// timings can change without a code push.
+export const PLAN_LEAD_MS = 60 * 60 * 1000;
+
+export const PLANS = [
+  { id: "day1-seating", panel: "awardsSeating", event: "Game Night (Day 1)", kind: "Seating plan", reportingAt: "2026-11-28T16:30:00+05:30" },
+  { id: "day2-standing", panel: "photoStand", event: "Photoshoot (Day 2)", kind: "Standing positions", reportingAt: "2026-11-29T06:30:00+05:30" },
+  { id: "day2-seating", panel: "awardsSeatingDay2", event: "Awards Night (Day 2)", kind: "Seating plan", reportingAt: "2026-11-29T16:30:00+05:30" },
+  { id: "day3-seating", panel: "galaSeating", event: "Gala Night (Day 3)", kind: "Seating plan", reportingAt: "2026-11-30T17:00:00+05:30" },
+].map((plan) => ({ ...plan, file: `static/arrangements/${plan.id}.pdf` }));
+
+export const defaultPlanOpensAt = (plan) => new Date(plan.reportingAt).getTime() - PLAN_LEAD_MS;
+
+// overrides: the settings/plans doc data, { "<plan id>": Timestamp }.
+export function planOpensAt(plan, overrides = {}) {
+  return overrides[plan.id]?.toMillis?.() ?? defaultPlanOpensAt(plan);
+}
+
+// "3:30 PM, Sat 28 Nov" in venue time, whatever the phone's timezone.
+export function formatPlanTime(ms) {
+  const d = new Date(ms);
+  const time = d.toLocaleTimeString("en-IN", { timeZone: "Asia/Kolkata", hour: "numeric", minute: "2-digit", hour12: true });
+  const day = d.toLocaleDateString("en-IN", { timeZone: "Asia/Kolkata", weekday: "short", day: "numeric", month: "short" });
+  return `${time.toUpperCase()}, ${day}`;
+}
