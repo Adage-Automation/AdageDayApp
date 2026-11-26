@@ -15,7 +15,7 @@
     />
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
     <meta name="theme-color" content="#061820" />
-    <link rel="stylesheet" href="static/css/theme.css?v=11" />
+    <link rel="stylesheet" href="static/css/theme.css?v=12" />
 
     <style>
       body {
@@ -101,7 +101,7 @@
         font-size: 9px;
       }
       /* 16px stops iPhones zooming in on focus; ids beat Tailwind's preflight. */
-      #loginForm input, #annForm input, #annForm textarea, #annForm select {
+      #loginForm input, #annForm input, #annForm textarea, #annForm select, #plansList input {
         border-radius: 10px;
         padding: 10px 12px;
         font-size: 16px;
@@ -109,6 +109,7 @@
         font-family: inherit;
       }
       #annForm select option { background: #0b1e22; color: #f1fbfc; }
+      #plansList input { color-scheme: dark; }
       .field-label { display: block; font-size: 12px; font-weight: 600; color: var(--text-mid); margin-bottom: 4px; }
       .field-hint { font-size: 11px; color: var(--text-faint); text-align: right; margin-top: 2px; }
       button.primary, button.ghost {
@@ -244,9 +245,10 @@
         Changes here show up on the public pages immediately for everyone: no refresh, no code edits.
       </p>
 
-      <div class="flex justify-center mb-6 bg-white rounded-full shadow-md p-1 w-full max-w-xs mx-auto">
+      <div class="flex justify-center mb-6 bg-white rounded-full shadow-md p-1 w-full max-w-sm mx-auto">
         <button onclick="showAdminTab('scores')" id="scoresTabBtn" class="admin-tab-btn active">Scores</button>
         <button onclick="showAdminTab('announcements')" id="announcementsTabBtn" class="admin-tab-btn">Announcements</button>
+        <button onclick="showAdminTab('plans')" id="plansTabBtn" class="admin-tab-btn">Plans</button>
       </div>
 
       <div id="scoresTab">
@@ -286,16 +288,30 @@
         </form>
         <div id="announcementsAdminList" class="card"></div>
       </div>
+
+      <!-- Seating / standing plan PDFs: when each one opens on the schedule page (static/js/admin-plans.js) -->
+      <div id="plansTab" class="hidden">
+        <div class="card text-sm text-gray-600 space-y-1">
+          <h3 class="text-base font-semibold text-[#008B94]">Seating &amp; standing plans</h3>
+          <p>Each PDF goes in <code>static/arrangements/</code> with the file name shown below and is pushed ahead of time.
+            It stays hidden on the Schedule page until its opening time, then appears for everyone automatically.</p>
+          <p>Default: 1 hour before reporting. Change a time here and it applies immediately, no code push needed. Times are India time.</p>
+        </div>
+        <div id="plansList"></div>
+      </div>
     </section>
 
     <script>
       function showAdminTab(tab) {
         document.getElementById("scoresTab").classList.toggle("hidden", tab !== "scores");
         document.getElementById("announcementsTab").classList.toggle("hidden", tab !== "announcements");
+        document.getElementById("plansTab").classList.toggle("hidden", tab !== "plans");
         document.getElementById("scoresTabBtn").classList.toggle("active", tab === "scores");
         document.getElementById("announcementsTabBtn").classList.toggle("active", tab === "announcements");
+        document.getElementById("plansTabBtn").classList.toggle("active", tab === "plans");
       }
     </script>
     <script type="module" src="static/js/admin.js"></script>
+    <script type="module" src="static/js/admin-plans.js"></script>
   </body>
 </html>

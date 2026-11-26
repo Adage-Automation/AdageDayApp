@@ -18,7 +18,7 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet" />
 
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="static/css/site.css?v=2" />
+    <link rel="stylesheet" href="static/css/site.css?v=3" />
   </head>
 
   <body>
@@ -126,9 +126,9 @@
             <span class="venue-go">Directions<span class="material-icons-round">north_east</span></span>
           </a>
           <div class="subtabs" role="tablist">
+            <button class="subtab" role="tab" data-panel="awardsSeating" aria-selected="false"><span class="material-icons-round">event_seat</span>Seating</button>
             <button class="subtab" role="tab" data-panel="awardsSchedule" aria-selected="true"><span class="material-icons-round">schedule</span>Schedule</button>
             <button class="subtab" role="tab" data-panel="awardsDress" aria-selected="false"><span class="material-icons-round">checkroom</span>Dress Code</button>
-            <button class="subtab" role="tab" data-panel="awardsSeating" aria-selected="false"><span class="material-icons-round">event_seat</span>Seating</button>
             <button class="subtab" role="tab" data-panel="awardsRules" aria-selected="false"><span class="material-icons-round">fact_check</span>Rules</button>
           </div>
           <div class="panel active" id="awardsSchedule">
@@ -176,9 +176,9 @@
             <span class="venue-go">Directions<span class="material-icons-round">north_east</span></span>
           </a>
           <div class="subtabs" role="tablist">
+            <button class="subtab" role="tab" data-panel="photoStand" aria-selected="false"><span class="material-icons-round">groups</span>Standing</button>
             <button class="subtab" role="tab" data-panel="photoSchedule" aria-selected="true"><span class="material-icons-round">schedule</span>Schedule</button>
             <button class="subtab" role="tab" data-panel="photoDress" aria-selected="false"><span class="material-icons-round">checkroom</span>Dress Code</button>
-            <button class="subtab" role="tab" data-panel="photoStand" aria-selected="false"><span class="material-icons-round">groups</span>Standing</button>
             <button class="subtab" role="tab" data-panel="photoRules" aria-selected="false"><span class="material-icons-round">fact_check</span>Rules</button>
           </div>
           <div class="panel active" id="photoSchedule">
@@ -224,9 +224,9 @@
             <span class="venue-go">Directions<span class="material-icons-round">north_east</span></span>
           </a>
           <div class="subtabs" role="tablist">
+            <button class="subtab" role="tab" data-panel="awardsSeatingDay2" aria-selected="false"><span class="material-icons-round">event_seat</span>Seating</button>
             <button class="subtab" role="tab" data-panel="awardsScheduleDay2" aria-selected="true"><span class="material-icons-round">schedule</span>Schedule</button>
             <button class="subtab" role="tab" data-panel="awardsDressDay2" aria-selected="false"><span class="material-icons-round">checkroom</span>Dress Code</button>
-            <button class="subtab" role="tab" data-panel="awardsSeatingDay2" aria-selected="false"><span class="material-icons-round">event_seat</span>Seating</button>
             <button class="subtab" role="tab" data-panel="awardsRulesDay2" aria-selected="false"><span class="material-icons-round">fact_check</span>Rules</button>
           </div>
           <div class="panel active" id="awardsScheduleDay2">
@@ -272,9 +272,9 @@
             <span class="venue-go">Directions<span class="material-icons-round">north_east</span></span>
           </a>
           <div class="subtabs" role="tablist">
+            <button class="subtab" role="tab" data-panel="galaSeating" aria-selected="false"><span class="material-icons-round">event_seat</span>Seating</button>
             <button class="subtab" role="tab" data-panel="galaSchedule" aria-selected="true"><span class="material-icons-round">schedule</span>Schedule</button>
             <button class="subtab" role="tab" data-panel="galaDress" aria-selected="false"><span class="material-icons-round">checkroom</span>Dress Code</button>
-            <button class="subtab" role="tab" data-panel="galaSeating" aria-selected="false"><span class="material-icons-round">event_seat</span>Seating</button>
             <button class="subtab" role="tab" data-panel="galaRules" aria-selected="false"><span class="material-icons-round">fact_check</span>Rules</button>
           </div>
           <div class="panel active" id="galaSchedule">
@@ -322,5 +322,6 @@
     <script src="static/js/install-prompt.js" defer></script>
     <script src="static/js/site.js" defer></script>
     <script type="module" src="static/js/announce-alert.js"></script>
+    <script type="module" src="static/js/plans.js"></script>
   </body>
 </html>

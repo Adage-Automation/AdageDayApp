@@ -471,6 +471,7 @@ input[type="text"],
 input[type="password"],
 input[type="number"],
 input[type="email"],
+input[type="datetime-local"],
 textarea,
 select {
   background: rgba(255, 255, 255, 0.04);

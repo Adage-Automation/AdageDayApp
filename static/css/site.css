@@ -973,6 +973,7 @@ a:hover .go { transform: translateX(3px); background: rgba(25, 195, 209, 0.2); }
 .empty-title { font-size: 14.5px; font-weight: 600; color: var(--text-hi); }
 .empty-text { margin-top: 4px; font-size: 13px; color: var(--text-dim); }
 .empty a { color: var(--accent-soft); font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
+.empty a.plan-open { margin-top: 12px; text-decoration: none; }
 
 /* Photoshoot reporting call-out */
 .report { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 16px; border-radius: 16px; background: var(--panel-2); border: 1px solid var(--accent-line); }
