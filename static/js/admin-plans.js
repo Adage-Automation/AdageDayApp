@@ -77,7 +77,13 @@ async function save(planId, value, card) {
     await setDoc(settingsRef, { [planId]: value }, { merge: true });
     // The snapshot listener re-renders the list with the new time.
   } catch (err) {
-    setStatus(status, "Save failed: are you signed in, and are the Firestore rules published?", false);
+    console.error("Plans save failed", err);
+    const reason = err?.code === "permission-denied"
+      ? "Firebase blocked it. Publish the settings rule in Firebase console (Firestore → Rules), then try again."
+      : err?.code === "unavailable"
+        ? "No connection. Check your internet and try again."
+        : `Error: ${err?.code || err?.message || err}`;
+    setStatus(status, `Save failed. ${reason}`, false);
     buttons.forEach((b) => (b.disabled = false));
   }
 }
