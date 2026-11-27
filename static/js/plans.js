@@ -1,12 +1,18 @@
-// Seating / standing plans on schedule.html. Each plan's PDF (see PLANS in
-// adage-data.js) stays hidden until its opening time, then a button opens it.
+// Seating / standing plans on schedule.html. Each plan's PDF stays hidden until
+// its opening time, then a button opens it. The PDF is the one uploaded on the
+// admin Plans tab (stored in Firestore, see plan-files.js) or, if none was
+// uploaded, the pushed file in static/arrangements/ (see PLANS in adage-data.js).
 // Opening times come from Firestore settings/plans (set on the admin "Plans"
 // tab), falling back to 1 hour before reporting, and update live.
 import { db } from "./firebase-init.js";
 import { PLANS, planOpensAt, formatPlanTime } from "./adage-data.js";
+import { loadPlanPdf } from "./plan-files.js";
 import { doc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 let overrides = {};
+// Until settings/plans first arrives we don't know if a PDF was uploaded, so
+// an open plan waits rather than briefly linking the pushed fallback file.
+let settingsLoaded = false;
 let timer = 0;
 // Whether each PDF exists, checked once per page load after it opens. A GET
 // (not HEAD) so the service worker keeps a copy for weak signal at the venue.
@@ -41,16 +47,39 @@ async function renderPlan(plan, now) {
     return;
   }
 
-  const ok = await checkFile(plan);
-  // Opening time may have moved while the check ran; the next render wins.
-  if (planOpensAt(plan, overrides) > Date.now()) return;
-  if (!ok) {
+  // Uploaded PDF first (downloaded now, so the button opens it instantly and
+  // works offline afterwards), else the pushed file.
+  if (!settingsLoaded) {
+    emptyState(panel, "downloading", `Loading ${plan.kind.toLowerCase()}…`, "");
+    return;
+  }
+  const meta = overrides.files?.[plan.id];
+  let href = null;
+  let failed = false;
+  if (meta?.version) {
+    if (!panel.querySelector(".plan-open")) emptyState(panel, "downloading", `Loading ${plan.kind.toLowerCase()}…`, "");
+    href = await loadPlanPdf(plan.id, meta).catch((err) => {
+      console.error("Plan PDF load failed", err);
+      failed = true;
+      return null;
+    });
+  } else if (await checkFile(plan)) {
+    href = plan.file;
+  }
+  // Opening time or file may have changed while loading; the next render wins.
+  if (planOpensAt(plan, overrides) > Date.now() || overrides.files?.[plan.id]?.version !== meta?.version) return;
+  if (failed) {
+    emptyState(panel, "signal_wifi_bad", `Couldn't load the ${plan.kind.toLowerCase()}`,
+      `Check your signal. It will try again when you come back to this page.`);
+    return;
+  }
+  if (!href) {
     emptyState(panel, plan.kind.startsWith("Standing") ? "groups" : "event_seat", `${plan.kind} will be shared soon`,
       `Watch <a href="announcements.html">Announcements</a> for the update.`);
     return;
   }
   emptyState(panel, "picture_as_pdf", `${plan.kind} is ready`,
-    `<a href="${plan.file}" target="_blank" rel="noopener" class="btn-ghost plan-open">
+    `<a href="${href}" target="_blank" rel="noopener" class="btn-ghost plan-open">
        <span class="material-icons-round">open_in_new</span>View ${plan.kind.toLowerCase()}
      </a>`);
 }
@@ -67,11 +96,17 @@ function renderAll() {
 renderAll();
 // Phones pause timers while asleep: re-check when the app comes back.
 document.addEventListener("visibilitychange", () => document.visibilityState === "visible" && renderAll());
+window.addEventListener("online", renderAll);
 onSnapshot(
   doc(db, "settings", "plans"),
   (snap) => {
     overrides = snap.exists() ? snap.data() : {};
+    settingsLoaded = true;
     renderAll();
   },
-  () => {} // unreadable settings: default times still apply
+  () => {
+    // Unreadable settings: default times and the pushed files still apply.
+    settingsLoaded = true;
+    renderAll();
+  }
 );
