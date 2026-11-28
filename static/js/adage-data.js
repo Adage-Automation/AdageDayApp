@@ -119,7 +119,8 @@ export function calculateTeamPrizeTotals(resultsById) {
 }
 
 // ---------- Seating / standing plans ----------
-// Each plan is a PDF pushed ahead of time to static/arrangements/ under the
+// Each plan is a PDF uploaded on the admin "Plans" tab (stored in Firestore,
+// see plan-files.js) or, failing that, pushed to static/arrangements/ under the
 // file name below. The schedule page keeps it hidden until `opensAt`:
 // by default 1 hour before the event's reporting time. The admin "Plans" tab
 // can override that time per plan (stored in Firestore settings/plans), so
